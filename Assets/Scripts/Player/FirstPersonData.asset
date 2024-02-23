@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 10
   LookSpeed: 1
+  InteractionRange: 2
+  InteractionMask:
+    serializedVersion: 2
+    m_Bits: 64

@@ -29,7 +29,17 @@ public class PlayerControls : MonoBehaviour
         return true;
 
     }
+    public virtual bool OnSelect(InputValue Value)
+    {
+        if (_possesedInput != null)
+        { 
+            _possesedInput.OnSelect(Value);
+            return false;
+        }
 
+        return true;
+
+    }
     public virtual bool OnSubMove(InputValue Value)
     {
         if (_possesedInput != null)
@@ -65,7 +75,7 @@ public class PlayerControls : MonoBehaviour
         return true;
 
     }
-
+    
     public void Possess(PlayerControls inputToPosess)
     {
         _possesedInput = inputToPosess;
