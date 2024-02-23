@@ -7,4 +7,8 @@ public class PlayerData : ScriptableObject
 {
     public float MoveSpeed;
     public float LookSpeed;
+
+    [Header("Interactable")]
+    public float InteractionRange;
+    public LayerMask InteractionMask;
 }

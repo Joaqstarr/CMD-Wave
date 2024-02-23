@@ -9,6 +9,9 @@ public class FirstPersonMovementState : FirstPersonBaseState
     private PlayerData _playerData;
     private FirstPersonPlayerManager _player;
 
+
+    private GameObject _highlightedObject;
+    private bool _pressedLastFrame;
     public override void OnEnterState(FirstPersonPlayerManager player)
     {
         #region Global Variable Setup
@@ -34,6 +37,25 @@ public class FirstPersonMovementState : FirstPersonBaseState
     {
         Move();
         LookX();
+        LookY();
+        _highlightedObject = CheckInteractable();
+        if(_highlightedObject != null)
+        {
+            Debug.Log("Highlighting");
+        }
+        else
+        {
+            Debug.Log("Not Highlighted");
+        }
+
+        if (_highlightedObject != null)
+        {
+            if (!_pressedLastFrame && _playerControls.SelectPressed)
+            {
+                _highlightedObject.SendMessage("OnInteracted");
+            }
+        }
+        _pressedLastFrame = _playerControls.SelectPressed;
     }
 
     private void Move()
@@ -47,5 +69,23 @@ public class FirstPersonMovementState : FirstPersonBaseState
         Vector3 curRot = _player.transform.eulerAngles;
         curRot.y += _playerData.LookSpeed * _playerControls.LookInput.x;
         _player.transform.eulerAngles = curRot;
+    }
+
+    private void LookY()
+    {
+        Vector3 curRot = _player.HeadPos.eulerAngles;
+        curRot.x += _playerData.LookSpeed * _playerControls.LookInput.y;
+        _player.HeadPos.eulerAngles = curRot;
+
+    }
+
+    private GameObject CheckInteractable()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(_player.HeadPos.position, _player.HeadPos.forward, out hit,_playerData.InteractionRange, _playerData.InteractionMask))
+        {
+            return hit.transform.gameObject;
+        }
+        return null;
     }
 }

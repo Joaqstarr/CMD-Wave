@@ -16,7 +16,9 @@ public class FirstPersonPlayerManager : MonoBehaviour
     #region ComponentReferences
     public CharacterController CharacterController { get; private set; }
     public FirstPersonPlayerControls FirstPersonControls { get; private set; }
-
+    [SerializeField]
+    private Transform _headPos;
+    
     #endregion
     void Start()
     {
@@ -49,5 +51,10 @@ public class FirstPersonPlayerManager : MonoBehaviour
     public PlayerData PlayerData
     {
         get { return _playerData; }
+    }
+
+    public Transform HeadPos
+    {
+        get { return _headPos; }
     }
 }

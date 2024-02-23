@@ -9,6 +9,7 @@ public class FirstPersonPlayerControls : PlayerControls
     private Vector2 _moveInput = Vector2.zero;
     private Vector2 _lookInput = Vector2.zero;
     private PlayerInput _input;
+    private bool _selectPressed = false;
 
     private void Start()
     {
@@ -40,6 +41,14 @@ public class FirstPersonPlayerControls : PlayerControls
         return true;
     }
 
+    public override bool OnSelect(InputValue Value)
+    {
+        if (!base.OnFPMove(Value)) return false;
+        
+        _selectPressed = Value.isPressed;
+
+        return true;
+    }
     public Vector2 MoveInput
     {
         get { return _moveInput; }
@@ -48,5 +57,9 @@ public class FirstPersonPlayerControls : PlayerControls
     {
         get { return _lookInput; }
         
+    }
+    public bool SelectPressed
+    {
+        get { return _selectPressed; }
     }
 }
