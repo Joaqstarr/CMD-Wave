@@ -9,16 +9,20 @@ public class PlayerSubControls : PlayerControls
     private Vector2 _moveInput = Vector2.zero;
     private Vector2 _aimInput = Vector2.zero;
     // control aim?
-    private PlayerInput _input;
 
+
+
+    #region Control Events
+    public delegate void CommandLineDel();
+    public static CommandLineDel openCommandLine;
+    #endregion
     void Start()
     {
-        _input = GetComponent<PlayerInput>();
     }
 
     public override bool OnSubMove(InputValue Value)
     {
-        //if (base.OnSubMove(Value)) return false;
+        if (!base.OnSubMove(Value)) return false;
 
         // input code
         _moveInput = Value.Get<Vector2>();
@@ -28,17 +32,31 @@ public class PlayerSubControls : PlayerControls
 
     public override bool OnMouseAim(InputValue Value)
     {
-        if (base.OnMouseAim(Value)) return false;
+        if (!base.OnMouseAim(Value)) return false;
 
         // input code
         _aimInput = Value.Get<Vector2>();
 
-        return base.OnMouseAim(Value);
+        return true;
     }
 
     public override bool OnAim(InputValue Value)
     {
-        return base.OnAim(Value);
+        if (!base.OnAim(Value)) return false;
+
+        return true;
+    }
+
+    public override bool OnCommandLine(InputValue Value)
+    {
+        if (!base.OnCommandLine(Value)) return false;
+
+        if(openCommandLine != null)
+        {
+            openCommandLine();
+        }
+
+        return true;
     }
 
     public Vector2 MoveInput

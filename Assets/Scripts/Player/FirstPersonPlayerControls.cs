@@ -8,13 +8,8 @@ public class FirstPersonPlayerControls : PlayerControls
 
     private Vector2 _moveInput = Vector2.zero;
     private Vector2 _lookInput = Vector2.zero;
-    private PlayerInput _input;
     private bool _selectPressed = false;
 
-    private void Start()
-    {
-        _input = GetComponent<PlayerInput>();
-    }
 
     public override bool OnFPMove(InputValue Value)
     {
@@ -33,7 +28,7 @@ public class FirstPersonPlayerControls : PlayerControls
         //input code here
         _lookInput = Value.Get<Vector2>();
 
-        if(_input.currentControlScheme == "Controller")
+        if(base.Input.currentControlScheme == "Controller")
         {
             _lookInput *= Time.deltaTime;
         }

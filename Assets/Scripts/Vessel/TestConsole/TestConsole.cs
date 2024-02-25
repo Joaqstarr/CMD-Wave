@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class TestConsole : MonoBehaviour, IInteractable
 {
-    public void OnInteracted()
+    [SerializeField] PlayerControls _subPlayer;
+
+    public void OnInteracted(PlayerControls playerInteracted)
     {
         GetComponentInChildren<CinemachineVirtualCamera>().Priority = 11;
+        playerInteracted.Possess(_subPlayer);
     }
 
 
