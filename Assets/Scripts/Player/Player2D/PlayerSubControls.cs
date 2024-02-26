@@ -16,9 +16,7 @@ public class PlayerSubControls : PlayerControls
     public delegate void CommandLineDel();
     public static CommandLineDel openCommandLine;
     #endregion
-    void Start()
-    {
-    }
+
 
     public override bool OnSubMove(InputValue Value)
     {
