@@ -52,7 +52,7 @@ public class FirstPersonMovementState : FirstPersonBaseState
         {
             if (!_pressedLastFrame && _playerControls.SelectPressed)
             {
-                _highlightedObject.SendMessage("OnInteracted");
+                _highlightedObject.SendMessage("OnInteracted", _playerControls);
             }
         }
         _pressedLastFrame = _playerControls.SelectPressed;

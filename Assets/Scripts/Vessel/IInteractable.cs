@@ -5,5 +5,5 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    public void OnInteracted();
+    public void OnInteracted(PlayerControls playerInteracted);
 }
