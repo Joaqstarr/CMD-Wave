@@ -28,16 +28,19 @@ public class PlayerSubControls : PlayerControls
 
     public override bool OnMouseAim(InputValue Value)
     {
-        if (base.OnMouseAim(Value)) return false;
+        //if (base.OnMouseAim(Value)) return false;
 
         // input code
         _aimInput = Value.Get<Vector2>();
-
         return base.OnMouseAim(Value);
     }
 
     public override bool OnAim(InputValue Value)
     {
+        if (base.OnAim(Value)) return false;
+
+        // input code
+        _aimInput = Value.Get<Vector2>();
         return base.OnAim(Value);
     }
 

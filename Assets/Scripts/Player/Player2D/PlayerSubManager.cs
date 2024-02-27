@@ -6,6 +6,8 @@ public class PlayerSubManager : MonoBehaviour
 {
     [SerializeField]
     private PlayerSubData _subData;
+    [SerializeField]
+    public SubViewCone _viewCone;
 
     #region StateReferences
     public SubBaseState CurrentState { get; private set; }

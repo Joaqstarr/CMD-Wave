@@ -32,8 +32,11 @@ public class SubMovementState : SubBaseState
 
     public override void OnFixedUpdateState(PlayerSubManager player)
     {
-        Debug.Log(_subControls.MoveInput);
+        // movement
         Move(_subControls.MoveInput);
+
+        // draw view cone
+        player._viewCone.DrawViewCone(player.SubControls.AimInput);
     }
 
     public void Move(Vector2 input)
