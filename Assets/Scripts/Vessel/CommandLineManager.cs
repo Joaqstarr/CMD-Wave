@@ -9,12 +9,11 @@ public class CommandLineManager : MonoBehaviour
 {
 
     private EventSystem _eventSystem;
-    [SerializeField]
     private TMP_InputField _textBox;
 
-    public delegate void OutputDisplay(string text, bool shouldClear);
+    public delegate void OutputDisplay(string[] text, bool shouldClear);
     public OutputDisplay OutputLine;
-
+    [SerializeField]
     List<CommandBase> _commands = new List<CommandBase>();
     void Start()
     {
@@ -60,8 +59,17 @@ public class CommandLineManager : MonoBehaviour
         }
         if (!foundCommand)
         {
-            OutputLine("Command Not Found :(", false);
+            
+            OutputLine(StringToArray("Command Not Found :("), false);
         }
+
+    }
+
+    public static string[] StringToArray(string str)
+    {
+        string[] array = new string[1];
+        array[0] = str;
+        return array;
 
     }
 }
