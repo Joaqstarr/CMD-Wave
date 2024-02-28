@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,12 @@ public class Map_Room : MonoBehaviour
     [SerializeField]
     private Sprite _hiddenSprite;
 
+    [SerializeField]
+    private Map_Room _onDown;
+    [SerializeField]
+    private Map_Room _onLeft;
+    [SerializeField]
+    private Map_Room _onRight;
 
     TMP_Text _label;
     enum RoomStates { 
@@ -59,5 +66,35 @@ public class Map_Room : MonoBehaviour
                 _roomImage.sprite = _inUseSprite;
                 break;
         }
+    }
+
+    public void Activate(string key = null)
+    {
+        if(key != null)
+            _roomTag = key;
+        _state = RoomStates.InUse;
+        UpdateLabelText() ;
+    }
+    public void Deactivate()
+    {
+        _state = RoomStates.Hidden;
+        UpdateLabelText() ;
+    }
+    public int Position
+    {
+        get { return _location; }
+    }
+    public Map_Room OnRight
+    {
+        get { return _onRight; }
+    }
+
+    public Map_Room OnLeft
+    {
+        get { return _onLeft; }
+    }
+    public Map_Room OnDown
+    {
+        get { return _onDown; }
     }
 }

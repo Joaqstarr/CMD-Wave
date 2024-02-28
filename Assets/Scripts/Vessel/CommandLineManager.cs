@@ -1,10 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+[Serializable]
+public class CommandContext
+{
+    [SerializeField]
+    List<CommandBase> _commands = new List<CommandBase>();
+
+    public string[] CheckAndExecuteCommand(string command, out bool shouldClear)
+    {
+
+        for (int i = 0; i < _commands.Count; i++)
+        { 
+            if (_commands[i].CheckCommand(command))
+            {
+                shouldClear = _commands[i].ShouldClear;
+                return _commands[i].Execute();
+
+            }
+        }
+        shouldClear = false;
+
+        return null;
+    }
+
+}
 public class CommandLineManager : MonoBehaviour
 {
 
@@ -14,7 +40,8 @@ public class CommandLineManager : MonoBehaviour
     public delegate void OutputDisplay(string[] text, bool shouldClear);
     public OutputDisplay OutputLine;
     [SerializeField]
-    List<CommandBase> _commands = new List<CommandBase>();
+    private List<CommandContext> _commands = new List<CommandContext>();
+    private CommandContext _commandOveride;
     void Start()
     {
         _textBox = GetComponentInChildren<TMP_InputField>();
@@ -43,20 +70,32 @@ public class CommandLineManager : MonoBehaviour
 
         Debug.Log("Command Entered: " + command);
         _textBox.text = string.Empty;
-
         bool foundCommand = false;
+
+        if (_commandOveride != null)
+        {
+            string[] output = _commandOveride.CheckAndExecuteCommand(command, out bool clear);
+            if (output != null)
+            {
+                OutputLine(output, clear);
+                foundCommand = true;
+               
+            }
+        }
+        else
         for(int i = 0; i < _commands.Count; i++)
         {
-            if (_commands[i].CheckCommand(command))
+            bool clear;
+            string[] executeResult = _commands[i].CheckAndExecuteCommand(command, out clear);
+            if (executeResult != null)
             {
-                {
-                    OutputLine(_commands[i].Execute(), _commands[i].ShouldClear);
-                    foundCommand = true;
-                }
-
+                
+                OutputLine(executeResult, clear);
+                foundCommand = true;
                 break;
             }
         }
+
         if (!foundCommand)
         {
             
@@ -71,5 +110,11 @@ public class CommandLineManager : MonoBehaviour
         array[0] = str;
         return array;
 
+    }
+
+    public CommandContext CommandOveride
+    {
+        get { return _commandOveride; }
+        set { _commandOveride = value; }
     }
 }
