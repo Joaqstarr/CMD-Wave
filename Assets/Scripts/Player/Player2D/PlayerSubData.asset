@@ -20,5 +20,7 @@ MonoBehaviour:
   bounceModifier: 0
   fov: 60
   resolution: 30
-  viewDistance: 2.5
+  viewDistance: 5
+  rayResolution: 40
+  sampleRate: 10
   blip: {fileID: 5160852551703549048, guid: 930ee4125b11b8b44ac4113eac39bb7d, type: 3}
