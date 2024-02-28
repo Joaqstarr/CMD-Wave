@@ -8,7 +8,7 @@ public abstract class CommandBase : MonoBehaviour
     protected string _commandName;
     [SerializeField]
     protected bool _shouldClear;
-    public abstract string[] Execute();
+    public abstract string[] Execute(string arg =null);
 
     public bool CheckCommand(string commandName)
     {

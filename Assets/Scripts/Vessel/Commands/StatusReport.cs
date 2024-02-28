@@ -9,7 +9,7 @@ public class StatusReport : CommandBase
 
     private int _leftBound = 0;
     private int _rightBound = 0;
-    public override string[] Execute()
+    public override string[] Execute(string arg = null)
     {
         /*
         string[] result = new string[CreateBounds()];

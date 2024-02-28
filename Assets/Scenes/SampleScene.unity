@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 553.1176, g: 366.33914, b: 305.6304, a: 1}
+  m_IndirectSpecularColor: {r: 553.11566, g: 366.33377, b: 305.6226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3231,7 +3231,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1730125559575496779, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
   m_PrefabInstance: {fileID: 1958240366}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1958240367}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7cdf0e3d1a0713345b549c3119942a25, type: 3}
@@ -5233,10 +5233,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2044198967}
     - target: {fileID: 1730125559575496779, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
-      propertyPath: _controlMap
-      value: Submarine
-      objectReference: {fileID: 0}
-    - target: {fileID: 1730125559575496779, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: _actionMap.m_Id
       value: adf80d6d-4c82-4723-8016-6a34eea33504
       objectReference: {fileID: 0}
@@ -5335,8 +5331,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4513108998467818035, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1958240368}
   m_SourcePrefab: {fileID: 100100000, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+--- !u!1 &1958240367 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4513108998467818035, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+  m_PrefabInstance: {fileID: 1958240366}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1958240368
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958240367}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 4.18
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2035189138
 GameObject:
   m_ObjectHideFlags: 0
