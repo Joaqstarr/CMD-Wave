@@ -32,8 +32,17 @@ public class PlayerSubControls : PlayerControls
     {
         if (!base.OnMouseAim(Value)) return false;
 
-        // input code
-        _aimInput = Value.Get<Vector2>();
+        // mouse transformation to 2d cam space
+        if(_plane != null)
+            _aimInput = TransformMouseInput(Value.Get<Vector2>());
+        else
+            _aimInput = Value.Get<Vector2>();
+
+
+
+
+
+
 
         return true;
     }
@@ -65,5 +74,17 @@ public class PlayerSubControls : PlayerControls
     public Vector2 AimInput
     {
         get { return _aimInput; }
+    }
+
+    [SerializeField] RectTransform _plane;
+    private Vector2 TransformMouseInput(Vector2 input)
+    {
+        Vector2 localpoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(_plane, input, Camera.main, out localpoint);
+        localpoint.x += _plane.rect.width / 2;
+        localpoint.y += _plane.rect.height / 2;
+
+
+        return localpoint;
     }
 }

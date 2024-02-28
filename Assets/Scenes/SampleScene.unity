@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 553.1176, g: 366.33914, b: 305.6304, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -501,7 +501,7 @@ Transform:
   m_GameObject: {fileID: 188395149}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0.92344517, y: 14.180006, z: 5.6100082}
+  m_LocalPosition: {x: 0.92344564, y: 14.18001, z: 5.610012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5225,6 +5225,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1730125559575496779, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _plane
+      value: 
+      objectReference: {fileID: 554950690}
+    - target: {fileID: 1730125559575496779, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: camera2d
+      value: 
+      objectReference: {fileID: 2044198967}
+    - target: {fileID: 1730125559575496779, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: _controlMap
       value: Submarine
       objectReference: {fileID: 0}
@@ -5316,6 +5324,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SubPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 8159995191691637025, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: camera2D
+      value: 
+      objectReference: {fileID: 2044198967}
+    - target: {fileID: 8159995191691637025, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: SubControls
+      value: 
+      objectReference: {fileID: 1143794029}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5405,8 +5421,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 11.64
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

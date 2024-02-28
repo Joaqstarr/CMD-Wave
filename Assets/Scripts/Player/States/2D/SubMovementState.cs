@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
@@ -38,7 +39,6 @@ public class SubMovementState : SubBaseState
         // draw view cone
         player._viewCone.DrawViewCone(player.SubControls.AimInput);
     }
-
     public void Move(Vector2 input)
     {
         // move force

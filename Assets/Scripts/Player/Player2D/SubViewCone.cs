@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Device;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.UIElements;
 
@@ -67,6 +68,7 @@ public class SubViewCone : MonoBehaviour
 
     public void DrawViewCone(Vector3 aimPos)
     {
+
         // delete any blips from last frame
         if (_rayCollisions.Count() > 0)
             for (int i = 0; i < _rayCollisions.Count(); i++)
@@ -79,7 +81,9 @@ public class SubViewCone : MonoBehaviour
         if (camera2D == null)
             aimPos = Camera.main.ScreenToWorldPoint(aimPos);
         else
-            aimPos = camera2D.ScreenToWorldPoint(aimPos);
+            aimPos = ConvertAimCoordinate(aimPos);
+
+
 
         aimPos = (aimPos - transform.position).normalized;
         aimPos.z = 0;
@@ -155,5 +159,16 @@ public class SubViewCone : MonoBehaviour
         }
         yield return new WaitForSeconds(1f/_sampleRate);
         _scanWaiting = false;
+    }
+
+
+    private Vector3 ConvertAimCoordinate(Vector2 aimInput)
+    {
+        Vector3 screenPoint = aimInput;
+        screenPoint.z = Mathf.Abs(transform.position.z - camera2D.transform.position.z);
+        Vector3 mainPoint = camera2D.ScreenToWorldPoint(screenPoint);
+
+        Debug.Log(mainPoint + ", player pos screen: " + camera2D.WorldToScreenPoint(transform.position) + ", screen size: " + camera2D.orthographicSize);
+        return mainPoint;
     }
 }
