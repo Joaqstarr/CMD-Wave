@@ -16,7 +16,7 @@ public class Room : MonoBehaviour
     [SerializeField]
     private Room _attachedDown;
     [SerializeField]
-    private int[] pos = new int[2];
+    private int pos;
     private void Awake()
     {
         if(_roomTag.Length < 2)
@@ -33,7 +33,7 @@ public class Room : MonoBehaviour
 
     }
 
-    public int[] Position { get { return pos; } }
+    public int Position { get { return pos; } }
     public string RoomTag {  get { return _roomTag; } }
 
 

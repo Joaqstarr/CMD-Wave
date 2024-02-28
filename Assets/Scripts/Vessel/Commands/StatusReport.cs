@@ -11,6 +11,7 @@ public class StatusReport : CommandBase
     private int _rightBound = 0;
     public override string[] Execute()
     {
+        /*
         string[] result = new string[CreateBounds()];
         Debug.Log(_rooms.Length);
 
@@ -37,8 +38,11 @@ public class StatusReport : CommandBase
 
         }
         return result;
+        */
+        return CommandLineManager.StringToArray( "s");
     }
 
+    /*
     private int CreateBounds()
     {
         _rooms = GetComponentsInChildren<Room>();
@@ -67,4 +71,5 @@ public class StatusReport : CommandBase
         _rightBound = rightestRoom;
         return (lowestRoom * 4) + 4;
     }
+    */
 }
