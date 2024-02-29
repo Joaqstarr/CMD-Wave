@@ -10,7 +10,6 @@ public class PickRoomLocationCommand : CommandBase
     [SerializeField]
     private ItemPickupCommand _pickupCommand;
 
-    
     public override string[] Execute(out CommandContext overrideContext, string arg = null)
     {
         overrideContext = null;
@@ -18,9 +17,16 @@ public class PickRoomLocationCommand : CommandBase
         {
             return CommandLineManager.StringToArray("Invalid Room!");
         }
+        Item item = _pickupCommand.GetItem(_pickupCommand.RoomAdding.RoomTag);
+        if(item == null)
+        {
+            return CommandLineManager.StringToArray("Item No Longer In Range.");
+        }
+
         VesselRoomHandler.Instance.AddRoom(_pickupCommand.RoomAdding, _position);
-        
-        return CommandLineManager.StringToArray("Adding Room...");
+        item.Collect();
+        _pickupCommand.RemoveItem(item);
+        return CommandLineManager.StringToArray("Adding Room... Room Added. Enjoy!");
 
     }
 
@@ -36,14 +42,11 @@ public class PickRoomLocationCommand : CommandBase
 
                 return true;
             }
-            else
-            {
-                _position = -Vector2Int.one;
-                return false;
-            }
 
         }
+        VesselRoomHandler.Instance.UpdateMap(false);
         _position = -Vector2Int.one;
         return false;
     }
+
 }

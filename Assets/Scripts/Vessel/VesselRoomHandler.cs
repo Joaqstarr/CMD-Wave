@@ -41,8 +41,8 @@ public class VesselRoomHandler : MonoBehaviour
 
         Vector2Int left = new Vector2Int(position.x, position.y-1);
         Vector2Int right = new Vector2Int(position.x, position.y+1);
-        Vector2Int up = new Vector2Int(position.x -10, position.y);
-        Vector2Int down = new Vector2Int(position.x+10, position.y);
+        Vector2Int up = new Vector2Int(position.x -1, position.y);
+        Vector2Int down = new Vector2Int(position.x+1, position.y);
 
         if (PlacedRooms.ContainsKey(left))
         {

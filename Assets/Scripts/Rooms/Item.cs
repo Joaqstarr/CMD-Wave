@@ -12,4 +12,9 @@ public class Item : MonoBehaviour
         get { return _itemTag; }
         set { _itemTag = value; }
     }
+
+    public void Collect()
+    {
+        gameObject.SetActive(false);
+    }
 }

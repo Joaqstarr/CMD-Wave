@@ -9,6 +9,7 @@ public class ItemPickupCommand : CommandBase
     private string _itemToPickup = "";
 
     private Room _roomToAdd;
+    
     [SerializeField]
     private CommandContext _waitForNameContext;
     [SerializeField]
@@ -83,7 +84,7 @@ public class ItemPickupCommand : CommandBase
             _itemsInRange.Add(other.GetComponent<Item>());
         }    
     }
-    private int CheckListForArg(string arg)
+    public int CheckListForArg(string arg)
     {
         for(int i = 0;  i < _itemsInRange.Count; i++)
         {
@@ -111,9 +112,22 @@ public class ItemPickupCommand : CommandBase
             _itemsInRange.Remove(other.GetComponent<Item>());
         }
     }
-
+    public void RemoveItem(Item item)
+    {
+        if(_itemsInRange.Contains(item))
+            _itemsInRange.Remove(item);
+    }
     public Room RoomAdding
     {
         get { return _roomToAdd; }
+    }
+    public Item GetItem(string key)
+    {
+        for (int i = 0; i < _itemsInRange.Count; i++)
+        {
+            if (_itemsInRange[i].RoomCode.ToLower() == key.ToLower())
+                return _itemsInRange[i];
+        }
+        return null;
     }
 }

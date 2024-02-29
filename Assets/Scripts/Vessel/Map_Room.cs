@@ -72,7 +72,10 @@ public class Map_Room : MonoBehaviour
     public void Activate(string key = null)
     {
         if(key != null)
+        {
             _roomTag = key;
+            _roomTag = _roomTag.Replace(" ", string.Empty);
+        }
         _state = RoomStates.InUse;
         UpdateLabelText() ;
     }
