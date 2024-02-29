@@ -6,8 +6,9 @@ public class VesselRoomHandler : MonoBehaviour
 {
     [SerializeField]
     Room _commandRoom;
+    Room[] _rooms;
 
-    Dictionary<Vector2Int, Room> PlacedRooms;
+    Dictionary<Vector2Int, Room> PlacedRooms = new Dictionary<Vector2Int, Room>();
     public static VesselRoomHandler Instance {  get; private set; }
     // Start is called before the first frame update
     void Start()
@@ -32,14 +33,16 @@ public class VesselRoomHandler : MonoBehaviour
     public void AddRoom(Room room, Vector2Int position)
     {
         room.transform.parent = transform;
+        room.Position = (position.x*10)+ position.y;
+        Debug.Log(position.ToString());
         PlacedRooms.Add(position, room);
 
         //make links
 
-        Vector2Int left = new Vector2Int(position.x -1, position.y);
-        Vector2Int right = new Vector2Int(position.x +1, position.y);
-        Vector2Int up = new Vector2Int(position.x , position.y+10);
-        Vector2Int down = new Vector2Int(position.x, position.y-10);
+        Vector2Int left = new Vector2Int(position.x, position.y-1);
+        Vector2Int right = new Vector2Int(position.x, position.y+1);
+        Vector2Int up = new Vector2Int(position.x -10, position.y);
+        Vector2Int down = new Vector2Int(position.x+10, position.y);
 
         if (PlacedRooms.ContainsKey(left))
         {
@@ -60,7 +63,7 @@ public class VesselRoomHandler : MonoBehaviour
         {
             PlacedRooms[up].Down = room;
         }
-
+        UpdateMap(false);
     }
 
     public bool RemoveRoom(Vector2Int position)
@@ -69,10 +72,22 @@ public class VesselRoomHandler : MonoBehaviour
         {
             PlacedRooms[position].transform.parent = RoomPool.Instance.transform;
             PlacedRooms.Remove(position);
+            UpdateRooms();
 
             return true;
         }
 
         return false;
+    }
+    private void UpdateRooms()
+    {
+        _rooms = GetComponentsInChildren<Room>();
+
+    }
+
+    public void UpdateMap(bool showSelectable){
+        UpdateRooms();
+        Map.Instance.GenerateMap(_rooms, showSelectable);
+
     }
 }

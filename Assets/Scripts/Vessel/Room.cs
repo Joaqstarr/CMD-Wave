@@ -30,7 +30,7 @@ public class Room : MonoBehaviour
     }
   
 
-    public int Position { get { return pos; } }
+    public int Position { get { return pos; } set { pos = value; } }
 
     public Vector2Int PositionVector
     {

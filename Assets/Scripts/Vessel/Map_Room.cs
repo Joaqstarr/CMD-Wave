@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class Map_Room : MonoBehaviour
 {
@@ -37,11 +38,14 @@ public class Map_Room : MonoBehaviour
     }
     [SerializeField]
     private RoomStates _state;
+    private void Awake()
+    {
+        _label = GetComponentInChildren<TMP_Text>();
 
+    }
     // Start is called before the first frame update
     void Start()
     {
-        _label = GetComponentInChildren<TMP_Text>();
         UpdateLabelText();
     }
 
@@ -51,7 +55,7 @@ public class Map_Room : MonoBehaviour
         switch(_state )
         {
             case RoomStates.Hidden:
-                _label.text = "";
+                _label.text = " ";
                 _roomImage.sprite = _hiddenSprite;
                 break; 
             case RoomStates.Selectable:
@@ -74,9 +78,11 @@ public class Map_Room : MonoBehaviour
     }
     public void MakeSelectable()
     {
-
+        _roomTag = _location.ToString();
         _state = RoomStates.Selectable;
-        
+        UpdateLabelText();
+
+
     }
     public void Deactivate()
     {
@@ -87,9 +93,20 @@ public class Map_Room : MonoBehaviour
     {
         get { return _state == RoomStates.InUse;}
     }
+    public bool IsSelectable
+    {
+        get { return _state == RoomStates.Selectable; }
+    }
     public int Position
     {
         get { return _location; }
+    }
+    public Vector2Int PositionVector
+    {
+        get
+        {
+            return new Vector2Int(Mathf.FloorToInt(_location / 10f), _location % 10);
+        }
     }
     public Map_Room OnRight
     {

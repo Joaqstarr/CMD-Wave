@@ -7,8 +7,12 @@ public class ItemPickupCommand : CommandBase
     private List<Item> _itemsInRange = new List<Item>();
     private bool _isAwaitingItemName = false;
     private string _itemToPickup = "";
+
+    private Room _roomToAdd;
     [SerializeField]
     private CommandContext _waitForNameContext;
+    [SerializeField]
+    private CommandContext _waitForLocationContext;
     public override string[] Execute(out CommandContext overrideContext, string arg = null)
     {
 
@@ -23,8 +27,10 @@ public class ItemPickupCommand : CommandBase
             if (itemPickupIndex >= 0)
             {
                 //pickup item
-
-                return CommandLineManager.StringToArray("Picking up item " + _itemsInRange[itemPickupIndex].RoomCode);
+                _roomToAdd = RoomPool.Instance.GetRoom(_itemsInRange[itemPickupIndex].RoomCode);
+                overrideContext = _waitForLocationContext;
+                VesselRoomHandler.Instance.UpdateMap(true);
+                return GetPickUpMessage(_itemsInRange[itemPickupIndex].RoomCode);
 
             }
 
@@ -45,9 +51,12 @@ public class ItemPickupCommand : CommandBase
                 {
                     _isAwaitingItemName = false;
                     //pickup item
+                    _roomToAdd = RoomPool.Instance.GetRoom(_itemsInRange[itemPickupIndex].RoomCode);
 
+                    overrideContext = _waitForLocationContext;
+                    VesselRoomHandler.Instance.UpdateMap(true);
 
-                    return CommandLineManager.StringToArray("Picking up item " + _itemsInRange[itemPickupIndex].RoomCode);
+                    return GetPickUpMessage(_itemsInRange[itemPickupIndex].RoomCode);
 
                 }
                 else
@@ -59,7 +68,14 @@ public class ItemPickupCommand : CommandBase
         return CommandLineManager.StringToArray("Invalid Item Name");
 
     }
+    private string[] GetPickUpMessage(string code)
+    {
+         string[] message = new string[2];
+         message[0] = "Picking up item " + code;
+         message[1] = "Enter room coordinate: ";
 
+        return message;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Item"))
@@ -94,5 +110,10 @@ public class ItemPickupCommand : CommandBase
         {
             _itemsInRange.Remove(other.GetComponent<Item>());
         }
+    }
+
+    public Room RoomAdding
+    {
+        get { return _roomToAdd; }
     }
 }

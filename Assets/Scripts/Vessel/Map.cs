@@ -7,13 +7,26 @@ public class Map : MonoBehaviour
     public static Map Instance;
     Map_Room[] _mapRooms;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (Instance == null)
             Instance = this;
         else
             Destroy(this);
+
         _mapRooms = GetComponentsInChildren<Map_Room>();
+    }
+    public List<Vector2Int> GetSelectable()
+    {
+        List<Vector2Int> list = new List<Vector2Int>();
+        for(int i = 0; i < _mapRooms.Length; i++)
+        {
+            if (_mapRooms[i].IsSelectable)
+            {
+                list.Add(_mapRooms[i].PositionVector);
+            }
+        }
+        return list;
     }
 
 
@@ -46,20 +59,27 @@ public class Map : MonoBehaviour
                     if (_mapRooms[i].OnLeft != null)
                         if (!_mapRooms[i].OnLeft.Activated)
                         {
+
                             _mapRooms[i].OnLeft.MakeSelectable();
                         }
 
                     if (_mapRooms[i].OnRight != null)
                         if (!_mapRooms[i].OnRight.Activated)
                         {
+
+
                             _mapRooms[i].OnRight.MakeSelectable();
                         }
 
                     if (_mapRooms[i].OnUp != null)
                         if (!_mapRooms[i].OnUp.Activated)
                         {
+
+
                             _mapRooms[i].OnUp.MakeSelectable();
                         }
+
+
                 }
                 
             }

@@ -6,7 +6,7 @@ public class RoomPool : MonoBehaviour
 {
     Room[] _rooms;
     public static RoomPool Instance { get; private set; }
-    Dictionary<string, Room> _roomsDictionary;
+    Dictionary<string, Room> _roomsDictionary = new Dictionary<string, Room>();
     private void Start()
     {
         if(Instance == null)
@@ -17,6 +17,7 @@ public class RoomPool : MonoBehaviour
         {
             Destroy(this);
         }
+
         _rooms = GetComponentsInChildren<Room>();
         foreach (Room room in _rooms)
         {
