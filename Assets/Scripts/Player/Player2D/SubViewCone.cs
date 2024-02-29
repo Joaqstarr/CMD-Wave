@@ -21,6 +21,7 @@ public class SubViewCone : MonoBehaviour
     private int _rayResolution; // resolution of rays cast for scanning collision
     private float _blipGhostTime; // how long blips stay visible after out of vision
     private int _sampleRate; // how many times a second the cone scans for collision - UNUSED
+    private LayerMask _collisionMask; // layer mask for raycast scan collisions
 
     private float _angle;
     private float _angleIncrease;
@@ -51,6 +52,7 @@ public class SubViewCone : MonoBehaviour
         _rayResolution = data.rayResolution;
         //_blipGhostTime = data.blipGhostTime;
         _sampleRate = data.sampleRate;
+        _collisionMask = data.collisionMask;
 
 
         _angle = 0f;
@@ -149,11 +151,20 @@ public class SubViewCone : MonoBehaviour
                 _rayRadians = rayAngle * (Mathf.PI / 180f);
                 _rayVector = new Vector3(Mathf.Cos(_rayRadians), Mathf.Sin(_rayRadians));
                 // fire ray
+
+                /* old 2D raycast system
                 RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, _rayVector, _viewDistance);
                 if (raycastHit2D.collider != null)
                 {
                     // draw blip on hit
                     _rayCollisions[i] = Instantiate(data.blip, raycastHit2D.point, Quaternion.identity);
+                }*/
+
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, _rayVector, out hit, _viewDistance, _collisionMask))
+                {
+                    // draw blip on hit
+                    _rayCollisions[i] = Instantiate(data.blip, hit.point, Quaternion.identity);
                 }
             }
         }

@@ -21,4 +21,6 @@ public class PlayerSubData : ScriptableObject
     //public float blipGhostTime; // unnecessary? just use 1/sampleRate - more realistic/accurate
     public int sampleRate;
     public GameObject blip;
+    public LayerMask collisionMask;
+
 }

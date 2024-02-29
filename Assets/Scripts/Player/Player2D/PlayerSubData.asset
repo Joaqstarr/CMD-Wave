@@ -24,3 +24,6 @@ MonoBehaviour:
   rayResolution: 40
   sampleRate: 10
   blip: {fileID: 5160852551703549048, guid: 930ee4125b11b8b44ac4113eac39bb7d, type: 3}
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 473
