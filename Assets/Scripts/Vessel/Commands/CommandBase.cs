@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class CommandBase : MonoBehaviour
@@ -8,11 +6,21 @@ public abstract class CommandBase : MonoBehaviour
     protected string _commandName;
     [SerializeField]
     protected bool _shouldClear;
-    public abstract string[] Execute(string arg =null);
+    [SerializeField]
+    private bool _addByDefault;
 
-    public bool CheckCommand(string commandName)
+    private void Start()
     {
-        return _commandName == commandName;
+        if (_addByDefault)
+        {
+            GameObject.Find("Console").GetComponent<CommandLineManager>().AddCommand(this);
+        }
+    }
+    public abstract string[] Execute(out CommandContext overrideContext, string arg =null);
+
+    public virtual bool CheckCommand(string commandName)
+    {
+        return _commandName.ToLower() == commandName.ToLower();
     }
 
     public bool ShouldClear{

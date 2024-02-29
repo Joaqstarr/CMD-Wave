@@ -11,23 +11,34 @@ using UnityEngine.UI;
 public class CommandContext
 {
     [SerializeField]
-    List<CommandBase> _commands = new List<CommandBase>();
-
-    public string[] CheckAndExecuteCommand(string command, out bool shouldClear)
+    private List<CommandBase> _commands = new List<CommandBase>();
+    
+    public string[] CheckAndExecuteCommand(string command, out bool shouldClear, out CommandContext overrideContext, string args = null)
     {
-
         for (int i = 0; i < _commands.Count; i++)
         { 
             if (_commands[i].CheckCommand(command))
             {
+                Debug.Log("check n execute: " + args);
+
                 shouldClear = _commands[i].ShouldClear;
-                return _commands[i].Execute();
+                string[] result = _commands[i].Execute(out overrideContext, args);
+                return result;
 
             }
         }
         shouldClear = false;
-
+        overrideContext = null;
         return null;
+    }
+
+    public void AddCommand(CommandBase command)
+    {
+        _commands.Add(command);
+    }
+    public int Count
+    {
+        get { return _commands.Count; }
     }
 
 }
@@ -42,6 +53,8 @@ public class CommandLineManager : MonoBehaviour
     [SerializeField]
     private List<CommandContext> _commands = new List<CommandContext>();
     private CommandContext _commandOveride;
+
+    private bool _enteringCommand = false;
     void Start()
     {
         _textBox = GetComponentInChildren<TMP_InputField>();
@@ -59,6 +72,8 @@ public class CommandLineManager : MonoBehaviour
     }
     public void StartCommandLine()
     {
+        if (_enteringCommand) return;
+        _enteringCommand = true;
         Debug.Log("Command");
         _textBox.text = string.Empty;
         _textBox.ActivateInputField();
@@ -66,15 +81,26 @@ public class CommandLineManager : MonoBehaviour
 
     public void CommandEntered(string command)
     {
+        _enteringCommand = false;
         if (command == string.Empty) return;
 
-        Debug.Log("Command Entered: " + command);
         _textBox.text = string.Empty;
         bool foundCommand = false;
 
-        if (_commandOveride != null)
+        string argument = string.Empty;
+        if(command.Split(" ", StringSplitOptions.RemoveEmptyEntries).Length > 1)
         {
-            string[] output = _commandOveride.CheckAndExecuteCommand(command, out bool clear);
+            argument = command.Split(" ", StringSplitOptions.RemoveEmptyEntries)[1];
+
+        }
+        int count = command.Split(" ", StringSplitOptions.RemoveEmptyEntries).Length;
+        command = command.Split(" ", StringSplitOptions.RemoveEmptyEntries)[0];
+        Debug.Log("Command Entered: " + command + ", argument: " + argument + ", count: "+ count);
+
+        if (_commandOveride != null && _commandOveride.Count > 0)
+        {
+            string[] output = _commandOveride.CheckAndExecuteCommand(command, out bool clear, out CommandContext overrideContext, argument);
+            _commandOveride = overrideContext;
             if (output != null)
             {
                 OutputLine(output, clear);
@@ -86,10 +112,12 @@ public class CommandLineManager : MonoBehaviour
         for(int i = 0; i < _commands.Count; i++)
         {
             bool clear;
-            string[] executeResult = _commands[i].CheckAndExecuteCommand(command, out clear);
+                
+            string[] executeResult = _commands[i].CheckAndExecuteCommand(command, out clear, out CommandContext overrideContext, argument);
+            _commandOveride = overrideContext;
+
             if (executeResult != null)
             {
-                
                 OutputLine(executeResult, clear);
                 foundCommand = true;
                 break;
@@ -116,5 +144,10 @@ public class CommandLineManager : MonoBehaviour
     {
         get { return _commandOveride; }
         set { _commandOveride = value; }
+    }
+
+    public void AddCommand(CommandBase command)
+    {
+        _commands[0].AddCommand(command);
     }
 }

@@ -168,7 +168,8 @@ public class SubViewCone : MonoBehaviour
         screenPoint.z = Mathf.Abs(transform.position.z - camera2D.transform.position.z);
         Vector3 mainPoint = camera2D.ScreenToWorldPoint(screenPoint);
 
-        Debug.Log(mainPoint + ", player pos screen: " + camera2D.WorldToScreenPoint(transform.position) + ", screen size: " + camera2D.orthographicSize);
+
+        //Debug.Log(mainPoint + ", player pos screen: " + camera2D.WorldToScreenPoint(transform.position) + ", screen size: " + camera2D.orthographicSize);
         return mainPoint;
     }
 }

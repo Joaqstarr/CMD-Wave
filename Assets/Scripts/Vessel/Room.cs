@@ -25,7 +25,7 @@ public class Room : MonoBehaviour
         }
         else
         {
-            _roomTag = _roomTag.Substring(0, 3);
+           // _roomTag = _roomTag.Substring(0, 3);
         }
     }
     public void AttachRoom()
