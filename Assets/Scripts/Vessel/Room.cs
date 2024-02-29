@@ -28,13 +28,21 @@ public class Room : MonoBehaviour
            // _roomTag = _roomTag.Substring(0, 3);
         }
     }
-    public void AttachRoom()
-    {
-
-    }
+  
 
     public int Position { get { return pos; } }
+
+    public Vector2Int PositionVector
+    {
+        get
+        {
+            return new Vector2Int(Mathf.FloorToInt(pos / 10f), pos % 10);
+        }
+    }
     public string RoomTag {  get { return _roomTag; } }
 
+    public Room Left { get { return _attachedLeft; } set { _attachedLeft = value; } }
+    public Room Right { get { return _attachedRight; } set { _attachedRight = value; } }
+    public Room Down { get { return _attachedDown; } set { _attachedDown = value; } }
 
 }
