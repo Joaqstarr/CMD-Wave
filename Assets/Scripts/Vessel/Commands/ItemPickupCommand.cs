@@ -17,7 +17,6 @@ public class ItemPickupCommand : CommandBase
         {
             return CommandLineManager.StringToArray("No Items Nearby");
         }
-        Debug.Log(arg != string.Empty);
         if (arg != string.Empty)
         {
             int itemPickupIndex = CheckListForArg(arg);
@@ -63,7 +62,6 @@ public class ItemPickupCommand : CommandBase
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
         if (other.CompareTag("Item"))
         {
             _itemsInRange.Add(other.GetComponent<Item>());
@@ -80,7 +78,6 @@ public class ItemPickupCommand : CommandBase
     }
     public override bool CheckCommand(string commandName)
     {
-        Debug.Log("tis happening");
         if (_isAwaitingItemName)
         {
             _itemToPickup = commandName.ToLower();

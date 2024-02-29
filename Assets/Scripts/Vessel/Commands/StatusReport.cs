@@ -7,8 +7,6 @@ public class StatusReport : CommandBase
     
     private Room[] _rooms;
 
-    private int _leftBound = 0;
-    private int _rightBound = 0;
     public override string[] Execute(out CommandContext overrideContext, string arg = null)
     {
         overrideContext = null;

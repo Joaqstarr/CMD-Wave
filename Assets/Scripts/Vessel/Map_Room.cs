@@ -21,6 +21,8 @@ public class Map_Room : MonoBehaviour
     private Sprite _hiddenSprite;
 
     [SerializeField]
+    private Map_Room _onUp;
+    [SerializeField]
     private Map_Room _onDown;
     [SerializeField]
     private Map_Room _onLeft;
@@ -43,11 +45,6 @@ public class Map_Room : MonoBehaviour
         UpdateLabelText();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void UpdateLabelText()
     {
@@ -75,10 +72,20 @@ public class Map_Room : MonoBehaviour
         _state = RoomStates.InUse;
         UpdateLabelText() ;
     }
+    public void MakeSelectable()
+    {
+
+        _state = RoomStates.Selectable;
+        
+    }
     public void Deactivate()
     {
         _state = RoomStates.Hidden;
         UpdateLabelText() ;
+    }
+    public bool Activated
+    {
+        get { return _state == RoomStates.InUse;}
     }
     public int Position
     {
@@ -96,5 +103,9 @@ public class Map_Room : MonoBehaviour
     public Map_Room OnDown
     {
         get { return _onDown; }
+    }
+    public Map_Room OnUp
+    {
+        get { return _onUp; }
     }
 }
