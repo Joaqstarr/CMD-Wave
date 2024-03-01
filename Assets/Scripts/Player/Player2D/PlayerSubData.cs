@@ -11,7 +11,11 @@ public class PlayerSubData : ScriptableObject
     public float decceleration;
     public float velocityModifier;
     public float frictionModifier;
-    public float bounceModifier;
+    //public float bounceModifier; unused currently - could be used to add bounce back from collisions
+
+    [Header("Combat")]
+    public float health;
+    public float invulnTime;
 
     [Header("View Cone")]
     public float fov;
@@ -20,7 +24,7 @@ public class PlayerSubData : ScriptableObject
     public int rayResolution;
     //public float blipGhostTime; // unnecessary? just use 1/sampleRate - more realistic/accurate
     public int sampleRate;
-    public GameObject blip;
+    public GameObject blipObject;
     public LayerMask collisionMask;
 
 }

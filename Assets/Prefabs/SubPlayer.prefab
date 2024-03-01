@@ -208,9 +208,10 @@ GameObject:
   - component: {fileID: 1730125559575496779}
   - component: {fileID: 2871253229670870890}
   - component: {fileID: 4867117324177916671}
-  m_Layer: 0
+  - component: {fileID: 7502811325062379252}
+  m_Layer: 9
   m_Name: SubPlayer
-  m_TagString: Untagged
+  m_TagString: PlayerSub
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -377,6 +378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _subData: {fileID: 11400000, guid: bec618dbb3541754e9df4ee264b2c319, type: 2}
   _viewCone: {fileID: 8159995191691637025}
+  _stunTimer: 0
 --- !u!114 &1730125559575496779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,6 +433,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 4.18
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7502811325062379252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4513108998467818035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb352161038dacc46a8ebc1ba593cb69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: bec618dbb3541754e9df4ee264b2c319, type: 2}
 --- !u!1 &7893241390055514323
 GameObject:
   m_ObjectHideFlags: 0

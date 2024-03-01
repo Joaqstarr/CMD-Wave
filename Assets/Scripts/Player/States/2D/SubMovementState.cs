@@ -28,7 +28,13 @@ public class SubMovementState : SubBaseState
 
     public override void OnUpdateState(PlayerSubManager player)
     {
-
+        // switch state conditions
+        
+        // stun state
+        if (player._stunTimer > 0)
+        {
+            player.SwitchState(player.StunState);
+        }     
     }
 
     public override void OnFixedUpdateState(PlayerSubManager player)
@@ -70,4 +76,5 @@ public class SubMovementState : SubBaseState
         }
 
     }
+
 }

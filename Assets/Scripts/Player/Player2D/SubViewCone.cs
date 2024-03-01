@@ -38,6 +38,9 @@ public class SubViewCone : MonoBehaviour
     private Vector2[] _uv;
     private int[] _triangles;
     private GameObject[] _rayCollisions;
+    private GameObject _pooledBlip;
+    private List<GameObject> _blips;
+    private int _numBlips;
 
     private void Start()
     {
@@ -65,6 +68,18 @@ public class SubViewCone : MonoBehaviour
         _rayCollisions = new GameObject[_rayResolution];
 
         _vertices[0] = _origin;
+
+        // Blip object pool
+        _pooledBlip = data.blipObject;
+        _blips = new List<GameObject>();
+        _numBlips = _rayResolution * 2;
+        GameObject tempObject;
+        for (int i = 0; i < _numBlips; i++)
+        {
+            tempObject = Instantiate(_pooledBlip);
+            tempObject.SetActive(false);
+            _blips.Add(tempObject);
+        }
     }
 
 
@@ -76,8 +91,10 @@ public class SubViewCone : MonoBehaviour
             for (int i = 0; i < _rayCollisions.Count(); i++)
             {
                 if (_rayCollisions[i] != null)
+                {
                     StartCoroutine(BlipGhostEffect(_rayCollisions[i]));
-                    //Destroy(_rayCollisions[i]);
+                    _rayCollisions[i] = null;
+                }
             }    
         // convert mouse position to angle
         if (camera2D == null)
@@ -132,8 +149,8 @@ public class SubViewCone : MonoBehaviour
 
     public IEnumerator BlipGhostEffect(GameObject blip)
     {
-        yield return new WaitForSeconds((1f / _sampleRate));
-        Destroy(blip);
+        yield return new WaitForSeconds(1f / _sampleRate);
+        blip.SetActive(false);
     }
 
     public IEnumerator CollisionScan()
@@ -143,7 +160,7 @@ public class SubViewCone : MonoBehaviour
         for (int i = 0; i < _rayResolution; i++)
         {
             // check if ray angle is within view cone
-            float rayAngle = (360 / _rayResolution) * i;
+            float rayAngle = (360f / _rayResolution) * i;
 
             if (Mathf.Abs(rayAngle - _aimAngle) < _fov / 2 || Mathf.Abs(rayAngle - _aimAngle) > 360 - _fov / 2)
             {
@@ -164,14 +181,14 @@ public class SubViewCone : MonoBehaviour
                 if (Physics.Raycast(transform.position, _rayVector, out hit, _viewDistance, _collisionMask))
                 {
                     // draw blip on hit
-                    _rayCollisions[i] = Instantiate(data.blip, hit.point, Quaternion.identity);
+                    _rayCollisions[i] = GetBlip(hit.point);
+                    _rayCollisions[i].SetActive(true);
                 }
             }
         }
         yield return new WaitForSeconds(1f/_sampleRate);
         _scanWaiting = false;
     }
-
 
     private Vector3 ConvertAimCoordinate(Vector2 aimInput)
     {
@@ -182,5 +199,17 @@ public class SubViewCone : MonoBehaviour
 
         //Debug.Log(mainPoint + ", player pos screen: " + camera2D.WorldToScreenPoint(transform.position) + ", screen size: " + camera2D.orthographicSize);
         return mainPoint;
+    }
+    private GameObject GetBlip(Vector3 position)
+    {
+        for (int i = 0; i < _numBlips; i++)
+        {
+            if (!_blips[i].activeInHierarchy)
+            {
+                _blips[i].transform.position = position;
+                return _blips[i];
+            }
+        }
+        return null;
     }
 }
