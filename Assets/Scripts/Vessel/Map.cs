@@ -6,6 +6,8 @@ public class Map : MonoBehaviour
 {
     public static Map Instance;
     Map_Room[] _mapRooms;
+
+    private Dictionary<Vector2Int, Map_Room> _locationMap = new Dictionary<Vector2Int, Map_Room>();
     // Start is called before the first frame update
     void Awake()
     {
@@ -15,6 +17,10 @@ public class Map : MonoBehaviour
             Destroy(this);
 
         _mapRooms = GetComponentsInChildren<Map_Room>();
+        for(int i =0; i < _mapRooms.Length; i++)
+        {
+            _locationMap.Add(_mapRooms[i].PositionVector, _mapRooms[i]);
+        }
     }
     public List<Vector2Int> GetSelectable()
     {
@@ -32,57 +38,61 @@ public class Map : MonoBehaviour
 
     public void GenerateMap(Room[] roomList, bool showSelectable = false)
     {
-        Dictionary<int, string> map = new Dictionary<int, string>();
-        for (int i = 0; i < roomList.Length; i++)
-        {
-            map.Add(roomList[i].Position, roomList[i].RoomTag);
-        }
+        Debug.Log(_locationMap.Count);
         for (int i = 0; i < _mapRooms.Length; i++)
         {
             _mapRooms[i].Deactivate();
 
         }
-        for (int i = 0;i < _mapRooms.Length; i++)
+
+        for(int i = 0; i < roomList.Length; i++)
         {
-            if (map.ContainsKey(_mapRooms[i].Position))
+            if (_locationMap.ContainsKey(roomList[i].PositionVector))
             {
-                _mapRooms[i].Activate(map[_mapRooms[i].Position]);
-                
-                if(showSelectable)
+                Map_Room curRoom = _locationMap[roomList[i].PositionVector];
+                curRoom.Activate(roomList[i].RoomTag);
+                if (showSelectable)
                 {
-                    if(_mapRooms[i].OnDown != null)
-                        if (!_mapRooms[i].OnDown.Activated)
+                    if (curRoom.OnDown != null)
+                        if (!curRoom.OnDown.Activated)
                         {
-                            _mapRooms[i].OnDown.MakeSelectable();
+                            curRoom.OnDown.MakeSelectable();
                         }
 
-                    if (_mapRooms[i].OnLeft != null)
-                        if (!_mapRooms[i].OnLeft.Activated)
+                    if (curRoom.OnLeft != null)
+                        if (!curRoom.OnLeft.Activated)
                         {
 
-                            _mapRooms[i].OnLeft.MakeSelectable();
+                            curRoom.OnLeft.MakeSelectable();
                         }
 
-                    if (_mapRooms[i].OnRight != null)
-                        if (!_mapRooms[i].OnRight.Activated)
+                    if (curRoom.OnRight != null)
+                        if (!curRoom.OnRight.Activated)
                         {
 
 
-                            _mapRooms[i].OnRight.MakeSelectable();
+                            curRoom.OnRight.MakeSelectable();
                         }
 
-                    if (_mapRooms[i].OnUp != null)
-                        if (!_mapRooms[i].OnUp.Activated)
+                    if (curRoom.OnUp != null)
+                        if (!curRoom.OnUp.Activated)
                         {
-
-
-                            _mapRooms[i].OnUp.MakeSelectable();
+                            curRoom.OnUp.MakeSelectable();
                         }
 
 
                 }
-                
             }
+        }
+    }
+
+
+    public void MakeAllSelectable()
+    {   
+        for (int i = 0; i < _mapRooms.Length; i++)
+        {
+            if (_mapRooms[i].Activated)
+                _mapRooms[i].MakeSelectable();
 
         }
     }

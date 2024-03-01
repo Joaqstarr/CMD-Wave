@@ -20,6 +20,7 @@ public class PickRoomLocationCommand : CommandBase
         Item item = _pickupCommand.GetItem(_pickupCommand.RoomAdding.RoomTag);
         if(item == null)
         {
+            VesselRoomHandler.Instance.UpdateMap(false);
             return CommandLineManager.StringToArray("Item No Longer In Range.");
         }
 
