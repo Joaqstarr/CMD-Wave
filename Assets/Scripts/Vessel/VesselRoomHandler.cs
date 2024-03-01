@@ -66,13 +66,16 @@ public class VesselRoomHandler : MonoBehaviour
         UpdateMap(false);
     }
 
-    public bool RemoveRoom(Vector2Int position)
+    public bool RemoveRoom(Vector2Int position, out string keyRemoved)
     {
+        keyRemoved = "";
         if(PlacedRooms.ContainsKey(position))
         {
             PlacedRooms[position].transform.parent = RoomPool.Instance.transform;
+            keyRemoved = PlacedRooms[position].RoomTag;
+
             PlacedRooms.Remove(position);
-            UpdateRooms();
+            UpdateMap(false);
 
             return true;
         }
@@ -84,10 +87,11 @@ public class VesselRoomHandler : MonoBehaviour
         _rooms = GetComponentsInChildren<Room>();
 
     }
-
+    
     public void UpdateMap(bool showSelectable){
         UpdateRooms();
         Map.Instance.GenerateMap(_rooms, showSelectable);
 
     }
+
 }

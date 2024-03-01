@@ -8,6 +8,7 @@ using static UnityEditor.PlayerSettings;
 
 public class Map_Room : MonoBehaviour
 {
+
     [SerializeField]
     private string _roomTag;
     [SerializeField]
@@ -20,7 +21,8 @@ public class Map_Room : MonoBehaviour
     private Sprite _inUseSprite;
     [SerializeField]
     private Sprite _hiddenSprite;
-
+    [SerializeField]
+    private bool _canBeSelected = true;
     [SerializeField]
     private Map_Room _onUp;
     [SerializeField]
@@ -81,6 +83,7 @@ public class Map_Room : MonoBehaviour
     }
     public void MakeSelectable()
     {
+        if (!_canBeSelected) return;
         _roomTag = _location.ToString();
         _state = RoomStates.Selectable;
         UpdateLabelText();
