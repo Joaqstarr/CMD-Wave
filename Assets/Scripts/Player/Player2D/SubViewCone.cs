@@ -70,6 +70,8 @@ public class SubViewCone : MonoBehaviour
         _vertices[0] = _origin;
 
         // Blip object pool
+        GameObject holder = new GameObject();
+        holder.name = "BlipHolder";
         _pooledBlip = data.blipObject;
         _blips = new List<GameObject>();
         _numBlips = _rayResolution * 2;
@@ -78,6 +80,7 @@ public class SubViewCone : MonoBehaviour
         {
             tempObject = Instantiate(_pooledBlip);
             tempObject.SetActive(false);
+            tempObject.transform.SetParent(holder.transform);
             _blips.Add(tempObject);
         }
     }
