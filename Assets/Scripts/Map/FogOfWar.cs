@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,12 +13,25 @@ public class FogOfWar : MonoBehaviour
     private Vector2Int pixelScale;
     [SerializeField]
     private bool _resetTexture = false;
+
+    public static FogOfWar Instance;
     public void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+            return;
+        }
         pixelScale.x = fogOfWarTexture.width;
         pixelScale.y = fogOfWarTexture.height;
         worldScale.x = pixelScale.x / 100f * transform.localScale.x;
         worldScale.y = pixelScale.y / 100f * transform.localScale.y;
+
+
         if (_resetTexture)
         {
             for (int i = 0; i < pixelScale.x; i++)
@@ -30,7 +44,7 @@ public class FogOfWar : MonoBehaviour
             fogOfWarTexture.Apply();
             CreateSprite();
         }
-        InvokeRepeating("CreateHole", 1, 1);
+        //InvokeRepeating("CreateHole", 1, 1);
     }
 
     
@@ -75,6 +89,46 @@ public class FogOfWar : MonoBehaviour
         }
         fogOfWarTexture.Apply();
         CreateSprite();
+    }
+
+    public void MakeTriangle(Vector2 a, Vector2 b, Vector2 c)
+    {
+        Vector2Int pixelPosA = WorldToPixel(a);
+        Vector2Int pixelPosB = WorldToPixel(b);
+        Vector2Int pixelPosC = WorldToPixel(c);
+
+
+        int minX = Mathf.Min(pixelPosA.x, Mathf.Min(pixelPosB.x, pixelPosC.x));
+        int maxX = Mathf.Max(pixelPosA.x, Mathf.Max(pixelPosB.x, pixelPosC.x));
+        int minY = Mathf.Min(pixelPosA.y, Mathf.Min(pixelPosB.y, pixelPosC.y));
+        int maxY = Mathf.Max(pixelPosA.y, Mathf.Max(pixelPosB.y, pixelPosC.y));
+
+        for (int x = minX; x <= maxX; x++)
+        {
+            for (int y = minY; y <= maxY; y++) {
+                if (IsPointInTriangle(new Vector2Int(x, y), pixelPosA, pixelPosB, pixelPosC))
+                { 
+                    fogOfWarTexture.SetPixel(x, y, Color.clear);
+
+                }
+            }
+        }
+
+        fogOfWarTexture.Apply();
+        CreateSprite();
+    }
+
+    private bool IsPointInTriangle(Vector2Int pt, Vector2Int v1, Vector2Int v2, Vector2Int v3)
+    {
+        bool b1 = Sign(pt, v1, v2) < 0.0f;
+        bool b2 = Sign(pt, v2, v3) < 0.0f;
+        bool b3 = Sign(pt, v3, v1) < 0.0f;
+        return (b1 == b2) && (b2 == b3);
+    }
+
+    private float Sign(Vector2Int p1, Vector2Int p2, Vector2Int p3)
+    {
+        return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
     }
 
     private void CreateSprite()

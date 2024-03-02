@@ -83,6 +83,11 @@ public class SubViewCone : MonoBehaviour
             tempObject.transform.SetParent(holder.transform);
             _blips.Add(tempObject);
         }
+
+        if (FogOfWar.Instance != null)
+        {
+            InvokeRepeating("RepeatDrawFog", 0.1f, 0.1f);
+        }
     }
 
 
@@ -99,13 +104,13 @@ public class SubViewCone : MonoBehaviour
                     _rayCollisions[i] = null;
                 }
             }    
+
+
         // convert mouse position to angle
         if (camera2D == null)
             aimPos = Camera.main.ScreenToWorldPoint(aimPos);
         else
             aimPos = ConvertAimCoordinate(aimPos);
-
-
 
         aimPos = (aimPos - transform.position).normalized;
         aimPos.z = 0;
@@ -114,6 +119,9 @@ public class SubViewCone : MonoBehaviour
         
         _angle = _aimAngle + (_fov/2f);
          
+
+
+        //render mesh
         _triangleIndex = 0;
         _vertexIndex = 1;
         for (int i = 0; i <= _resolution; i++, _vertexIndex++)
@@ -145,9 +153,37 @@ public class SubViewCone : MonoBehaviour
         _mesh.uv = _uv;
         _mesh.triangles = _triangles;
 
+
         // Check to scan collision
         if (!_scanWaiting) StartCoroutine(CollisionScan());
 
+    }
+    private void RepeatDrawFog()
+    {
+        DrawFogOfWar(_angle);
+    }
+    private void DrawFogOfWar(float angle)
+    {
+        Vector3[] vertices = new Vector3[3];
+        int vertexIndex = 1;
+        vertices[0] = _origin + transform.position;
+        for (int i = 0; i <= 1; i++, vertexIndex++)
+        {
+            // convert current angle to vector3
+            float angleRadians = angle * (Mathf.PI / 180f);
+            Vector3 angleVector = new Vector3(Mathf.Cos(angleRadians), Mathf.Sin(angleRadians));
+
+            // set vertices of polygon
+            Vector3 vertex = _origin + angleVector * _viewDistance;
+            vertex += transform.position;
+            _vertices[vertexIndex] = vertex;
+
+            // increase angle clockwise
+            angle -= _fov;
+        }
+
+        transform.TransformPoints(vertices);
+        FogOfWar.Instance.MakeTriangle(_vertices[0], _vertices[1], _vertices[2]);
     }
 
     public IEnumerator BlipGhostEffect(GameObject blip)

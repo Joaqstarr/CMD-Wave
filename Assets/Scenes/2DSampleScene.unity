@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4610.2837, g: 2946.0686, b: 2169.1643, a: 1}
+  m_IndirectSpecularColor: {r: 4612.7427, g: 2947.6624, b: 2170.0198, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -442,6 +442,7 @@ MonoBehaviour:
   spriteRend: {fileID: 538738000}
   _holeRadius: 10
   _player: {fileID: 1937267068}
+  _resetTexture: 1
 --- !u!4 &538737999
 Transform:
   m_ObjectHideFlags: 0
