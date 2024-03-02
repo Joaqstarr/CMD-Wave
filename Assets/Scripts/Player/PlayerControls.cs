@@ -94,9 +94,35 @@ public class PlayerControls : MonoBehaviour
 
         return true;
     }
-    public void Possess(PlayerControls inputToPosess)
+
+    public virtual bool OnMapMove(InputValue Value)
     {
-        _possesedInput = inputToPosess;
+        if (_possesedInput != null)
+        {
+            _possesedInput.OnMapMove(Value);
+            return false;
+        }
+
+        return true;
+    }
+    public void Possess(PlayerControls inputToPosess, bool overrideChain = false)
+    {
+        if (!overrideChain)
+        {
+            if(_possesedInput != null)
+            {
+                _possesedInput.Possess(inputToPosess, true);
+            }
+            else
+            {
+                _possesedInput = inputToPosess;
+            }
+        }
+        else
+        {
+            _possesedInput = inputToPosess;
+
+        }
 
         if (_input != null)
         {
@@ -109,8 +135,28 @@ public class PlayerControls : MonoBehaviour
     public void UnPossess()
     {
         _possesedInput = null;
+        if (_input != null)
+        {
+            _input.SwitchCurrentActionMap(ControlMap);
+        }
     }
+    public void UnPossess(PlayerControls controlToUnposess)
+    {
+        if(_possesedInput == controlToUnposess || _possesedInput == null)
+        {
+            _possesedInput = null;
+            if (_input != null)
+            {
+                _input.SwitchCurrentActionMap(ControlMap);
+            }
 
+        }
+        else
+        {
+            _possesedInput.UnPossess(controlToUnposess);
+
+        }
+    }
     public string ControlMap
     {
         get { 

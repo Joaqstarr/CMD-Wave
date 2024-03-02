@@ -7,8 +7,6 @@ public class FogOfWar : MonoBehaviour
 {
     public Texture2D fogOfWarTexture;
     public SpriteRenderer spriteRend;
-    [SerializeField] private float _holeRadius = 5;
-    public Transform _player;
     private Vector2 worldScale;
     private Vector2Int pixelScale;
     [SerializeField]
@@ -45,7 +43,6 @@ public class FogOfWar : MonoBehaviour
             fogOfWarTexture.Apply();
             CreateSprite();
         }
-        //InvokeRepeating("CreateHole", 1, 1);
     }
 
     
@@ -63,10 +60,6 @@ public class FogOfWar : MonoBehaviour
          
     }
 
-    private void CreateHole()
-    {
-        MakeHole(_player.position, _holeRadius);
-    }
     public void MakeHole(Vector2 position, float holeRadius)
     {
         Vector2Int pixelPosition = WorldToPixel(position);

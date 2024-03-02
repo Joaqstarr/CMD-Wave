@@ -5,11 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerSubControls : PlayerControls
 {
-
+    public static PlayerSubControls Instance;
     private Vector2 _moveInput = Vector2.zero;
     private Vector2 _aimInput = Vector2.zero;
     // control aim?
-
+    
 
 
     #region Control Events
@@ -17,7 +17,13 @@ public class PlayerSubControls : PlayerControls
     public static CommandLineDel openCommandLine;
     #endregion
 
-
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
+    }
     public override bool OnSubMove(InputValue Value)
     {
         if (!base.OnSubMove(Value)) return false;
@@ -56,7 +62,7 @@ public class PlayerSubControls : PlayerControls
 
     public override bool OnCommandLine(InputValue Value)
     {
-        if (!base.OnCommandLine(Value)) return false;
+        //if (!base.OnCommandLine(Value)) return false;
 
         if(openCommandLine != null)
         {

@@ -10,6 +10,7 @@ public class VesselRoomHandler : MonoBehaviour
 
     Dictionary<Vector2Int, Room> PlacedRooms = new Dictionary<Vector2Int, Room>();
     public static VesselRoomHandler Instance {  get; private set; }
+    public CommandContext RoomsContext { get; private set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -37,8 +38,13 @@ public class VesselRoomHandler : MonoBehaviour
         Debug.Log(position.ToString());
         PlacedRooms.Add(position, room);
 
-        //make links
+        for(int i = 0;i<room.AssociatedCommandsCount; i++)
+        {
+            RoomsContext.AddCommand(room.AssociatedCommands[i]);
+        }
 
+
+        //make links
         Vector2Int left = new Vector2Int(position.x, position.y-1);
         Vector2Int right = new Vector2Int(position.x, position.y+1);
         Vector2Int up = new Vector2Int(position.x -1, position.y);
@@ -71,6 +77,11 @@ public class VesselRoomHandler : MonoBehaviour
         keyRemoved = "";
         if(PlacedRooms.ContainsKey(position))
         {
+            for (int i = 0; i < PlacedRooms[position].AssociatedCommandsCount; i++)
+            {
+                RoomsContext.AddCommand(PlacedRooms[position].AssociatedCommands[i]);
+            }
+
             PlacedRooms[position].transform.parent = RoomPool.Instance.transform;
             keyRemoved = PlacedRooms[position].RoomTag;
 

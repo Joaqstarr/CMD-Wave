@@ -310,6 +310,89 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "MapControls",
+            "id": "5ac24195-d9e4-432f-b634-af516f61c4ba",
+            "actions": [
+                {
+                    "name": "MapMove",
+                    "type": "Value",
+                    "id": "c0317c96-754d-4b08-9acf-d28e78506cd9",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fc28a8b2-9981-4ccd-8f86-315ef9f5f5d0",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "MapMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Wasd",
+                    "id": "f750323a-35e9-4503-8463-97373ce62a7e",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MapMove",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "5e6f77b5-b722-4deb-a9f6-83bb7881337e",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + M",
+                    "action": "MapMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "868f616c-9a32-4668-a4d5-1789adeb9bd3",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + M",
+                    "action": "MapMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "26db418d-94d1-46d3-9f93-47df96230c71",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + M",
+                    "action": "MapMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "fd834eda-c850-469f-829d-f9a67bae1eaa",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + M",
+                    "action": "MapMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
         }
     ],
     "controlSchemes": [

@@ -9,7 +9,14 @@ public class FirstPersonPlayerControls : PlayerControls
     private Vector2 _moveInput = Vector2.zero;
     private Vector2 _lookInput = Vector2.zero;
     private bool _selectPressed = false;
-
+    public static FirstPersonPlayerControls Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
+    }
 
     public override bool OnFPMove(InputValue Value)
     {
