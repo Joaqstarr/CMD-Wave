@@ -12,7 +12,6 @@ public class CommandContext
 {
     [SerializeField]
     private List<CommandBase> _commands = new List<CommandBase>();
-    
     public string[] CheckAndExecuteCommand(string command, out bool shouldClear, out CommandContext overrideContext, string args = null)
     {
         for (int i = 0; i < _commands.Count; i++)
@@ -40,6 +39,10 @@ public class CommandContext
     {
         get { return _commands.Count; }
     }
+    public CommandBase GetCommandAt(int index)
+    {
+        return _commands[index];
+    }
 
 }
 public class CommandLineManager : MonoBehaviour
@@ -55,6 +58,9 @@ public class CommandLineManager : MonoBehaviour
     private CommandContext _commandOveride;
 
     private bool _enteringCommand = false;
+
+    [SerializeField]
+    private CommandBase _helpCommand;
     void Start()
     {
         _textBox = GetComponentInChildren<TMP_InputField>();
@@ -96,6 +102,13 @@ public class CommandLineManager : MonoBehaviour
         int count = command.Split(" ", StringSplitOptions.RemoveEmptyEntries).Length;
         command = command.Split(" ", StringSplitOptions.RemoveEmptyEntries)[0];
         Debug.Log("Command Entered: " + command + ", argument: " + argument + ", count: "+ count);
+
+        if(_helpCommand.CheckCommand(command))
+        {
+            OutputLine(_helpCommand.Execute(out _commandOveride), _helpCommand.ShouldClear);
+            return;
+        }
+
 
         if (_commandOveride != null && _commandOveride.Count > 0)
         {
@@ -149,5 +162,31 @@ public class CommandLineManager : MonoBehaviour
     public void AddCommand(CommandBase command)
     {
         _commands[0].AddCommand(command);
+    }
+
+    public CommandBase[] GetPossibleCommands()
+    {
+        List<CommandBase> possibleCommands = new List<CommandBase>();
+
+        if(_commandOveride != null)
+        {
+            for(int i = 0; i < _commandOveride.Count; i++)
+            {
+                possibleCommands.Add(_commandOveride.GetCommandAt(i));
+            }
+        }
+        else
+        {
+            for(int i = 0; i< _commands.Count; i++)
+            {
+                for(int j = 0; j < _commands[i].Count; j++)
+                {
+                    possibleCommands.Add(_commands[i].GetCommandAt(j));
+                }
+            }
+        }
+
+
+        return possibleCommands.ToArray();
     }
 }

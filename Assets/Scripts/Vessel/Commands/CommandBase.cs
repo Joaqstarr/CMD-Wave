@@ -5,6 +5,8 @@ public abstract class CommandBase : MonoBehaviour
     [SerializeField]
     protected string _commandName;
     [SerializeField]
+    protected string _commandDescription;
+    [SerializeField]
     protected bool _shouldClear;
     [SerializeField]
     private bool _addByDefault;
@@ -28,4 +30,8 @@ public abstract class CommandBase : MonoBehaviour
         get { return _shouldClear; }
 
         }
+    public virtual string GetHelpLine()
+    {
+        return _commandName.ToUpper() + ": " + _commandDescription;
+    }
 }

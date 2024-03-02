@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 1713362415}
+  m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &13028059
@@ -227,6 +227,8 @@ GameObject:
   m_Component:
   - component: {fileID: 47750905}
   - component: {fileID: 47750906}
+  - component: {fileID: 47750907}
+  - component: {fileID: 47750908}
   m_Layer: 5
   m_Name: Console
   m_TagString: Untagged
@@ -271,6 +273,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _commands:
   - _commands: []
+  _helpCommand: {fileID: 47750907}
+--- !u!114 &47750907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47750904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d761861655c854495dfc048832ebbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _commandName: Help
+  _commandDescription: Describes Available Commands
+  _shouldClear: 1
+  _addByDefault: 0
+  _commandLineManager: {fileID: 47750906}
+--- !u!114 &47750908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47750904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45155530d75dd88428bd0fc16103bfae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _commandName: Clear
+  _commandDescription: Clears Terminal Log.
+  _shouldClear: 1
+  _addByDefault: 1
+  _commandLineManager: {fileID: 47750906}
 --- !u!1 &100853205
 GameObject:
   m_ObjectHideFlags: 0
@@ -3156,6 +3193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _commandName: Status
+  _commandDescription: 
   _shouldClear: 0
   _addByDefault: 1
 --- !u!4 &996336460
@@ -5627,28 +5665,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1827312381}
   m_CullTransparentMesh: 1
---- !u!1 &1827873432 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3415718040627033561, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
-  m_PrefabInstance: {fileID: 1958240366}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1827873437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1827873432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d79448d1fdfb8d4ab9a0d539c889656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _commandName: Drop
-  _shouldClear: 0
-  _addByDefault: 1
-  _awaitingInputContext:
-    _commands: []
 --- !u!1 &1850297878
 GameObject:
   m_ObjectHideFlags: 0
@@ -6010,6 +6026,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SubPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 5149799429926061849, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _commandName
+      value: Room Coordinate
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149799429926061849, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _commandDescription
+      value: Enter Desired Room Coordinate. Options listed on map to right. ->
+      objectReference: {fileID: 0}
     - target: {fileID: 8159995191691637025, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: camera2D
       value: 
@@ -6023,10 +6047,7 @@ PrefabInstance:
     - {fileID: 2871253229670870890, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3415718040627033561, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1827873437}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
 --- !u!114 &2017526176 stripped
 MonoBehaviour:

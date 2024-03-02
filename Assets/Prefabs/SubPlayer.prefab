@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 1069844173496321416}
   - component: {fileID: 6964734754175833513}
   - component: {fileID: 5149799429926061849}
+  - component: {fileID: 7249539874730659434}
   m_Layer: 0
   m_Name: ItemPickup
   m_TagString: Untagged
@@ -145,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _commandName: Collect
+  _commandDescription: Collect Nearby room. Enter Room Key to Collect. "Collect __"
   _shouldClear: 0
   _addByDefault: 1
   _waitForNameContext:
@@ -187,9 +189,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _commandName: 
+  _commandDescription: 
   _shouldClear: 0
   _addByDefault: 0
   _pickupCommand: {fileID: 1069844173496321416}
+--- !u!114 &7249539874730659434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3415718040627033561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d79448d1fdfb8d4ab9a0d539c889656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _commandName: Drop
+  _commandDescription: Drop Room. Enter room coordinate to drop.
+  _shouldClear: 0
+  _addByDefault: 1
+  _awaitingInputContext:
+    _commands: []
 --- !u!1 &4513108998467818035
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,6 +427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _commandName: 
+  _commandDescription: 
   _shouldClear: 0
   _addByDefault: 0
   _waitForNameContext:
