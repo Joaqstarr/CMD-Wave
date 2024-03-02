@@ -14,6 +14,7 @@ public class FogOfWar : MonoBehaviour
     [SerializeField]
     private bool _resetTexture = false;
 
+
     public static FogOfWar Instance;
     public void Awake()
     {
@@ -133,7 +134,6 @@ public class FogOfWar : MonoBehaviour
 
     private void CreateSprite()
     {
-
-        spriteRend.sprite = Sprite.Create(fogOfWarTexture, new Rect(0, 0, fogOfWarTexture.width, fogOfWarTexture.height), Vector2.one * .5f, 100);
+        spriteRend.sprite = Sprite.Create(fogOfWarTexture, new Rect(0, 0, fogOfWarTexture.width, fogOfWarTexture.height), Vector2.one * .5f, 100,0,SpriteMeshType.FullRect);
     }
 }

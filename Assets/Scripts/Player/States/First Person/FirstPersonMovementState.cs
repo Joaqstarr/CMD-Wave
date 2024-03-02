@@ -75,6 +75,16 @@ public class FirstPersonMovementState : FirstPersonBaseState
     {
         Vector3 curRot = _player.HeadPos.eulerAngles;
         curRot.x += _playerData.LookSpeed * _playerControls.LookInput.y;
+        if(curRot.x > 180)
+        {
+            curRot.x = Mathf.Clamp(curRot.x, 270f, 361f);
+
+        }
+        else
+        {
+            curRot.x = Mathf.Clamp(curRot.x, -1, 90f);
+
+        }
         _player.HeadPos.eulerAngles = curRot;
 
     }
