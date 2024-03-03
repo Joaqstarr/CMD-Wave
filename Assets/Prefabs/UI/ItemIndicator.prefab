@@ -261,6 +261,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _label: {fileID: 357522214928353870}
+  _enterTweenData:
+    Duration: 0.2
+    Strength: 0
+    Ease: 27
+  _exitTweenData:
+    Duration: 0.2
+    Strength: 0
+    Ease: 26
 --- !u!225 &4274939382044256917
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -269,7 +277,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8753008898990170011}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

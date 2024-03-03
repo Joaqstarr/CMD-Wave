@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,6 +13,13 @@ public class ItemIndicator : MonoBehaviour
     private TMP_Text _label;
     CanvasGroup _group;
     private RectTransform _rectTransform;
+    [SerializeField]
+    private TweenData _enterTweenData;
+    [SerializeField]
+    private TweenData _exitTweenData;
+
+    private bool _shouldBeVisible = false;
+    private bool _isVisible = false;
     public void Initialize(Item linkedItem)
     {
         _initialized = true;
@@ -22,8 +30,16 @@ public class ItemIndicator : MonoBehaviour
 
         linkedItem.ItemSpawned += OnSpawn;
         linkedItem.ItemDespawned += OnDespawn;
-        _label.text = _linkedItem.RoomCode;
         _rectTransform = GetComponent<RectTransform>();
+
+        if (_linkedItem.gameObject.activeInHierarchy)
+        {
+            OnSpawn(_linkedItem.RoomCode);
+        }
+        else
+        {
+            OnDespawn(_linkedItem.RoomCode);
+        }
     }
 
     private void OnDisable()
@@ -42,16 +58,48 @@ public class ItemIndicator : MonoBehaviour
         Vector2 pos = ScreenUtility.Instance.WorldToScreenPoint(_linkedItem.transform.position);
         _rectTransform.anchoredPosition = pos;
 
+        UpdateVisibility();
+
     }
 
     private void OnSpawn(string key) {
-        _group.alpha = 1;
+        _shouldBeVisible = true;
         _label.text = key;
+
     }
 
     private void OnDespawn(string key)
     {
-        _group.alpha = 0;
 
+        _shouldBeVisible = false;
+    }
+
+    private void UpdateVisibility()
+    {
+        if (_shouldBeVisible && Mathf.Abs(_rectTransform.anchoredPosition.x) < 110 && Mathf.Abs(_rectTransform.anchoredPosition.y) < 110)
+        {
+            if (!_isVisible)
+            {
+                transform.DOComplete();
+                transform.localScale = Vector3.zero;
+                _group.alpha = 1;
+                transform.DOScale(Vector3.one, _enterTweenData.Duration).SetEase(_enterTweenData.Ease);
+                _isVisible = true;
+            }
+
+        }
+        else
+        {
+            if(_isVisible)
+            {
+                transform.DOComplete();
+
+                transform.localScale = Vector3.one;
+                _isVisible = false;
+
+                transform.DOScale(Vector3.zero, _exitTweenData.Duration).SetEase(_exitTweenData.Ease).onComplete += () => { _group.alpha = 0; };
+            }
+
+        }
     }
 }

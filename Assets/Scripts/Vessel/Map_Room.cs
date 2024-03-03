@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -31,6 +32,12 @@ public class Map_Room : MonoBehaviour
     private Map_Room _onLeft;
     [SerializeField]
     private Map_Room _onRight;
+
+    [Header("Tweens")]
+    [SerializeField] private TweenData _appearTween;
+    [SerializeField] private TweenData _disapearTween;
+
+
 
     TMP_Text _label;
     enum RoomStates { 
@@ -78,6 +85,8 @@ public class Map_Room : MonoBehaviour
             _roomTag = key;
             _roomTag = _roomTag.Replace(" ", string.Empty);
         }
+        if(_state != RoomStates.InUse)
+            transform.DOShakePosition(_appearTween.Duration, _appearTween.Strength, 9, 90, false, true).SetEase(_appearTween.Ease);
         _state = RoomStates.InUse;
         UpdateLabelText() ;
     }
@@ -85,6 +94,13 @@ public class Map_Room : MonoBehaviour
     {
         if (!_canBeSelected) return;
         _roomTag = _location.ToString();
+
+        if (_state != RoomStates.Selectable)
+        {
+            transform.DOShakePosition(_disapearTween.Duration, _disapearTween.Strength, 9, 90, false, true);
+
+        }
+
         _state = RoomStates.Selectable;
         UpdateLabelText();
 
@@ -92,6 +108,13 @@ public class Map_Room : MonoBehaviour
     }
     public void Deactivate()
     {
+
+        if (_state != RoomStates.Hidden)
+        {
+            transform.DOShakePosition(_disapearTween.Duration, _disapearTween.Strength, 9, 90, false, true);
+
+        }
+
         _state = RoomStates.Hidden;
         UpdateLabelText() ;
     }
