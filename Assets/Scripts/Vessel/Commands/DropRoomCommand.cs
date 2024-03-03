@@ -30,7 +30,7 @@ public class DropRoomCommand : CommandBase
                         Item droppedItem = ItemPool.Instance.GetFreeItem(droppedKey);
                         if (droppedItem != null)
                         {
-                            droppedItem.gameObject.SetActive(true);
+                            droppedItem.Spawn(droppedKey);
 
                             droppedItem.transform.position = transform.position;
 

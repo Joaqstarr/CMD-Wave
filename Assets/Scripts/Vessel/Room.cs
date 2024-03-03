@@ -18,7 +18,7 @@ public class Room : MonoBehaviour
     [SerializeField]
     private int pos;
     [SerializeField]
-    private CommandBase[] _commandsOnRoom;
+    private CommandBase[] _commandsOnRoom = new CommandBase[0];
     private void Awake()
     {
         if(_roomTag.Length < 2)
@@ -53,11 +53,5 @@ public class Room : MonoBehaviour
             return _commandsOnRoom;
         }
     }
-    public int AssociatedCommandsCount
-    {
-        get
-        {
-            return _commandsOnRoom.Length;
-        }
-    }
+
 }

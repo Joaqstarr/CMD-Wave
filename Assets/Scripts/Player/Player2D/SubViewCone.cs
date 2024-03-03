@@ -166,7 +166,8 @@ public class SubViewCone : MonoBehaviour
     {
         Vector3[] vertices = new Vector3[3];
         int vertexIndex = 1;
-        vertices[0] = _origin + transform.position;
+
+        vertices[0] = _origin;
         for (int i = 0; i <= 1; i++, vertexIndex++)
         {
             // convert current angle to vector3
@@ -175,15 +176,15 @@ public class SubViewCone : MonoBehaviour
 
             // set vertices of polygon
             Vector3 vertex = _origin + angleVector * _viewDistance;
-            vertex += transform.position;
-            _vertices[vertexIndex] = vertex;
+            vertices[vertexIndex] = vertex;
 
             // increase angle clockwise
             angle -= _fov;
         }
 
         transform.TransformPoints(vertices);
-        FogOfWar.Instance.MakeTriangle(_vertices[0], _vertices[1], _vertices[2]);
+
+        FogOfWar.Instance.MakeTriangle(vertices[0], vertices[1], vertices[2]);
     }
 
     public IEnumerator BlipGhostEffect(GameObject blip)

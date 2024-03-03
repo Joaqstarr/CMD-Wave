@@ -39,14 +39,7 @@ public class FirstPersonMovementState : FirstPersonBaseState
         LookX();
         LookY();
         _highlightedObject = CheckInteractable();
-        if(_highlightedObject != null)
-        {
-            Debug.Log("Highlighting");
-        }
-        else
-        {
-            Debug.Log("Not Highlighted");
-        }
+
 
         if (_highlightedObject != null)
         {

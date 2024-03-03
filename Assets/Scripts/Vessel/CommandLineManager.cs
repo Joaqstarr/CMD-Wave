@@ -35,6 +35,11 @@ public class CommandContext
     {
         _commands.Add(command);
     }
+
+    public void RemoveCommand(CommandBase command)
+    {
+        _commands.Remove(command);
+    }
     public int Count
     {
         get { return _commands.Count; }
@@ -48,7 +53,6 @@ public class CommandContext
 public class CommandLineManager : MonoBehaviour
 {
 
-    private EventSystem _eventSystem;
     private TMP_InputField _textBox;
 
     public delegate void OutputDisplay(string[] text, bool shouldClear);
@@ -56,15 +60,23 @@ public class CommandLineManager : MonoBehaviour
     [SerializeField]
     private List<CommandContext> _commands = new List<CommandContext>();
     private CommandContext _commandOveride;
-
+    public static CommandLineManager Instance;
     private bool _enteringCommand = false;
 
     [SerializeField]
     private CommandBase _helpCommand;
+    private void Awake()
+    {
+
+        if (Instance == null)
+            Instance = this;
+    }
     void Start()
     {
+
+
         _textBox = GetComponentInChildren<TMP_InputField>();
-        _eventSystem = EventSystem.current;
+
     }
 
     private void OnEnable()
@@ -188,5 +200,10 @@ public class CommandLineManager : MonoBehaviour
 
 
         return possibleCommands.ToArray();
+    }
+
+    public void AddContext(CommandContext context)
+    {
+        _commands.Add(context);
     }
 }

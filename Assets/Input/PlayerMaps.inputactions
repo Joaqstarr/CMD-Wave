@@ -323,6 +323,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "CommandLine",
+                    "type": "Button",
+                    "id": "6e5272a3-9886-4595-ab9f-9d419378e9fb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -391,6 +400,28 @@
                     "action": "MapMove",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "fccf1a8a-edaf-4bc5-8033-5aa6d1b8cad5",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + M",
+                    "action": "CommandLine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8f3d7e55-0a34-41c6-a54d-5d4d6242a143",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "CommandLine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

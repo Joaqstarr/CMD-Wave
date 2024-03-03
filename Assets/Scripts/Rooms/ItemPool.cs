@@ -17,12 +17,8 @@ public class ItemPool : MonoBehaviour
         {
             Destroy(this);
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
         _items = GetComponentsInChildren<Item>().ToList<Item>();
+
     }
 
 
@@ -39,4 +35,5 @@ public class ItemPool : MonoBehaviour
 
         return null;
     }
+    public List<Item> ItemList { get { return _items; } }
 }

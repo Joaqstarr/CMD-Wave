@@ -15,7 +15,7 @@ public abstract class CommandBase : MonoBehaviour
     {
         if (_addByDefault)
         {
-            GameObject.Find("Console").GetComponent<CommandLineManager>().AddCommand(this);
+            CommandLineManager.Instance.AddCommand(this);
         }
     }
     public abstract string[] Execute(out CommandContext overrideContext, string arg =null);
