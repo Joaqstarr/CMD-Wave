@@ -26,7 +26,6 @@ public class PlayerSubManager : MonoBehaviour
     public float _stunTimer;
     #endregion
 
-    // Start is called before the first frame update
     void Start()
     {
         // set components

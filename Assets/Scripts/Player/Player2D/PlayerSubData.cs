@@ -26,5 +26,7 @@ public class PlayerSubData : ScriptableObject
     public int sampleRate;
     public GameObject blipObject;
     public LayerMask collisionMask;
+    public Material defaultColor;
+    public Material enemyColor;
 
 }
