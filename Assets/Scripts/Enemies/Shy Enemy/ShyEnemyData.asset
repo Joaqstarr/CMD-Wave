@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 519ef3d04c4ce8147bb79530554873b6, type: 3}
   m_Name: ShyEnemyData
   m_EditorClassIdentifier: 
-  detectionRadius: 40
+  detectionRadius: 25
   speed: 3
   acceleration: 3
   health: 30

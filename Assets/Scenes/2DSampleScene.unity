@@ -253,7 +253,6 @@ GameObject:
   - component: {fileID: 479653938}
   - component: {fileID: 479653941}
   - component: {fileID: 479653942}
-  - component: {fileID: 479653943}
   m_Layer: 8
   m_Name: ShyEnemy
   m_TagString: Untagged
@@ -280,7 +279,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.44
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &479653937
 Transform:
@@ -418,24 +417,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 479653935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56048d6b80221604fbd5e52a32e29012, type: 3}
+  m_Script: {fileID: 11500000, guid: ff142924faf243441b54dbc1a51175ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &479653943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479653935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a537d958aa5bb4f35b0d7b40d72278f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  penalty: 1000
-  randomStep: 10
+  _enemyData: {fileID: 11400000, guid: 250ab26a2fa6ec8478bdbdbe84260943, type: 2}
+  _player: {fileID: 0}
+  _target: {fileID: 0}
+  _stunTimer: 0
 --- !u!1 &645030753
 GameObject:
   m_ObjectHideFlags: 0

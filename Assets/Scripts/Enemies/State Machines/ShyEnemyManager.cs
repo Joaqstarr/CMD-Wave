@@ -24,8 +24,11 @@ public class ShyEnemyManager : MonoBehaviour
     #endregion
 
     #region Variables
+    [HideInInspector]
     public GameObject _player;
+    [HideInInspector]
     public Transform _target;
+    [HideInInspector]
     public float _stunTimer;
     #endregion
     void Start()
@@ -48,7 +51,7 @@ public class ShyEnemyManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         CurrentState.OnUpdateState(this);
     }

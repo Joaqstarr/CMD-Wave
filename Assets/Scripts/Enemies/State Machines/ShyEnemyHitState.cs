@@ -16,7 +16,7 @@ public class ShyEnemyHitState : BaseEnemyBaseState
 
     public override void OnUpdateState(ShyEnemyManager enemy)
     {
-
+        
     }
 
     public override void OnFixedUpdateState(ShyEnemyManager enemy)

@@ -7,6 +7,7 @@ public class ShyEnemyIdleState : BaseEnemyBaseState
 {
     public override void OnEnterState(ShyEnemyManager enemy)
     {
+        Debug.Log("Idling");
         enemy.Pathfinder.canMove = false;
     }
 
