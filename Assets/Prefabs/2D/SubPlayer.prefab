@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 364870211307395117}
   - component: {fileID: 8159995191691637025}
   - component: {fileID: 1102588874256552187}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: RadarCone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
