@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FogOfWar : MonoBehaviour
@@ -12,7 +13,8 @@ public class FogOfWar : MonoBehaviour
     [SerializeField]
     private bool _resetTexture = false;
 
-
+    [SerializeField]
+    private Vector2Int _textureSize;
     public static FogOfWar Instance;
     public void Awake()
     {
@@ -25,6 +27,10 @@ public class FogOfWar : MonoBehaviour
             Destroy(this);
             return;
         }
+
+        if (_resetTexture) 
+            fogOfWarTexture.Reinitialize(_textureSize.x, _textureSize.y);
+
         pixelScale.x = fogOfWarTexture.width;
         pixelScale.y = fogOfWarTexture.height;
         worldScale.x = pixelScale.x / 100f * transform.localScale.x;
@@ -33,6 +39,7 @@ public class FogOfWar : MonoBehaviour
 
         if (_resetTexture)
         {
+            
             for (int i = 0; i < pixelScale.x; i++)
             {
                 for (int j = 0; j < pixelScale.y; j++)
