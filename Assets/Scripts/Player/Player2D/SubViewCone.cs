@@ -23,7 +23,6 @@ public class SubViewCone : MonoBehaviour
     private int _sampleRate; // how many times a second the cone scans for collision - UNUSED
     private LayerMask _collisionMask; // layer mask for raycast scan collisions
 
-    private float _angle;
     private float _angleIncrease;
     private float _aimAngle;
     private float _angleRadians;
@@ -59,8 +58,6 @@ public class SubViewCone : MonoBehaviour
         _sampleRate = data.sampleRate;
         _collisionMask = data.collisionMask;
 
-
-        _angle = 0f;
         _angleIncrease = _fov / _resolution;
         _scanWaiting = false;
 
@@ -116,10 +113,11 @@ public class SubViewCone : MonoBehaviour
 
         aimPos = (aimPos - transform.position).normalized;
         aimPos.z = 0;
+
         _aimAngle = Mathf.Atan2(aimPos.y, aimPos.x) * Mathf.Rad2Deg;
         if (_aimAngle < 0) _aimAngle += 360;
         
-        _angle = _aimAngle + (_fov/2f);
+        float angle = _aimAngle + (_fov/2f);
          
 
 
@@ -129,7 +127,7 @@ public class SubViewCone : MonoBehaviour
         for (int i = 0; i <= _resolution; i++, _vertexIndex++)
         {
             // convert current angle to vector3
-            _angleRadians = _angle * (Mathf.PI / 180f);
+            _angleRadians = angle * (Mathf.PI / 180f);
             _angleVector = new Vector3(Mathf.Cos(_angleRadians), Mathf.Sin(_angleRadians));
 
             // set vertices of polygon
@@ -147,7 +145,7 @@ public class SubViewCone : MonoBehaviour
             }
 
             // increase angle clockwise
-            _angle -= _angleIncrease;
+            angle -= _angleIncrease;
         }
 
         // set values to mesh to update cone
@@ -155,14 +153,13 @@ public class SubViewCone : MonoBehaviour
         _mesh.uv = _uv;
         _mesh.triangles = _triangles;
 
-
         // Check to scan collision
         if (!_scanWaiting) StartCoroutine(CollisionScan());
 
     }
     private void RepeatDrawFog()
     {
-        DrawFogOfWar(_angle);
+        DrawFogOfWar(_aimAngle + (_fov / 2f));
     }
     private void DrawFogOfWar(float angle)
     {
@@ -258,5 +255,36 @@ public class SubViewCone : MonoBehaviour
             }
         }
         return null;
+    }
+    private void OnDrawGizmosSelected()
+    {
+        float angle = _aimAngle + (_fov / 2f);
+
+        Debug.Log("Draw gizmos");
+
+        Vector3[] vertices = new Vector3[3];
+        int vertexIndex = 1;
+
+        vertices[0] = _origin;
+        for (int i = 0; i <= 1; i++, vertexIndex++)
+        {
+            // convert current angle to vector3
+            float angleRadians = angle * (Mathf.PI / 180f);
+            Vector3 angleVector = new Vector3(Mathf.Cos(angleRadians), Mathf.Sin(angleRadians));
+
+            // set vertices of polygon
+            Vector3 vertex = _origin + angleVector * _viewDistance;
+            vertices[vertexIndex] = vertex;
+
+            // increase angle clockwise
+            angle -= _fov;
+        }
+
+        transform.TransformPoints(vertices);
+        Debug.Log(vertices.Length);
+        for(int i = 0; i < vertices.Length; i++)
+        {
+            Gizmos.DrawSphere(vertices[i], 1f);
+        }
     }
 }
