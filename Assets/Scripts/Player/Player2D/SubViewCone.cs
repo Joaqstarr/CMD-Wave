@@ -44,6 +44,7 @@ public class SubViewCone : MonoBehaviour
 
     private void Start()
     {
+
         // variable assignments
         _mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = _mesh;
