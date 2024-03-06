@@ -17,11 +17,13 @@ public class TestEnemy : MonoBehaviour
     private Vector3 _velocity;
 
     private Rigidbody _rb;
+    private AIDestinationSetter _pathSetter;
 
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag("PlayerSub").GetComponent<PlayerSubManager>();
         _rb = GetComponent<Rigidbody>();
+        _pathSetter = GetComponent<AIDestinationSetter>();
 
         _lastPos = transform.position;
         _knockbackVector = Vector3.zero;
@@ -51,14 +53,35 @@ public class TestEnemy : MonoBehaviour
         }
 
         _lastPos = transform.position;
+
+        // test distance check\
+        RaycastHit hit;
+        if (!Physics.Linecast(transform.position, _player.transform.position, out hit, 9))
+        {
+            _pathSetter.target = _player.transform;
+        }
+        else
+        {
+            _pathSetter.target = null;
+            Debug.Log(hit.point);
+        }
     }
 
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("PlayerSub"))
         {
-            Debug.Log(_knockbackVector);
             _player.Health.OnHit(_damage, _knockbackVector, _stunDuration);
         }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 12)
+        {
+            Debug.Log("hit");
+            _pathSetter.target = null;
+        }
+
     }
 }

@@ -47,6 +47,7 @@ public class SubViewCone : MonoBehaviour
         // variable assignments
         _mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = _mesh;
+        GetComponent<MeshCollider>().sharedMesh = _mesh;
 
         _origin = transform.localPosition;
         _fov = data.fov;
@@ -222,6 +223,11 @@ public class SubViewCone : MonoBehaviour
                 {
                     // draw blip on hit
                     _rayCollisions[i] = GetBlip(hit.point);
+                    // check if enemy was hit
+                    if (hit.collider.gameObject.layer == 8)
+                        _rayCollisions[i].GetComponent<MeshRenderer>().material = data.enemyColor;
+                    else
+                        _rayCollisions[i].GetComponent<MeshRenderer>().material = data.defaultColor;
                     _rayCollisions[i].SetActive(true);
                 }
             }
