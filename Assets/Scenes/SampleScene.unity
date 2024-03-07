@@ -1813,7 +1813,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: -0.03999996}
-  m_SizeDelta: {x: 256, y: 256}
+  m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!43 &625834834
 Mesh:
@@ -6514,7 +6514,7 @@ PrefabInstance:
     - target: {fileID: 1730125559575496779, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: _plane
       value: 
-      objectReference: {fileID: 675593968}
+      objectReference: {fileID: 554950690}
     - target: {fileID: 1730125559575496779, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: camera2d
       value: 
