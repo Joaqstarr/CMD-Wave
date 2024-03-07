@@ -20,6 +20,8 @@ public class ItemIndicator : MonoBehaviour
 
     private bool _shouldBeVisible = false;
     private bool _isVisible = false;
+    [SerializeField]
+    private int _visibleWithin = 80;
     public void Initialize(Item linkedItem)
     {
         _initialized = true;
@@ -76,7 +78,7 @@ public class ItemIndicator : MonoBehaviour
 
     private void UpdateVisibility()
     {
-        if (_shouldBeVisible && Mathf.Abs(_rectTransform.anchoredPosition.x) < 110 && Mathf.Abs(_rectTransform.anchoredPosition.y) < 110)
+        if (_shouldBeVisible && Mathf.Abs(_rectTransform.anchoredPosition.x) < _visibleWithin && Mathf.Abs(_rectTransform.anchoredPosition.y) < _visibleWithin)
         {
             if (!_isVisible)
             {
