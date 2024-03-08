@@ -311,7 +311,7 @@ Transform:
   m_GameObject: {fileID: 51966601}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00000023841858, y: 142.1, z: -10}
+  m_LocalPosition: {x: 0.00000071525574, y: 142.1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -340,11 +340,11 @@ MonoBehaviour:
   m_Follow: {fileID: 1728336813}
   m_Lens:
     FieldOfView: 76.452934
-    OrthographicSize: 13
+    OrthographicSize: 26
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
-    ModeOverride: 0
+    ModeOverride: 1
     LensShift: {x: 0, y: 0}
     GateFit: 2
     FocusDistance: 10
