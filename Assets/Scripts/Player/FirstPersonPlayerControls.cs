@@ -8,6 +8,7 @@ public class FirstPersonPlayerControls : PlayerControls
 
     private Vector2 _moveInput = Vector2.zero;
     private Vector2 _lookInput = Vector2.zero;
+    private Vector2 _mousePos = Vector2.zero;
     private bool _selectPressed = false;
     public static FirstPersonPlayerControls Instance;
     private void Awake()
@@ -51,6 +52,7 @@ public class FirstPersonPlayerControls : PlayerControls
 
         return true;
     }
+
     public Vector2 MoveInput
     {
         get { return _moveInput; }
@@ -63,5 +65,10 @@ public class FirstPersonPlayerControls : PlayerControls
     public bool SelectPressed
     {
         get { return _selectPressed; }
+    }
+
+    public Vector2 MousePos
+    {
+        get { return _mousePos; }
     }
 }

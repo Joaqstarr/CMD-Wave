@@ -11,4 +11,5 @@ public class PlayerData : ScriptableObject
     [Header("Interactable")]
     public float InteractionRange;
     public LayerMask InteractionMask;
+
 }

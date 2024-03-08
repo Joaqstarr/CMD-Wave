@@ -332,6 +332,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Mouse Aim",
+                    "type": "Value",
+                    "id": "dde734e6-595c-4ef5-b2be-5ee852a045bc",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -420,6 +429,17 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "CommandLine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4cc8efe5-a95d-4320-b319-841e6633a7fb",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + M",
+                    "action": "Mouse Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
