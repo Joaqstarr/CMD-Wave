@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -10,6 +11,9 @@ public class Item : MonoBehaviour
 
     [SerializeField]
     private string _itemTag;
+
+    [SerializeField]
+    private Color _gizmoColor = Color.green;
 
     public string RoomCode{
         get { return _itemTag; }
@@ -37,7 +41,8 @@ public class Item : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
+        Gizmos.color = _gizmoColor;
         Gizmos.DrawSphere(transform.position, 1f);
+        Handles.Label(transform.position, _itemTag);
     }
 }

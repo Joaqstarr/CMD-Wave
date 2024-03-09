@@ -50,8 +50,5 @@ public class CameraRotateWithMouse : MonoBehaviour
         transform.localEulerAngles = eulerAngles;
     }
 
-    public static void poop()
-    {
 
-    }
 }
