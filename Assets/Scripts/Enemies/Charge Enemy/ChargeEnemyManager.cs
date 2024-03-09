@@ -3,17 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShyEnemyManager : MonoBehaviour
+public class ChargeEnemyManager : MonoBehaviour
 {
     [SerializeField]
-    private  BaseEnemyData _enemyData;
+    private BaseEnemyData _enemyData;
 
     #region StateReferences
-    public BaseEnemyBaseState CurrentState { get; private set; }
-    public ShyEnemyIdleState IdleState { get; private set; } = new ShyEnemyIdleState();
-    public ShyEnemySeekState SeekState { get; private set; } = new ShyEnemySeekState();
-    public ShyEnemyAttackState AttackState { get; private set; } = new ShyEnemyAttackState();
-    public ShyEnemyHitState HitState { get; private set; } = new ShyEnemyHitState();
+    public ChargeEnemyBaseState CurrentState { get; private set; }
+    public ChargeEnemyIdleState IdleState { get; private set; } = new ChargeEnemyIdleState();
+    public ChargeEnemySeekState SeekState { get; private set; } = new ChargeEnemySeekState();
+    public ChargeEnemyAttackState AttackState { get; private set; } = new ChargeEnemyAttackState();
+    public ChargeEnemyHitState HitState { get; private set; } = new ChargeEnemyHitState();
     #endregion
 
     #region ComponentReferences
@@ -26,6 +26,8 @@ public class ShyEnemyManager : MonoBehaviour
     #region Variables
     [HideInInspector]
     public GameObject _player;
+    [HideInInspector]
+    public PlayerSubData _playerData;
     [HideInInspector]
     public Transform _target;
     [HideInInspector]
@@ -41,7 +43,11 @@ public class ShyEnemyManager : MonoBehaviour
 
         // set variables
         _player = GameObject.FindGameObjectWithTag("PlayerSub");
+        _playerData = _player.GetComponent<PlayerSubManager>().SubData;
         _target = transform.Find("Target");
+
+        // set target
+        DestinationSetter.target = _target;
 
         // movement state
         CurrentState = IdleState;
@@ -61,7 +67,7 @@ public class ShyEnemyManager : MonoBehaviour
         CurrentState.OnFixedUpdateState(this);
     }
 
-    public void SwitchState(BaseEnemyBaseState newState)
+    public void SwitchState(ChargeEnemyBaseState newState)
     {
         if (CurrentState != null)
             CurrentState.OnExitState(this);

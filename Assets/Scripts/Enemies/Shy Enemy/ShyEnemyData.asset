@@ -9,13 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 519ef3d04c4ce8147bb79530554873b6, type: 3}
+  m_Script: {fileID: 11500000, guid: 73712b6b4057e954c864e2338a8de928, type: 3}
   m_Name: ShyEnemyData
   m_EditorClassIdentifier: 
   detectionRadius: 25
+  attackRadius: 10
   speed: 3
   acceleration: 3
   health: 30
   damage: 10
   knockbackValue: 20
   stunDuration: 0
+  stunReactionTime: 0.3

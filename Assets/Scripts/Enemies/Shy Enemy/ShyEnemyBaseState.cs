@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseEnemyBaseState
+public abstract class ShyEnemyBaseState
 {
     public abstract void OnEnterState(ShyEnemyManager enemy);
 

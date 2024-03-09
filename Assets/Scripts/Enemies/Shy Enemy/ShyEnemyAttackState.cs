@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
-public class ShyEnemySeekState : BaseEnemyBaseState
+//******* *CURRENTLY UNUSED ********
+public class ShyEnemyAttackState : ShyEnemyBaseState
 {
     public override void OnEnterState(ShyEnemyManager enemy)
     {
-        Debug.Log("Seeking");
-        enemy.DestinationSetter.target = enemy._player.transform;
+        Debug.Log("entering attack state");
     }
 
     public override void OnExitState(ShyEnemyManager enemy)
@@ -17,11 +18,11 @@ public class ShyEnemySeekState : BaseEnemyBaseState
 
     public override void OnUpdateState(ShyEnemyManager enemy)
     {
+
         // switch state conditionals
 
-        // idle
-        if (Vector3.Distance(enemy.transform.position, enemy._player.transform.position) > enemy.EnemyData.detectionRadius)
-            enemy.SwitchState(enemy.IdleState);
+        if (Vector3.Distance(enemy.transform.position, enemy._player.transform.position) > enemy.EnemyData.attackRadius)
+            enemy.SwitchState(enemy.SeekState);
     }
 
     public override void OnFixedUpdateState(ShyEnemyManager enemy)
