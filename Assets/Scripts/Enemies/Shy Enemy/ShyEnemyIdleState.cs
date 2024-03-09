@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShyEnemyIdleState : BaseEnemyBaseState
+public class ShyEnemyIdleState : ShyEnemyBaseState
 {
     public override void OnEnterState(ShyEnemyManager enemy)
     {
@@ -22,8 +22,9 @@ public class ShyEnemyIdleState : BaseEnemyBaseState
         // switch state conditionals
         
         // seek
-        if (Vector3.Distance(enemy.transform.position, enemy._player.transform.position) < enemy.EnemyData.detectionRadius)
-            enemy.SwitchState(enemy.SeekState);
+        if (Vector3.Distance(enemy.transform.position, enemy._player.transform.position) <= enemy.EnemyData.detectionRadius)
+            if (!Physics.Linecast(enemy.transform.position, enemy._player.transform.position, 9))
+                enemy.SwitchState(enemy.SeekState);
     }
 
     public override void OnFixedUpdateState(ShyEnemyManager enemy)

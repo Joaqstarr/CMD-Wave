@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = ("BaseEnemyData/Base Enemy Data"))]
 public class BaseEnemyData : ScriptableObject
 {
     [Header("General")]
     public float detectionRadius;
+    public float attackRadius;
 
     [Header("Movement")]
     public float speed;
@@ -17,4 +17,5 @@ public class BaseEnemyData : ScriptableObject
     public float damage;
     public float knockbackValue;
     public float stunDuration;
+
 }

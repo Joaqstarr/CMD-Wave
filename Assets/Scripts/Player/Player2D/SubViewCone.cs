@@ -9,6 +9,8 @@ using UnityEngine.UIElements;
 
 public class SubViewCone : MonoBehaviour
 {
+    public static float subAimAngle;
+
     public PlayerSubData data;
 
     public Camera camera2D; // camera for 2D terminal
@@ -116,9 +118,10 @@ public class SubViewCone : MonoBehaviour
 
         _aimAngle = Mathf.Atan2(aimPos.y, aimPos.x) * Mathf.Rad2Deg;
         if (_aimAngle < 0) _aimAngle += 360;
-        
+
+        subAimAngle = _aimAngle;
+
         float angle = _aimAngle + (_fov/2f);
-         
 
 
         //render mesh

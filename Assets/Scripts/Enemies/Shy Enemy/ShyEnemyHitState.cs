@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShyEnemyHitState : BaseEnemyBaseState
+public class ShyEnemyHitState : ShyEnemyBaseState
 {
     public override void OnEnterState(ShyEnemyManager enemy)
     {
