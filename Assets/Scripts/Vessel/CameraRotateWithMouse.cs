@@ -46,8 +46,12 @@ public class CameraRotateWithMouse : MonoBehaviour
         eulerAngles.x += (targetEuler.x - eulerAngles.x) * 0.1f;
         eulerAngles.y += (targetEuler.y - eulerAngles.y) * 0.1f;
 
-        Debug.Log(targetEuler + ", current: " + eulerAngles);
 
         transform.localEulerAngles = eulerAngles;
+    }
+
+    public static void poop()
+    {
+
     }
 }

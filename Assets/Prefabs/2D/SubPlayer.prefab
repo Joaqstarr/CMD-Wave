@@ -250,7 +250,6 @@ GameObject:
   - component: {fileID: 3476885700704300072}
   - component: {fileID: 61991290074149196}
   - component: {fileID: 1730125559575496779}
-  - component: {fileID: 2871253229670870890}
   - component: {fileID: 7502811325062379252}
   m_Layer: 9
   m_Name: SubPlayer
@@ -434,26 +433,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controlMap: Submarine
   _plane: {fileID: 0}
---- !u!114 &2871253229670870890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4513108998467818035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc9e3ef64fff0344b9faab764039145a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _commandName: 
-  _commandDescription: 
-  _shouldClear: 0
-  _addByDefault: 0
-  _waitForNameContext:
-    _commands: []
-  _waitForLocationContext:
-    _commands: []
 --- !u!114 &7502811325062379252
 MonoBehaviour:
   m_ObjectHideFlags: 0
