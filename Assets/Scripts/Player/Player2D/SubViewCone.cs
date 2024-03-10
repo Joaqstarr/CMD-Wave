@@ -43,6 +43,8 @@ public class SubViewCone : MonoBehaviour
     private GameObject _pooledBlip;
     private List<GameObject> _blips;
     private int _numBlips;
+    [SerializeField]
+    private float _fogAlpha = 0.1f;
 
     private void Start()
     {
@@ -191,7 +193,7 @@ public class SubViewCone : MonoBehaviour
 
         transform.TransformPoints(vertices);
 
-        FogOfWar.Instance.MakeTriangle(vertices[0], vertices[1], vertices[2]);
+        FogOfWar.Instance.MakeTriangle(vertices[0], vertices[1], vertices[2], _fogAlpha);
     }
 
     public IEnumerator BlipGhostEffect(GameObject blip)

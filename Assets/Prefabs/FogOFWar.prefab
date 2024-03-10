@@ -49,6 +49,7 @@ MonoBehaviour:
   spriteRend: {fileID: 4522263232594043558}
   _resetTexture: 1
   _textureSize: {x: 4096, y: 4096}
+  _coneFadeRemap: 0.6
 --- !u!212 &4522263232594043558
 SpriteRenderer:
   m_ObjectHideFlags: 0

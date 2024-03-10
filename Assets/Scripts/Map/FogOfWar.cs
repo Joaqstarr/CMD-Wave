@@ -15,7 +15,11 @@ public class FogOfWar : MonoBehaviour
 
     [SerializeField]
     private Vector2Int _textureSize;
+    [SerializeField]
+    private float _coneFadeRemap = 0.7f;
     public static FogOfWar Instance;
+
+
     public void Awake()
     {
         if (Instance == null)
@@ -104,7 +108,7 @@ public class FogOfWar : MonoBehaviour
         CreateSprite();
     }
 
-    public void MakeTriangle(Vector2 a, Vector2 b, Vector2 c)
+    public void MakeTriangle(Vector2 a, Vector2 b, Vector2 c, float alpha = 0)
     {
         Vector2Int pixelPosA = WorldToPixel(a);
         Vector2Int pixelPosB = WorldToPixel(b);
@@ -119,9 +123,39 @@ public class FogOfWar : MonoBehaviour
         for (int x = minX; x <= maxX; x++)
         {
             for (int y = minY; y <= maxY; y++) {
-                if (IsPointInTriangle(new Vector2Int(x, y), pixelPosA, pixelPosB, pixelPosC))
-                { 
-                    fogOfWarTexture.SetPixel(x, y, Color.clear);
+                Vector2Int pixelCheckPos = new Vector2Int(x, y);
+                if (IsPointInTriangle(pixelCheckPos, pixelPosA, pixelPosB, pixelPosC))
+                {
+                    
+                    Color pixelColor = fogOfWarTexture.GetPixel(x, y);
+
+
+                    Vector2 closestPoint = FindNearestPointOnLine(pixelPosA, ((pixelPosB + pixelPosC) /2)-pixelPosA, pixelCheckPos);
+
+                    Vector2 furthestPoint;
+                    if(Vector2.Distance(pixelCheckPos, pixelPosB) < Vector2.Distance(pixelCheckPos, pixelPosC))
+                        furthestPoint = FindNearestPointOnLine(pixelPosA, pixelPosB - pixelPosA, pixelCheckPos);
+                    else
+                        furthestPoint = FindNearestPointOnLine(pixelPosA, pixelPosC - pixelPosA, pixelCheckPos);
+
+
+                    float distance = Vector2.Distance(pixelCheckPos, closestPoint);
+                    distance = distance / Vector2.Distance(furthestPoint, closestPoint);
+
+
+                    distance -= _coneFadeRemap;
+                    distance = Mathf.Clamp01(distance);
+                    distance *= 1 / (1-_coneFadeRemap);
+                    
+                    pixelColor.a = Mathf.Min(pixelColor.a, Mathf.Lerp( alpha, 1, distance));
+
+
+                   // if(new Vector2Int(Mathf.RoundToInt(furthestPoint.x), Mathf.RoundToInt(y)) == pixelCheckPos)
+                  //  fogOfWarTexture.SetPixel(Mathf.RoundToInt( furthestPoint.x), Mathf.RoundToInt(y), Color.red);
+                  //  else
+                    
+                    fogOfWarTexture.SetPixel(x, y, pixelColor);
+
 
                 }
             }
@@ -129,6 +163,16 @@ public class FogOfWar : MonoBehaviour
 
         fogOfWarTexture.Apply();
         CreateSprite();
+    }
+
+
+    public Vector2 FindNearestPointOnLine(Vector2 origin, Vector2 direction, Vector2 point)
+    {
+        direction.Normalize();
+        Vector2 lhs = point - origin;
+
+        float dotP = Vector2.Dot(lhs, direction);
+        return origin + direction * dotP;
     }
 
     private bool IsPointInTriangle(Vector2Int pt, Vector2Int v1, Vector2Int v2, Vector2Int v3)

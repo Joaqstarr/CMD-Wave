@@ -39198,6 +39198,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2044198967}
     - target: {fileID: 8159995191691637025, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _fogAlpha
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8159995191691637025, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: SubControls
       value: 
       objectReference: {fileID: 1143794029}
