@@ -2091,7 +2091,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4522263232594043558, guid: 4667574f17aad7947a0e24e960180074, type: 3}
       propertyPath: m_Color.a
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4522263232594043558, guid: 4667574f17aad7947a0e24e960180074, type: 3}
       propertyPath: m_Color.b
@@ -2111,7 +2111,7 @@ PrefabInstance:
       objectReference: {fileID: 1143794030}
     - target: {fileID: 5098951677230916182, guid: 4667574f17aad7947a0e24e960180074, type: 3}
       propertyPath: _resetTexture
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -37632,7 +37632,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 18
+  m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 907940287}
@@ -39172,6 +39172,14 @@ PrefabInstance:
     - target: {fileID: 3476885700704300072, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475395377704592320, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _alpha
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475395377704592320, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _repeatWait
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 4513108998467818035, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: m_Name

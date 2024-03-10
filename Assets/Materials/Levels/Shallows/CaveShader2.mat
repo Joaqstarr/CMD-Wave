@@ -272,17 +272,17 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.44734782, g: 0.5754717, b: 0.57426864, a: 1}
+    - _Color: {r: 0.08235294, g: 1, b: 0, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
-    - _GradientColor: {r: 0.08437164, g: 0.08811334, b: 0.18867922, a: 1}
+    - _GradientColor: {r: 0, g: 0, b: 0, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _MinMaxCameraDist: {r: -0.42, g: 1.12, b: 0, a: 0}
-    - _MinMaxGradient: {r: 0.3, g: 1, b: 0, a: 0}
+    - _MinMaxGradient: {r: 0.52, g: 1, b: 0, a: 0}
     - _MinMaxGradientAlpha: {r: -0.48, g: 1, b: 0, a: 0}
     - _ScrollSpeed: {r: 0.02, g: 0.02, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}

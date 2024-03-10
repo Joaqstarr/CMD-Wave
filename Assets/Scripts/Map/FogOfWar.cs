@@ -67,7 +67,7 @@ public class FogOfWar : MonoBehaviour
          
     }
 
-    public void MakeHole(Vector2 position, float holeRadius)
+    public void MakeHole(Vector2 position, float holeRadius, float alpha = 0)
     {
         Vector2Int pixelPosition = WorldToPixel(position);
         int radius = Mathf.RoundToInt(holeRadius * pixelScale.x / worldScale.x);
@@ -82,10 +82,22 @@ public class FogOfWar : MonoBehaviour
                 py = Mathf.Clamp(pixelPosition.y + j, 0, pixelScale.y);
                 ny = Mathf.Clamp(pixelPosition.y - j, 0, pixelScale.y);
 
-                fogOfWarTexture.SetPixel(px, py, Color.clear);
-                fogOfWarTexture.SetPixel(nx, py, Color.clear);
-                fogOfWarTexture.SetPixel(px, ny, Color.clear);
-                fogOfWarTexture.SetPixel(nx, ny, Color.clear);
+                Color pColor = fogOfWarTexture.GetPixel(px, py);
+
+                pColor.a = Mathf.Min(pColor.a, Mathf.Lerp(alpha, 1, Mathf.Sin((float)j / distance)* Mathf.Cos((float)i / radius)));
+                fogOfWarTexture.SetPixel(px, py, pColor );
+
+                pColor = fogOfWarTexture.GetPixel(nx, py);
+                pColor.a = Mathf.Min(pColor.a, Mathf.Lerp(alpha, 1, Mathf.Sin((float)j / distance) * Mathf.Cos((float)i / radius))) ;
+                fogOfWarTexture.SetPixel(nx, py, pColor );
+
+                pColor = fogOfWarTexture.GetPixel(px, ny);
+                pColor.a = Mathf.Min(pColor.a, Mathf.Lerp(alpha, 1,Mathf.Sin((float)j / distance)* Mathf.Cos((float)i / radius)));
+                fogOfWarTexture.SetPixel(px, ny, pColor );
+                
+                pColor = fogOfWarTexture.GetPixel(nx, ny);
+                pColor.a = Mathf.Min(pColor.a, Mathf.Lerp(alpha, 1, Mathf.Sin((float)j / distance)* Mathf.Cos((float)i / radius))) ;
+                fogOfWarTexture.SetPixel(nx, ny, pColor );
             }
         }
         fogOfWarTexture.Apply();
