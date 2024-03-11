@@ -10,6 +10,8 @@ public class Room : MonoBehaviour
     private string _roomName;
 
     [SerializeField]
+    private Room _attachedUp;
+    [SerializeField]
     private Room _attachedLeft;
     [SerializeField]
     private Room _attachedRight;
@@ -21,6 +23,17 @@ public class Room : MonoBehaviour
     private CommandBase[] _commandsOnRoom = new CommandBase[0];
     [SerializeField]
     private bool _staticRoom;
+
+
+    [SerializeField]
+    private Door _upDoor;
+    [SerializeField]
+    private Door _downDoor;
+    [SerializeField]
+    private Door _leftDoor;
+    [SerializeField]
+    private Door _rightDoor;
+
     private void Awake()
     {
         if(_roomTag.Length < 2)
@@ -31,6 +44,34 @@ public class Room : MonoBehaviour
         {
            // _roomTag = _roomTag.Substring(0, 3);
         }
+    }
+
+    public void UpdateDoors()
+    {
+        if(_upDoor != null)
+            if (_attachedUp != null)
+                _upDoor.Open();
+            else
+                _upDoor.Close();
+
+        if (_downDoor != null)
+            if (_attachedDown != null)
+                _downDoor.Open();
+            else
+                _downDoor.Close();
+
+        if (_leftDoor != null)
+            if (_attachedLeft != null)
+                _leftDoor.Open();
+            else
+                _leftDoor.Close();
+
+        if (_rightDoor != null)
+            if (_attachedRight != null)
+                _rightDoor.Open();
+            else
+                _rightDoor.Close();
+
     }
   
 
@@ -48,6 +89,8 @@ public class Room : MonoBehaviour
     public Room Left { get { return _attachedLeft; } set { _attachedLeft = value; } }
     public Room Right { get { return _attachedRight; } set { _attachedRight = value; } }
     public Room Down { get { return _attachedDown; } set { _attachedDown = value; } }
+
+    public Room Up { get { return _attachedUp; } set { _attachedUp = value; } }
 
     public CommandBase[] AssociatedCommands
     {

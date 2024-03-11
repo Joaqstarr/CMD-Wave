@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,9 @@ public class PlayerSubControls : PlayerControls
     private Vector2 _moveInput = Vector2.zero;
     private Vector2 _aimInput = Vector2.zero;
     // control aim?
-    
+
+    [SerializeField]
+    private CinemachineVirtualCamera _screenCamera;
 
 
     #region Control Events
@@ -26,7 +29,10 @@ public class PlayerSubControls : PlayerControls
     }
     public override bool OnSubMove(InputValue Value)
     {
-        if (!base.OnSubMove(Value)) return false;
+        if (!base.OnSubMove(Value)) {
+            _moveInput = Vector2.zero;
+            return false;
+        } 
 
         // input code
         _moveInput = Value.Get<Vector2>();
@@ -52,7 +58,14 @@ public class PlayerSubControls : PlayerControls
 
         return true;
     }
+    public override bool OnExit(InputValue Value)
+    {
+        if (CommandLineManager.Instance.IsTyping) return false;
 
+        FirstPersonPlayerControls.Instance.UnPossess();
+
+        return true;
+    }
     public override bool OnAim(InputValue Value)
     {
         if (!base.OnAim(Value)) return false;
@@ -63,7 +76,7 @@ public class PlayerSubControls : PlayerControls
     public override bool OnCommandLine(InputValue Value)
     {
         //if (!base.OnCommandLine(Value)) return false;
-
+        if (CommandLineManager.Instance.IsTyping) return false;
         if(openCommandLine != null)
         {
             openCommandLine();
@@ -92,5 +105,23 @@ public class PlayerSubControls : PlayerControls
 
 
         return localpoint;
+    }
+
+    public override void OnPosessed()
+    {
+        base.OnPosessed();
+
+        if(_screenCamera != null)
+            _screenCamera.Priority = 11;
+    }
+    public override void OnUnPosessed()
+    {
+        base.OnUnPosessed();
+
+        _moveInput = Vector2.zero;
+        
+
+        if (_screenCamera != null)
+            _screenCamera.Priority = 0;
     }
 }

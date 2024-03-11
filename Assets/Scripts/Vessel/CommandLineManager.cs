@@ -92,7 +92,6 @@ public class CommandLineManager : MonoBehaviour
     {
         if (_enteringCommand) return;
         _enteringCommand = true;
-        Debug.Log("Command");
         _textBox.text = string.Empty;
         _textBox.ActivateInputField();
     }
@@ -205,5 +204,10 @@ public class CommandLineManager : MonoBehaviour
     public void AddContext(CommandContext context)
     {
         _commands.Add(context);
+    }
+
+    public bool IsTyping
+    {
+        get { return _enteringCommand; }
     }
 }

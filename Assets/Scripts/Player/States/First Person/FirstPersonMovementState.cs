@@ -12,6 +12,7 @@ public class FirstPersonMovementState : FirstPersonBaseState
 
     private GameObject _highlightedObject;
     private bool _pressedLastFrame;
+    private bool _pressedInteractable = false;
     public override void OnEnterState(FirstPersonPlayerManager player)
     {
         #region Global Variable Setup
@@ -41,10 +42,11 @@ public class FirstPersonMovementState : FirstPersonBaseState
         _highlightedObject = CheckInteractable();
 
 
-        if (_highlightedObject != null)
+        if (_highlightedObject != null && !_pressedInteractable)
         {
             if (!_pressedLastFrame && _playerControls.SelectPressed)
             {
+                _pressedInteractable = true;
                 _highlightedObject.SendMessage("OnInteracted", _playerControls);
             }
         }
@@ -54,7 +56,9 @@ public class FirstPersonMovementState : FirstPersonBaseState
     private void Move()
     {
         Vector3 MoveDirection = _player.transform.forward * _playerControls.MoveInput.y + _player.transform.right * _playerControls.MoveInput.x;
-        _controller.Move(MoveDirection * _playerData.MoveSpeed * Time.deltaTime);
+        MoveDirection *= _playerData.MoveSpeed;
+        MoveDirection.y += _playerData.Gravity;
+        _controller.Move(MoveDirection * Time.deltaTime);
     }
 
     private void LookX()
@@ -89,6 +93,7 @@ public class FirstPersonMovementState : FirstPersonBaseState
         {
             return hit.transform.gameObject;
         }
+        _pressedInteractable = false;
         return null;
     }
 }

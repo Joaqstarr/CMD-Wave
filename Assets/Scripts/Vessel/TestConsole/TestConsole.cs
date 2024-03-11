@@ -9,7 +9,7 @@ public class TestConsole : MonoBehaviour, IInteractable
 
     public void OnInteracted(PlayerControls playerInteracted)
     {
-        GetComponentInChildren<CinemachineVirtualCamera>().Priority = 11;
+        //GetComponentInChildren<CinemachineVirtualCamera>().Priority = 11;
         playerInteracted.Possess(_subPlayer);
     }
 
