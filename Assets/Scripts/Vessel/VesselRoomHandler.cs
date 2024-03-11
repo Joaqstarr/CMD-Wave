@@ -97,6 +97,10 @@ public class VesselRoomHandler : MonoBehaviour
             }
 
             PlacedRooms[position].transform.parent = RoomPool.Instance.transform;
+            if (!PlacedRooms[position].IsStatic)
+            {
+                PlacedRooms[position].transform.localPosition = Vector3.zero;
+            }
             keyRemoved = PlacedRooms[position].RoomTag;
 
             PlacedRooms.Remove(position);
