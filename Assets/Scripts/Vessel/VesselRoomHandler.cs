@@ -123,6 +123,23 @@ public class VesselRoomHandler : MonoBehaviour
 
             PlacedRooms.Remove(position);
 
+            if(roomRemoving.Right != null)
+            {
+                roomRemoving.Right.Left = null;
+            }
+            if (roomRemoving.Left != null)
+            {
+                roomRemoving.Left.Right = null;
+            }
+            if (roomRemoving.Up != null)
+            {
+                roomRemoving.Up.Down = null;
+            }
+            if (roomRemoving.Down != null)
+            {
+                roomRemoving.Down.Up = null;
+            }
+
             if (roomRemoving.RoomConnectedCount > 1)
             {
                 AddRoom(RoomPool.Instance.GetHall(), position);
