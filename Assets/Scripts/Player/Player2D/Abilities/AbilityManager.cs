@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class AbilityManager : MonoBehaviour
 {
+    public AbilityArchetype[] _allAbilities;
     public AbilityArchetype _activeAbility;
     public KeyCode _key; //for testing
     public GameObject _dart; // for testing
@@ -18,6 +19,20 @@ public class AbilityManager : MonoBehaviour
 
     private void Start()
     {
+        _allAbilities = GetComponentsInChildren<AbilityArchetype>();
+        foreach (AbilityArchetype ability in _allAbilities)
+        {
+            if (ability._data.numToPool > 0)
+            {
+                GameObject holder = new GameObject(ability.name + "Holder");
+                holder.transform.parent = this.transform;
+                for (int i = 0;  i < ability._data.numToPool; i++)
+                {
+                    Instantiate(ability._data.abilityPrefab, holder.transform);
+                }
+                holder.SetActive(false);
+            }
+        }
         _player = transform.parent.gameObject;
     }
 

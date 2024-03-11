@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63e6b7ab0b280a4c9064c9a97f3744e, type: 3}
   m_Name: ScanDart
   m_EditorClassIdentifier: 
+  abilityName: ScanDart
   commandShortcut: sc
+  abilityPrefab: {fileID: 2876899260794383, guid: 158a93383d119db4f9b3e87241e2a8a8, type: 3}
+  numToPool: 3
   cooldown: 0
-  launchForce: 500
+  launchForce: 20
+  collideWith:
+    serializedVersion: 2
+    m_Bits: 457

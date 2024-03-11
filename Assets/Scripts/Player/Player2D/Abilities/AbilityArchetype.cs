@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.WSA;
 
-public abstract class AbilityArchetype : ScriptableObject
+public class AbilityArchetype : MonoBehaviour
 {
-    public string commandShortcut;
-    public float cooldown;
+    public AbilityData _data;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
     public virtual void UseAbility(GameObject player, GameObject ability)
     {
 
