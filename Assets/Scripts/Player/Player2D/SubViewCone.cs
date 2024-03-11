@@ -270,7 +270,6 @@ public class SubViewCone : MonoBehaviour
     {
         float angle = _aimAngle + (_fov / 2f);
 
-        Debug.Log("Draw gizmos");
 
         Vector3[] vertices = new Vector3[3];
         int vertexIndex = 1;
@@ -291,7 +290,6 @@ public class SubViewCone : MonoBehaviour
         }
 
         transform.TransformPoints(vertices);
-        Debug.Log(vertices.Length);
         for(int i = 0; i < vertices.Length; i++)
         {
             Gizmos.DrawSphere(vertices[i], 1f);

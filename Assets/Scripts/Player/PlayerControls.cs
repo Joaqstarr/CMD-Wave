@@ -17,8 +17,9 @@ public class PlayerControls : MonoBehaviour
     }
     public virtual bool OnFPMove(InputValue Value)
     {
-        if(_possesedInput != null)
+        if(_possesedInput != null || CommandLineManager.Instance.IsTyping)
         {
+
             _possesedInput.OnFPMove(Value);
 
             return false;
@@ -28,7 +29,7 @@ public class PlayerControls : MonoBehaviour
 
     public virtual bool OnLook(InputValue Value)
     {
-        if (_possesedInput != null)
+        if (_possesedInput != null || CommandLineManager.Instance.IsTyping)
         {
             _possesedInput.OnLook(Value);
             return false;
@@ -39,8 +40,9 @@ public class PlayerControls : MonoBehaviour
     }
     public virtual bool OnSelect(InputValue Value)
     {
-        if (_possesedInput != null)
-        { 
+
+        if (_possesedInput != null || CommandLineManager.Instance.IsTyping)
+        {
             _possesedInput.OnSelect(Value);
             return false;
         }
@@ -50,8 +52,9 @@ public class PlayerControls : MonoBehaviour
     }
     public virtual bool OnSubMove(InputValue Value)
     {
-        if (_possesedInput != null)
+        if (_possesedInput != null || CommandLineManager.Instance.IsTyping)
         {
+
             _possesedInput.OnSubMove(Value);
             return false;
         }
@@ -62,7 +65,7 @@ public class PlayerControls : MonoBehaviour
 
     public virtual bool OnAim(InputValue Value)
     {
-        if (_possesedInput != null)
+        if (_possesedInput != null || CommandLineManager.Instance.IsTyping)
         {
             _possesedInput.OnAim(Value);
             return false;
@@ -74,7 +77,7 @@ public class PlayerControls : MonoBehaviour
 
     public virtual bool OnMouseAim(InputValue Value)
     {
-        if (_possesedInput != null)
+        if (_possesedInput != null || CommandLineManager.Instance.IsTyping)
         {
             _possesedInput.OnMouseAim(Value);
             return false;
@@ -86,7 +89,7 @@ public class PlayerControls : MonoBehaviour
     
     public virtual bool OnCommandLine(InputValue Value)
     {
-        if(_possesedInput != null)
+        if(_possesedInput != null || CommandLineManager.Instance.IsTyping)
         {
             _possesedInput.OnCommandLine(Value);
             return false;
@@ -97,9 +100,20 @@ public class PlayerControls : MonoBehaviour
 
     public virtual bool OnMapMove(InputValue Value)
     {
-        if (_possesedInput != null)
+        if (_possesedInput != null || CommandLineManager.Instance.IsTyping)
         {
             _possesedInput.OnMapMove(Value);
+            return false;
+        }
+
+        return true;
+    }
+
+    public virtual bool OnExit(InputValue Value)
+    {
+        if (_possesedInput != null || CommandLineManager.Instance.IsTyping)
+        {
+            _possesedInput.OnExit(Value);
             return false;
         }
 
@@ -130,10 +144,15 @@ public class PlayerControls : MonoBehaviour
             _possesedInput.Input = Input;
         }
 
+        inputToPosess.OnPosessed();
+
     }
 
     public void UnPossess()
     {
+        if (_possesedInput == null) return;
+
+        _possesedInput.OnUnPosessed();
         _possesedInput = null;
         if (_input != null)
         {
@@ -142,13 +161,11 @@ public class PlayerControls : MonoBehaviour
     }
     public void UnPossess(PlayerControls controlToUnposess)
     {
-        if(_possesedInput == controlToUnposess || _possesedInput == null)
+        if (_possesedInput == null) return;
+
+        if (_possesedInput == controlToUnposess || _possesedInput == null)
         {
-            _possesedInput = null;
-            if (_input != null)
-            {
-                _input.SwitchCurrentActionMap(ControlMap);
-            }
+            UnPossess();
 
         }
         else
@@ -183,6 +200,16 @@ public class PlayerControls : MonoBehaviour
             }
             _input = value; 
         }
+    }
+
+    public virtual void OnPosessed()
+    {
+        Debug.Log(this + " posessed");
+
+    }
+    public virtual void OnUnPosessed()
+    {
+        Debug.Log(this + " unpossessed");
     }
 
 

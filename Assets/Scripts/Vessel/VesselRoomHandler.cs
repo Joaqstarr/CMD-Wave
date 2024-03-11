@@ -68,21 +68,32 @@ public class VesselRoomHandler : MonoBehaviour
         {
             room.Left = PlacedRooms[left];
             PlacedRooms[left].Right = room;
+            PlacedRooms[left].UpdateDoors();
+
         }
         if (PlacedRooms.ContainsKey(right))
         {
             room.Right = PlacedRooms[right];
             PlacedRooms[right].Left = room;
+            PlacedRooms[right].UpdateDoors();
+
 
         }
         if (PlacedRooms.ContainsKey(down))
         {
             room.Down = PlacedRooms[down];
+            PlacedRooms[down].Up = room;
+            PlacedRooms[down].UpdateDoors();
+
         }
-        if(PlacedRooms.ContainsKey(up))
+        if (PlacedRooms.ContainsKey(up))
         {
+            room.Up = PlacedRooms[up];
             PlacedRooms[up].Down = room;
+            PlacedRooms[up].UpdateDoors();
         }
+
+        room.UpdateDoors();
         UpdateMap(false);
     }
 

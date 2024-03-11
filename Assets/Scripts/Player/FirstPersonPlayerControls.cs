@@ -21,7 +21,10 @@ public class FirstPersonPlayerControls : PlayerControls
 
     public override bool OnFPMove(InputValue Value)
     {
-        if(!base.OnFPMove(Value))return false;
+        if (!base.OnFPMove(Value)) {
+            _moveInput = Vector2.zero;
+            return false;
+        }
 
         //input code here
         _moveInput = Value.Get<Vector2>();
@@ -31,7 +34,11 @@ public class FirstPersonPlayerControls : PlayerControls
 
     public override bool OnLook(InputValue Value)
     {
-        if (!base.OnFPMove(Value)) return false;
+        if (!base.OnLook(Value))
+        {
+            _lookInput = Vector2.zero;
+            return false;
+        }
 
         //input code here
         _lookInput = Value.Get<Vector2>();
@@ -46,7 +53,11 @@ public class FirstPersonPlayerControls : PlayerControls
 
     public override bool OnSelect(InputValue Value)
     {
-        if (!base.OnFPMove(Value)) return false;
+        if (!base.OnSelect(Value))
+        {
+            _selectPressed = false;
+            return false;
+        }
         
         _selectPressed = Value.isPressed;
 
