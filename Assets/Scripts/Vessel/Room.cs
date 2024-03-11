@@ -19,6 +19,8 @@ public class Room : MonoBehaviour
     private int pos;
     [SerializeField]
     private CommandBase[] _commandsOnRoom = new CommandBase[0];
+    [SerializeField]
+    private bool _staticRoom;
     private void Awake()
     {
         if(_roomTag.Length < 2)
@@ -54,4 +56,8 @@ public class Room : MonoBehaviour
         }
     }
 
+    public bool IsStatic
+    {
+        get { return _staticRoom; }
+    }
 }

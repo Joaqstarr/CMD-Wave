@@ -7,10 +7,18 @@ public class VesselRoomHandler : MonoBehaviour
     [SerializeField]
     Room _commandRoom;
     Room[] _rooms;
+    [SerializeField]
+    private float _roomDistance = 7;
+    [SerializeField]
+    private Vector3 _startRoomArrayPosition;
 
     Dictionary<Vector2Int, Room> PlacedRooms = new Dictionary<Vector2Int, Room>();
     public static VesselRoomHandler Instance {  get; private set; }
     public CommandContext RoomsContext { get; private set; } = new CommandContext();
+
+    [Header("Debug")]
+    [SerializeField]
+    private Vector2Int _roomArraySize;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +45,10 @@ public class VesselRoomHandler : MonoBehaviour
     {
         room.transform.parent = transform;
         room.Position = (position.x*10)+ position.y;
+
+        if(!room.IsStatic) 
+            room.transform.position = _startRoomArrayPosition + new Vector3(position.y* _roomDistance, 0,position.x*-_roomDistance);
+        
         Debug.Log(position.ToString());
         PlacedRooms.Add(position, room);
 
@@ -107,4 +119,19 @@ public class VesselRoomHandler : MonoBehaviour
 
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+
+        for (int i = 0; i < _roomArraySize.x; i++)
+        {
+            for(int j = 0; j < _roomArraySize.y; j++)
+            {
+                Gizmos.DrawSphere(_startRoomArrayPosition + new Vector3(j * _roomDistance,0, i * -_roomDistance), 0.5f);
+            }
+        }
+
+        Gizmos.color= Color.green;
+        Gizmos.DrawSphere(_startRoomArrayPosition + new Vector3(Mathf.RoundToInt(_roomArraySize.y / 2f) * _roomDistance, 0, -3.5f), 0.5f);
+    }
 }
