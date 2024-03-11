@@ -3019,6 +3019,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01446f55ed636ef4cb38b668cd255fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hallwayPrefab: {fileID: 6325898368089984689, guid: e7feb73b525d17042be59af9e2eb3574, type: 3}
+  _hallwayCount: 15
 --- !u!4 &664338542
 Transform:
   m_ObjectHideFlags: 0

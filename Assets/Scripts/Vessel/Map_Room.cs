@@ -10,6 +10,7 @@ using static UnityEditor.PlayerSettings;
 public class Map_Room : MonoBehaviour
 {
 
+
     [SerializeField]
     private string _roomTag;
     [SerializeField]
@@ -37,7 +38,7 @@ public class Map_Room : MonoBehaviour
     [SerializeField] private TweenData _appearTween;
     [SerializeField] private TweenData _disapearTween;
 
-
+    private RectTransform _transform;
 
     TMP_Text _label;
     enum RoomStates { 
@@ -50,6 +51,7 @@ public class Map_Room : MonoBehaviour
     private void Awake()
     {
         _label = GetComponentInChildren<TMP_Text>();
+        _transform = GetComponent<RectTransform>();
 
     }
     // Start is called before the first frame update
@@ -86,7 +88,11 @@ public class Map_Room : MonoBehaviour
             _roomTag = _roomTag.Replace(" ", string.Empty);
         }
         if(_state != RoomStates.InUse)
-            transform.DOShakePosition(_appearTween.Duration, _appearTween.Strength, 9, 90, false, true).SetEase(_appearTween.Ease);
+        {
+            _transform.DOComplete();
+            _transform.DOShakePosition(_appearTween.Duration, _appearTween.Strength, 9, 90, false, true).SetEase(_appearTween.Ease);
+
+        }
         _state = RoomStates.InUse;
         UpdateLabelText() ;
     }
@@ -97,7 +103,9 @@ public class Map_Room : MonoBehaviour
 
         if (_state != RoomStates.Selectable)
         {
-            transform.DOShakePosition(_disapearTween.Duration, _disapearTween.Strength, 9, 90, false, true);
+            _transform.DOComplete();
+
+            _transform.DOShakePosition(_disapearTween.Duration, _disapearTween.Strength, 9, 90,false, true);
 
         }
 
@@ -111,7 +119,9 @@ public class Map_Room : MonoBehaviour
 
         if (_state != RoomStates.Hidden)
         {
-            transform.DOShakePosition(_disapearTween.Duration, _disapearTween.Strength, 9, 90, false, true);
+            _transform.DOComplete();
+
+            _transform.DOShakePosition(_disapearTween.Duration, _disapearTween.Strength, 9, 90, false,true);
 
         }
 
@@ -153,5 +163,9 @@ public class Map_Room : MonoBehaviour
     public Map_Room OnUp
     {
         get { return _onUp; }
+    }
+    public string RoomTag
+    {
+        get { return _roomTag; }
     }
 }

@@ -91,7 +91,7 @@ public class Map : MonoBehaviour
     {   
         for (int i = 0; i < _mapRooms.Length; i++)
         {
-            if (_mapRooms[i].Activated)
+            if (_mapRooms[i].Activated && _mapRooms[i].RoomTag != "")
                 _mapRooms[i].MakeSelectable();
 
         }

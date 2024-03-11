@@ -102,20 +102,33 @@ public class VesselRoomHandler : MonoBehaviour
         keyRemoved = "";
         if(PlacedRooms.ContainsKey(position))
         {
-            for (int i = 0; i < PlacedRooms[position].AssociatedCommands.Length; i++)
+            if (PlacedRooms[position].RoomTag == " ") return false;
+
+            Room roomRemoving = PlacedRooms[position];
+            for (int i = 0; i < roomRemoving.AssociatedCommands.Length; i++)
             {
-                RoomsContext.RemoveCommand(PlacedRooms[position].AssociatedCommands[i]);
+                RoomsContext.RemoveCommand(roomRemoving.AssociatedCommands[i]);
             }
 
-            PlacedRooms[position].transform.parent = RoomPool.Instance.transform;
-            if (!PlacedRooms[position].IsStatic)
+            roomRemoving.transform.parent = RoomPool.Instance.transform;
+            if (!roomRemoving.IsStatic)
             {
-                PlacedRooms[position].transform.localPosition = Vector3.zero;
+                roomRemoving.transform.localPosition = Vector3.zero;
             }
-            keyRemoved = PlacedRooms[position].RoomTag;
+
+
+
+
+            keyRemoved = roomRemoving.RoomTag;
 
             PlacedRooms.Remove(position);
+
+            if (roomRemoving.RoomConnectedCount > 1)
+            {
+                AddRoom(RoomPool.Instance.GetHall(), position);
+            }
             UpdateMap(false);
+
 
             return true;
         }

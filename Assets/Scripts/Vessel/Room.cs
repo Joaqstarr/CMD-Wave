@@ -103,4 +103,21 @@ public class Room : MonoBehaviour
     {
         get { return _staticRoom; }
     }
+
+    public int RoomConnectedCount
+    {
+        get
+        {
+            int count = 0;
+            if(_attachedDown)
+                count++;
+            if(_attachedLeft)
+                count++;
+            if(_attachedRight)
+                count++;
+            if (_attachedUp)
+                count++;
+            return count;
+        }
+    }
 }

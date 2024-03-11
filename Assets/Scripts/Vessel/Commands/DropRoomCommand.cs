@@ -41,10 +41,14 @@ public class DropRoomCommand : CommandBase
                 }
                 else
                 {
+                    VesselRoomHandler.Instance.UpdateMap(false);
+                    _awaitingInput = false;
                     return CommandLineManager.StringToArray("Invalid Room Position");
                 }
             }
             {
+                VesselRoomHandler.Instance.UpdateMap(false);
+                _awaitingInput = false;
                 return CommandLineManager.StringToArray("Invalid Room Position");
             }
         }
@@ -62,6 +66,8 @@ public class DropRoomCommand : CommandBase
 
 
         }
+        VesselRoomHandler.Instance.UpdateMap(false);
+        _awaitingInput = false;
         return CommandLineManager.StringToArray("Invalid Room Position");
 
     }
@@ -82,6 +88,7 @@ public class DropRoomCommand : CommandBase
             }
             VesselRoomHandler.Instance.UpdateMap(false);
             _inputCommand = "";
+            _awaitingInput = false;
             return false;
         }
         else
