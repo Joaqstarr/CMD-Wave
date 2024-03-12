@@ -205,6 +205,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "EquippedPower",
+                    "type": "Button",
+                    "id": "9dcac87e-5936-4a42-831e-975cf5405515",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -326,6 +335,28 @@
                     "processors": "",
                     "groups": "Keyboard + M",
                     "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b7531091-febb-4483-8b1e-c18b0502aae4",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EquippedPower",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d57ad9bf-83da-4ef5-bc0b-0f043db9b835",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EquippedPower",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

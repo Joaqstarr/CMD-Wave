@@ -16,13 +16,27 @@ public class AbilityArchetype : MonoBehaviour
     {
         
     }
-    public virtual void UseAbility(GameObject player, GameObject ability)
+    public void UseAbility(GameObject player, GameObject ability)
     {
-
+        if (_data !=  null)
+        {
+            _data.UseAbility(player, ability);
+        }
     }
 
-    public virtual void UseAbility(GameObject player)
+    public void UseAbility(GameObject player)
     {
+        if (_data != null)
+        {
+            _data.UseAbility(player);
+        }
+    }
 
+    public void OnActivationFailed()
+    {
+        if (_data != null )
+        {
+            _data.OnActivationFailed();
+        }
     }
 }

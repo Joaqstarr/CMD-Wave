@@ -9,6 +9,7 @@ public class PlayerSubControls : PlayerControls, IDataPersistance
     public static PlayerSubControls Instance;
     private Vector2 _moveInput = Vector2.zero;
     private Vector2 _aimInput = Vector2.zero;
+    private bool _powerPressed;
     // control aim?
 
     [SerializeField]
@@ -88,6 +89,20 @@ public class PlayerSubControls : PlayerControls, IDataPersistance
         return true;
     }
 
+    public override bool OnEquippedPower(InputValue Value)
+    {
+        if (!base.OnEquippedPower(Value))
+        {
+            _powerPressed = false;
+            return false;
+        }
+
+        Debug.Log(Value.isPressed);
+        _powerPressed = Value.isPressed;
+
+        return true;
+    }
+
     public Vector2 MoveInput
     {
         get { return _moveInput; }
@@ -96,6 +111,10 @@ public class PlayerSubControls : PlayerControls, IDataPersistance
     public Vector2 AimInput
     {
         get { return _aimInput; }
+    }
+    public bool PowerPressed
+    {
+        get { return _powerPressed; }
     }
 
     [SerializeField] RectTransform _plane;

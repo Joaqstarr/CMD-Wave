@@ -157,6 +157,25 @@ public class PlayerControls : MonoBehaviour
         return true;
     }
 
+    public virtual bool OnEquippedPower(InputValue Value)
+    {
+        if (CommandLineManager.Instance != null)
+        {
+            if (CommandLineManager.Instance.IsTyping)
+            {
+                _possesedInput.OnEquippedPower(Value);
+                return false;
+            }
+        }
+        if (_possesedInput != null)
+        {
+            _possesedInput.OnEquippedPower(Value);
+            return false;
+        }
+
+        return true;
+    }
+
     public virtual bool OnMapMove(InputValue Value)
     {
 
