@@ -17,7 +17,15 @@ public class PlayerControls : MonoBehaviour
     }
     public virtual bool OnFPMove(InputValue Value)
     {
-        if(_possesedInput != null || CommandLineManager.Instance.IsTyping)
+        if (CommandLineManager.Instance != null)
+        {
+            if (CommandLineManager.Instance.IsTyping)
+            {
+                _possesedInput.OnFPMove(Value);
+                return false;
+            }
+        }
+        if (_possesedInput != null)
         {
 
             _possesedInput.OnFPMove(Value);
@@ -29,7 +37,16 @@ public class PlayerControls : MonoBehaviour
 
     public virtual bool OnLook(InputValue Value)
     {
-        if (_possesedInput != null || CommandLineManager.Instance.IsTyping)
+
+        if (CommandLineManager.Instance != null)
+        {
+            if (CommandLineManager.Instance.IsTyping)
+            {
+                _possesedInput.OnLook(Value);
+                return false;
+            }
+        }
+        if (_possesedInput != null )
         {
             _possesedInput.OnLook(Value);
             return false;
@@ -41,7 +58,15 @@ public class PlayerControls : MonoBehaviour
     public virtual bool OnSelect(InputValue Value)
     {
 
-        if (_possesedInput != null || CommandLineManager.Instance.IsTyping)
+        if (CommandLineManager.Instance != null)
+        {
+            if (CommandLineManager.Instance.IsTyping)
+            {
+                _possesedInput.OnSelect(Value);
+                return false;
+            }
+        }
+        if (_possesedInput != null )
         {
             _possesedInput.OnSelect(Value);
             return false;
@@ -52,7 +77,15 @@ public class PlayerControls : MonoBehaviour
     }
     public virtual bool OnSubMove(InputValue Value)
     {
-        if (_possesedInput != null || CommandLineManager.Instance.IsTyping)
+        if (CommandLineManager.Instance != null)
+        {
+            if (CommandLineManager.Instance.IsTyping)
+            {
+                _possesedInput.OnSubMove(Value);
+                return false;
+            }
+        }
+        if (_possesedInput != null )
         {
 
             _possesedInput.OnSubMove(Value);
@@ -65,7 +98,15 @@ public class PlayerControls : MonoBehaviour
 
     public virtual bool OnAim(InputValue Value)
     {
-        if (_possesedInput != null || CommandLineManager.Instance.IsTyping)
+        if (CommandLineManager.Instance != null)
+        {
+            if (CommandLineManager.Instance.IsTyping)
+            {
+                _possesedInput.OnAim(Value);
+                return false;
+            }
+        }
+        if (_possesedInput != null )
         {
             _possesedInput.OnAim(Value);
             return false;
@@ -77,8 +118,18 @@ public class PlayerControls : MonoBehaviour
 
     public virtual bool OnMouseAim(InputValue Value)
     {
-        if (_possesedInput != null || CommandLineManager.Instance.IsTyping)
+        if(CommandLineManager.Instance != null)
         {
+            if (CommandLineManager.Instance.IsTyping)
+            {
+                _possesedInput.OnMouseAim(Value);
+                return false;
+            }
+        }
+        if (_possesedInput != null )
+        {
+
+
             _possesedInput.OnMouseAim(Value);
             return false;
         }
@@ -89,7 +140,15 @@ public class PlayerControls : MonoBehaviour
     
     public virtual bool OnCommandLine(InputValue Value)
     {
-        if(_possesedInput != null || CommandLineManager.Instance.IsTyping)
+        if (CommandLineManager.Instance != null)
+        {
+            if (CommandLineManager.Instance.IsTyping)
+            {
+                _possesedInput.OnCommandLine(Value);
+                return false;
+            }
+        }
+        if (_possesedInput != null)
         {
             _possesedInput.OnCommandLine(Value);
             return false;
@@ -100,7 +159,16 @@ public class PlayerControls : MonoBehaviour
 
     public virtual bool OnMapMove(InputValue Value)
     {
-        if (_possesedInput != null || CommandLineManager.Instance.IsTyping)
+
+        if (CommandLineManager.Instance != null)
+        {
+            if (CommandLineManager.Instance.IsTyping)
+            {
+                _possesedInput.OnMapMove(Value);
+                return false;
+            }
+        }
+        if (_possesedInput != null)
         {
             _possesedInput.OnMapMove(Value);
             return false;
@@ -111,7 +179,15 @@ public class PlayerControls : MonoBehaviour
 
     public virtual bool OnExit(InputValue Value)
     {
-        if (_possesedInput != null || CommandLineManager.Instance.IsTyping)
+        if (CommandLineManager.Instance != null)
+        {
+            if (CommandLineManager.Instance.IsTyping)
+            {
+                _possesedInput.OnExit(Value);
+                return false;
+            }
+        }
+        if (_possesedInput != null)
         {
             _possesedInput.OnExit(Value);
             return false;

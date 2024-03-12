@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 654.4361, g: 425.01422, b: 343.5435, a: 1}
+  m_IndirectSpecularColor: {r: 651.4742, g: 423.52814, b: 343.71927, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9701,8 +9701,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c1be198d554535d41b553fe97d02c363, type: 2}
-  m_sharedMaterial: {fileID: -7973111086233948975, guid: c1be198d554535d41b553fe97d02c363, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1b22d9b8903c9b5409565bd25d5933d8, type: 2}
+  m_sharedMaterial: {fileID: -4955251742446620056, guid: 1b22d9b8903c9b5409565bd25d5933d8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -37807,6 +37807,18 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1021ec8bd1651fd46860aeecc86f2c1b, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2786534777698132407, guid: 1021ec8bd1651fd46860aeecc86f2c1b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 74297a2e13d0c5f4aac4b94f86212773, type: 2}
+    - target: {fileID: 5148817236446094103, guid: 1021ec8bd1651fd46860aeecc86f2c1b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507901977716847365, guid: 1021ec8bd1651fd46860aeecc86f2c1b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7339356831882890532, guid: 1021ec8bd1651fd46860aeecc86f2c1b, type: 3}
       propertyPath: m_Materials.Array.data[0]

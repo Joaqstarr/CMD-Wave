@@ -206,7 +206,7 @@ Material:
     - _IridescenceThickness: 1
     - _LinkDetailsWithBase: 1
     - _MaterialID: 1
-    - _Max: 0.62
+    - _Max: 2.67
     - _Metallic: 0
     - _MetallicRemapMax: 1
     - _MetallicRemapMin: 0
@@ -281,8 +281,8 @@ Material:
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _MinMaxCameraDist: {r: -0.42, g: 1.12, b: 0, a: 0}
-    - _MinMaxGradient: {r: 0.04, g: 0.67, b: 0, a: 0}
-    - _MinMaxGradientAlpha: {r: 0.42, g: 1.03, b: 0, a: 0}
+    - _MinMaxGradient: {r: 0.04, g: 1, b: 0, a: 0}
+    - _MinMaxGradientAlpha: {r: 0.63, g: 1.03, b: 0, a: 0}
     - _ScrollSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}

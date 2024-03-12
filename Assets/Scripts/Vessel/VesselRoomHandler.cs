@@ -135,8 +135,6 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
             }
 
 
-
-
             keyRemoved = roomRemoving.RoomTag;
 
             PlacedRooms.Remove(position);
@@ -158,14 +156,17 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
                 roomRemoving.Down.Up = null;
             }
 
-            roomRemoving.Up = null;
-            roomRemoving.Down = null;
-            roomRemoving.Left = null;
-            roomRemoving.Right = null;
+
+
             if (roomRemoving.RoomConnectedCount > 1)
             {
                 AddRoom(RoomPool.Instance.GetHall(), position);
             }
+
+            roomRemoving.Up = null;
+            roomRemoving.Down = null;
+            roomRemoving.Left = null;
+            roomRemoving.Right = null;
             UpdateMap(false);
 
 

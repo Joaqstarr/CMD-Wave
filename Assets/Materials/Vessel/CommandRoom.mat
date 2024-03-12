@@ -135,7 +135,7 @@ Material:
     - _AORemapMin: 0
     - _ATDistance: 1
     - _AddPrecomputedVelocity: 0
-    - _AlbedoAffectEmissive: 0
+    - _AlbedoAffectEmissive: 1
     - _AlphaCutoff: 0.5
     - _AlphaCutoffEnable: 0
     - _AlphaCutoffPostpass: 0.5
@@ -165,7 +165,7 @@ Material:
     - _DoubleSidedNormalMode: 1
     - _DstBlend: 0
     - _EmissiveColorMode: 1
-    - _EmissiveExposureWeight: 1
+    - _EmissiveExposureWeight: 0.991
     - _EmissiveIntensity: 50000
     - _EmissiveIntensityUnit: 0
     - _EnableBlendModePreserveSpecularLighting: 1
@@ -250,8 +250,8 @@ Material:
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissiveColor: {r: 979.10706, g: 37450.977, b: 0, a: 50000}
-    - _EmissiveColorLDR: {r: 0.14989322, g: 0.88031507, b: 0, a: 1}
+    - _EmissiveColor: {r: 790.9805, g: 1484.3229, b: 670.32513, a: 50000}
+    - _EmissiveColorLDR: {r: 0.13246381, g: 0.18867922, b: 0.11997151, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
