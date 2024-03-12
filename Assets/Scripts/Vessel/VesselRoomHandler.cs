@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VesselRoomHandler : MonoBehaviour
+public class VesselRoomHandler : MonoBehaviour, IDataPersistance
 {
     [SerializeField]
     Room _commandRoom;
@@ -19,6 +19,7 @@ public class VesselRoomHandler : MonoBehaviour
     [Header("Debug")]
     [SerializeField]
     private Vector2Int _roomArraySize;
+    private Vector2Int[] _roomPositions;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,17 @@ public class VesselRoomHandler : MonoBehaviour
         else
         {
             Destroy(this);
+        }
+
+        _roomPositions = new Vector2Int[(_roomArraySize.x-1) * _roomArraySize.y];
+
+        int f = 0;
+        for (int i = 1; i <= _roomPositions.Length / _roomArraySize.y; i++)
+        {
+            for(int j = 0; j < _roomPositions.Length/(_roomArraySize.x-1); j++, f++)
+            {
+                _roomPositions[f] = new Vector2Int(i, j);
+            }
         }
 
         if(_commandRoom == null)
@@ -50,6 +62,12 @@ public class VesselRoomHandler : MonoBehaviour
             room.transform.position = _startRoomArrayPosition + new Vector3(position.y* _roomDistance, 0,position.x*-_roomDistance);
         
         Debug.Log(position.ToString());
+        if (PlacedRooms.ContainsKey(position))
+        {
+            PlacedRooms[position].transform.parent = RoomPool.Instance.transform;
+            PlacedRooms[position].transform.localPosition = Vector3.zero;
+            PlacedRooms.Remove(position);
+        }
         PlacedRooms.Add(position, room);
 
         for(int i = 0;i<room.AssociatedCommands.Length; i++)
@@ -178,5 +196,48 @@ public class VesselRoomHandler : MonoBehaviour
 
         Gizmos.color= Color.green;
         Gizmos.DrawSphere(_startRoomArrayPosition + new Vector3(Mathf.RoundToInt(_roomArraySize.y / 2f) * _roomDistance, 0, -3.5f), 0.5f);
+    }
+
+    public void SaveData(ref SaveData data)
+    {
+        UpdateRooms();
+
+        data._roomPositions = new SerializableDictionary<string, Vector2Int>();
+        data._roomPlaces = new SerializableDictionary<Vector2Int, string>();
+
+        for(int i = 0; i <_rooms.Length; i++)
+        {
+            if (!_rooms[i].IsStatic)
+            {
+                data._roomPositions.Add(_rooms[i].RoomTag, _rooms[i].PositionVector);
+                data._roomPlaces.Add(_rooms[i].PositionVector, _rooms[i].RoomTag);
+
+            }
+        }
+
+    }
+    private void ClearRooms()
+    {
+        PlacedRooms.Clear();
+        UpdateRooms();
+        for(int i = 0; i < _rooms.Length; i++)
+        {
+            foreach(Room room in _rooms)
+            {
+                if(!room.IsStatic)
+                    room.transform.parent = RoomPool.Instance.transform;
+            }
+        }
+    }
+    public void LoadData(SaveData data)
+    {
+        ClearRooms();
+        for(int i = 0; i < _roomPositions.Length; i++)
+        {
+            if (data._roomPlaces.ContainsKey(_roomPositions[i]))
+            {
+                AddRoom(RoomPool.Instance.GetRoom(data._roomPlaces[_roomPositions[i]]), _roomPositions[i]);
+            }
+        }
     }
 }

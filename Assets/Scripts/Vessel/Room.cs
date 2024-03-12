@@ -73,7 +73,8 @@ public class Room : MonoBehaviour
                 _rightDoor.Close();
 
     }
-  
+
+
 
     public int Position { get { return pos; } set { pos = value; } }
 

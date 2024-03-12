@@ -53,6 +53,9 @@ public class Map : MonoBehaviour
                 curRoom.Activate(roomList[i].RoomTag);
                 if (showSelectable)
                 {
+                    if (curRoom.RoomTag == "" || curRoom.RoomTag == " ")
+                        curRoom.MakeSelectable();
+
                     if (curRoom.OnDown != null)
                         if (!curRoom.OnDown.Activated)
                         {

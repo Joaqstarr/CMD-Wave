@@ -18,7 +18,6 @@ public class CommandContext
         { 
             if (_commands[i].CheckCommand(command))
             {
-                Debug.Log("check n execute: " + args);
 
                 shouldClear = _commands[i].ShouldClear;
                 string[] result = _commands[i].Execute(out overrideContext, args);

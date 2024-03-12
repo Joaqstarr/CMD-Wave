@@ -40,6 +40,10 @@ public class RoomPool : MonoBehaviour
     {
         key = key.ToLower();
 
+        if(key == " " || key == "")
+        {
+            return GetHall();
+        }
         if (!_roomsDictionary.ContainsKey(key))
         {
             return null;
