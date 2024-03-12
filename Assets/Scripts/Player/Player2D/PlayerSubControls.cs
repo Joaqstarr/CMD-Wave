@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerSubControls : PlayerControls
+public class PlayerSubControls : PlayerControls, IDataPersistance
 {
     public static PlayerSubControls Instance;
     private Vector2 _moveInput = Vector2.zero;
@@ -13,6 +13,7 @@ public class PlayerSubControls : PlayerControls
 
     [SerializeField]
     private CinemachineVirtualCamera _screenCamera;
+    private Rigidbody _rigidbody;
 
 
     #region Control Events
@@ -26,6 +27,8 @@ public class PlayerSubControls : PlayerControls
             Instance = this;
         else
             Destroy(this);
+
+        _rigidbody = GetComponent<Rigidbody>();
     }
     public override bool OnSubMove(InputValue Value)
     {
@@ -123,5 +126,17 @@ public class PlayerSubControls : PlayerControls
 
         if (_screenCamera != null)
             _screenCamera.Priority = 0;
+    }
+
+    public void SaveData(ref SaveData data)
+    {
+        float[] position = { transform.position.x, transform.position.y };
+        data._subPosition = position;
+    }
+
+    public void LoadData(SaveData data)
+    {
+
+        _rigidbody.MovePosition(new Vector2(data._subPosition[0], data._subPosition[1]));
     }
 }

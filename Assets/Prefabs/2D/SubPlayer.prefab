@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: bec618dbb3541754e9df4ee264b2c319, type: 2}
   camera2D: {fileID: 0}
+  _fogAlpha: 0.1
 --- !u!64 &1102588874256552187
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -118,7 +119,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
 --- !u!1 &3415718040627033561
@@ -433,6 +434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controlMap: Submarine
+  _screenCamera: {fileID: 0}
   _plane: {fileID: 0}
 --- !u!114 &7502811325062379252
 MonoBehaviour:
@@ -461,6 +463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _repeatWait: 0.1
   _radius: 9
+  _alpha: 0.3
 --- !u!1 &7893241390055514323
 GameObject:
   m_ObjectHideFlags: 0

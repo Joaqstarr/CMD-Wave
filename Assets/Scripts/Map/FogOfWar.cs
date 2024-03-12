@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class FogOfWar : MonoBehaviour
+public class FogOfWar : MonoBehaviour, IDataPersistance
 {
     public Texture2D fogOfWarTexture;
     public SpriteRenderer spriteRend;
@@ -191,5 +191,20 @@ public class FogOfWar : MonoBehaviour
     private void CreateSprite()
     {
         spriteRend.sprite = Sprite.Create(fogOfWarTexture, new Rect(0, 0, fogOfWarTexture.width, fogOfWarTexture.height), Vector2.one * .5f, 100,0,SpriteMeshType.FullRect);
+    }
+
+    public void SaveData(ref SaveData data)
+    {
+        data._fogOfWarTexture = fogOfWarTexture;
+
+        
+    }
+
+    public void LoadData(SaveData data)
+    {
+        if (data._fogOfWarTexture == null) return;
+
+        fogOfWarTexture.SetPixels(data._fogOfWarTexture.GetPixels());
+        fogOfWarTexture.Apply();
     }
 }
