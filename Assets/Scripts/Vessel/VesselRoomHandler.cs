@@ -114,9 +114,19 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
         room.UpdateDoors();
         UpdateMap(false);
     }
+    public bool RemoveRoom(string roomTag, out string keyRemoved)
+    {
+        keyRemoved = "";
+        Room roomToDrop = GetRoom(roomTag);
+        if (roomToDrop == null)
+            return false;
 
+        return RemoveRoom(roomToDrop.PositionVector, out keyRemoved);
+    }
     public bool RemoveRoom(Vector2Int position, out string keyRemoved)
     {
+        
+
         keyRemoved = "";
         if(PlacedRooms.ContainsKey(position))
         {
@@ -223,6 +233,7 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
     }
     private void ClearRooms()
     {
+        RoomsContext.Clear();
         PlacedRooms.Clear();
         UpdateRooms();
         for(int i = 0; i < _rooms.Length; i++)
@@ -240,6 +251,29 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
                 }
             }
         }
+    }
+
+    private Room GetRoom(string roomTag)
+    {
+        for (int i = 0; i < _rooms.Length; i++)
+        {
+            if (_rooms[i].RoomTag.ToUpper() == roomTag.ToUpper())
+                return _rooms[i];
+        }
+        return null;
+    }
+    public int AmountOfRooms(string roomTag)
+    {
+        UpdateRooms();
+        int amt = 0;
+
+        for(int i = 0; i < _rooms.Length; i++)
+        {
+            if (_rooms[i].RoomTag.ToUpper() == roomTag.ToUpper())
+                amt++;
+        }
+
+        return amt;
     }
     public void LoadData(SaveData data)
     {

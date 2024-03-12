@@ -21,7 +21,6 @@ public class PlayerControls : MonoBehaviour
         {
             if (CommandLineManager.Instance.IsTyping)
             {
-                _possesedInput.OnFPMove(Value);
                 return false;
             }
         }
@@ -42,7 +41,6 @@ public class PlayerControls : MonoBehaviour
         {
             if (CommandLineManager.Instance.IsTyping)
             {
-                _possesedInput.OnLook(Value);
                 return false;
             }
         }
@@ -62,7 +60,6 @@ public class PlayerControls : MonoBehaviour
         {
             if (CommandLineManager.Instance.IsTyping)
             {
-                _possesedInput.OnSelect(Value);
                 return false;
             }
         }
@@ -81,7 +78,6 @@ public class PlayerControls : MonoBehaviour
         {
             if (CommandLineManager.Instance.IsTyping)
             {
-                _possesedInput.OnSubMove(Value);
                 return false;
             }
         }
@@ -102,7 +98,6 @@ public class PlayerControls : MonoBehaviour
         {
             if (CommandLineManager.Instance.IsTyping)
             {
-                _possesedInput.OnAim(Value);
                 return false;
             }
         }
@@ -122,7 +117,6 @@ public class PlayerControls : MonoBehaviour
         {
             if (CommandLineManager.Instance.IsTyping)
             {
-                _possesedInput.OnMouseAim(Value);
                 return false;
             }
         }
@@ -144,7 +138,6 @@ public class PlayerControls : MonoBehaviour
         {
             if (CommandLineManager.Instance.IsTyping)
             {
-                _possesedInput.OnCommandLine(Value);
                 return false;
             }
         }
@@ -163,13 +156,11 @@ public class PlayerControls : MonoBehaviour
         {
             if (CommandLineManager.Instance.IsTyping)
             {
-                _possesedInput.OnEquippedPower(Value);
                 return false;
             }
         }
         if (_possesedInput != null)
         {
-            _possesedInput.OnEquippedPower(Value);
             return false;
         }
 
@@ -183,7 +174,6 @@ public class PlayerControls : MonoBehaviour
         {
             if (CommandLineManager.Instance.IsTyping)
             {
-                _possesedInput.OnMapMove(Value);
                 return false;
             }
         }
@@ -202,7 +192,6 @@ public class PlayerControls : MonoBehaviour
         {
             if (CommandLineManager.Instance.IsTyping)
             {
-                _possesedInput.OnExit(Value);
                 return false;
             }
         }

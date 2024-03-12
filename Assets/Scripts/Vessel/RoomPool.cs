@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoomPool : MonoBehaviour
@@ -27,12 +28,14 @@ public class RoomPool : MonoBehaviour
         _rooms = GetComponentsInChildren<Room>();
         foreach (Room room in _rooms)
         {
-            _roomsDictionary.Add(room.RoomTag.ToLower(), room);
+            if(!_roomsDictionary.ContainsKey(room.RoomTag.ToLower()))
+                _roomsDictionary.Add(room.RoomTag.ToLower(), room);
         }
 
         for(int i = 0; i < _hallwayCount; i++)
         {
             Room spawnedHall = Instantiate(_hallwayPrefab, Vector3.zero, _hallwayPrefab.transform.rotation,transform);
+            spawnedHall.transform.localPosition = Vector3.zero;
             _hallways.Add (spawnedHall);
         }
     }
@@ -48,15 +51,19 @@ public class RoomPool : MonoBehaviour
         {
             return null;
         }
+        for(int i = 0; i < _rooms.Length; i++)
+        {
+            if (_rooms[i].RoomTag.ToLower() == key && _rooms[i].transform.parent == transform)
+                return _rooms[i];
+        }
+        //Room room = _roomsDictionary[key];
 
-        Room room = _roomsDictionary[key];
-
-        return room;
+        return null;
     }
 
     public Room GetHall()
     {
-        for(int i =0 ; i < _hallwayCount;i++)
+        for(int i =0 ; i < _hallways.Count; i++)
         {
             if (_hallways[i].transform.parent == transform)
             {

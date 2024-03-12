@@ -90,12 +90,25 @@ public class Map : MonoBehaviour
     }
 
 
-    public void MakeAllSelectable()
+    public void MakeAllSelectable(string tagtoCheck = "")
     {   
+
         for (int i = 0; i < _mapRooms.Length; i++)
         {
             if (_mapRooms[i].Activated && _mapRooms[i].RoomTag != "")
-                _mapRooms[i].MakeSelectable();
+            {
+                if (tagtoCheck != "")
+                {
+                    if (_mapRooms[i].RoomTag.ToLower() == tagtoCheck.ToLower())
+                    {
+                        _mapRooms[i].MakeSelectable();
+
+                    }
+                }
+                else
+                    _mapRooms[i].MakeSelectable();
+
+            }
 
         }
     }

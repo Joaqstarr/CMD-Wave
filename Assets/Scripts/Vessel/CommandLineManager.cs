@@ -48,6 +48,10 @@ public class CommandContext
         return _commands[index];
     }
 
+    public void Clear()
+    {
+        _commands.Clear();
+    }
 }
 public class CommandLineManager : MonoBehaviour
 {

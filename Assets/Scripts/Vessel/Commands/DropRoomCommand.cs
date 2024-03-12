@@ -46,10 +46,47 @@ public class DropRoomCommand : CommandBase
                     return CommandLineManager.StringToArray("Invalid Room Position");
                 }
             }
+            else
             {
+                int amountOfRooms = VesselRoomHandler.Instance.AmountOfRooms(arg);
+
+                if (arg != " " && amountOfRooms > 0)
+                {
+                    if(amountOfRooms <= 1)
+                    {
+                        if (VesselRoomHandler.Instance.RemoveRoom(arg, out string droppedKey))
+                        {
+                            if (droppedKey != string.Empty)
+                            {
+
+                                Item droppedItem = ItemPool.Instance.GetFreeItem(droppedKey);
+                                if (droppedItem != null)
+                                {
+                                    droppedItem.Spawn(droppedKey);
+
+                                    droppedItem.transform.position = transform.position;
+
+                                }
+                            }
+                            return CommandLineManager.StringToArray("Room Removed: " + droppedKey.ToUpper());
+
+                        }
+                    }
+                    else
+                    {
+                        Map.Instance.MakeAllSelectable(arg);
+                        _awaitingInput  = true;
+                        overrideContext = _awaitingInputContext;
+
+                        return CommandLineManager.StringToArray("More than 1 room of type attached. Please enter the coordinates for 1.");
+
+                    }
+                }
+
+
                 VesselRoomHandler.Instance.UpdateMap(false);
                 _awaitingInput = false;
-                return CommandLineManager.StringToArray("Invalid Room Position");
+                return CommandLineManager.StringToArray("Invalid Room Position 2" + arg + ", " + amountOfRooms);
             }
         }
         else
@@ -68,7 +105,7 @@ public class DropRoomCommand : CommandBase
         }
         VesselRoomHandler.Instance.UpdateMap(false);
         _awaitingInput = false;
-        return CommandLineManager.StringToArray("Invalid Room Position");
+        return CommandLineManager.StringToArray("Invalid Room Position 3");
 
     }
     public override bool CheckCommand(string commandName)
