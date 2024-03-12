@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Coral
     second: {fileID: 2100000, guid: 83f8e30ea6eed994580867cbfda335b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Spike
+    second: {fileID: 2100000, guid: 49651e9bd9369ed45a578e24cdbe3de0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
