@@ -158,6 +158,10 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
                 roomRemoving.Down.Up = null;
             }
 
+            roomRemoving.Up = null;
+            roomRemoving.Down = null;
+            roomRemoving.Left = null;
+            roomRemoving.Right = null;
             if (roomRemoving.RoomConnectedCount > 1)
             {
                 AddRoom(RoomPool.Instance.GetHall(), position);
@@ -224,15 +228,25 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
         {
             foreach(Room room in _rooms)
             {
-                if(!room.IsStatic)
+                if (!room.IsStatic)
+                {
                     room.transform.parent = RoomPool.Instance.transform;
+                    room.Up = null;
+                    room.Down = null;
+                    room.Left = null;
+                    room.Right = null;
+
+                }
             }
         }
     }
     public void LoadData(SaveData data)
     {
+
         ClearRooms();
-        for(int i = 0; i < _roomPositions.Length; i++)
+        AddRoom(_commandRoom, _commandRoom.PositionVector);
+
+        for (int i = 0; i < _roomPositions.Length; i++)
         {
             if (data._roomPlaces.ContainsKey(_roomPositions[i]))
             {

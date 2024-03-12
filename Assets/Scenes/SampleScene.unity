@@ -27175,7 +27175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _commandRoom: {fileID: 1090923415904737678}
   _roomDistance: 7
-  _startRoomArrayPosition: {x: -14, y: -2, z: -304.74}
+  _startRoomArrayPosition: {x: -14, y: -1.98, z: -304.7}
   _roomArraySize: {x: 4, y: 5}
 --- !u!43 &1026776640
 Mesh:
