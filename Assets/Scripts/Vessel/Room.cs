@@ -33,7 +33,7 @@ public class Room : MonoBehaviour
     private Door _leftDoor;
     [SerializeField]
     private Door _rightDoor;
-
+    private int _dmg;
     private void Awake()
     {
         if(_roomTag.Length < 2)
@@ -134,4 +134,15 @@ public class Room : MonoBehaviour
     {
         get { return _attachedLeft != null || _attachedRight != null || _attachedUp != null || _attachedDown != null; }
     }
+
+    public void Damage()
+    {
+        Debug.Log("damaging room " + _roomTag);
+        _dmg++;
+    }
+    public int DamageAmount
+    {
+        get { return _dmg; }
+    }
+
 }

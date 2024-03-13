@@ -29,6 +29,7 @@ public class PlayerSubHealth : MonoBehaviour
         _health = data.health;
         _invulnTime = data.invulnTime;
         _shakeSource = GetComponent<CinemachineImpulseSource>();
+        InvokeRepeating("TickDamage", data.healthDrainTickTime, data.healthDrainTickTime);
     }
 
     // Update is called once per frame
@@ -79,6 +80,29 @@ public class PlayerSubHealth : MonoBehaviour
         }
     }
 
+    public void TickDamage()
+    {
+
+        if (VesselRoomHandler.Instance != null)
+        {
+            int dmg = VesselRoomHandler.Instance.DamageAmount;
+            if (dmg == 0) return;
+
+            float strength = 0.01f * dmg;
+
+            if (_shakeSource != null)
+                _shakeSource.GenerateImpulseWithForce(strength);
+
+            if (OnHitDel != null)
+            {
+                OnHitDel(strength);
+            }
+
+            int newHealth = Mathf.Max(_health - dmg, data.healthNoDrain);
+            _health = newHealth;
+
+        }
+    }
     public void IFrameCooldown()
     {
         if (_isInvuln)

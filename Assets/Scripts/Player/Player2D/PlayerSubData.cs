@@ -16,6 +16,8 @@ public class PlayerSubData : ScriptableObject
     [Header("Combat")]
     public int health;
     public float invulnTime;
+    public int healthNoDrain = 10;
+    public float healthDrainTickTime = 0.8f;
 
     [Header("View Cone")]
     public float fov;

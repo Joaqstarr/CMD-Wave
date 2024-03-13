@@ -287,6 +287,21 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
 
     public void DamageRoom()
     {
-        Debug.Log("Damage Room Now!!");
+        if(_rooms.Length == 0) return;
+
+        int randomRoom = Random.Range(0, _rooms.Length);
+        _rooms[randomRoom].Damage();
+    }
+
+    public int DamageAmount
+    {
+        get
+        {
+            int dmg = 0;
+            for(int i = 0; i < _rooms.Length; i++)
+                dmg += _rooms[i].DamageAmount;
+
+            return dmg;
+        }
     }
 }
