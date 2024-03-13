@@ -175,6 +175,7 @@ public class CommandLineManager : MonoBehaviour
 
     public void AddCommand(CommandBase command)
     {
+        
         _commands[0].AddCommand(command);
     }
 

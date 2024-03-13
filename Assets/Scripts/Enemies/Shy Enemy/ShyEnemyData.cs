@@ -7,4 +7,5 @@ public class ShyEnemyData : BaseEnemyData
 {
     [Header("Shy Enemy Data")]
     public float stunReactionTime;
+    
 }

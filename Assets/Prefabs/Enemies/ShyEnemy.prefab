@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 9125895549953354616}
   - component: {fileID: 8453061576409441114}
   - component: {fileID: 3936305915255925039}
+  - component: {fileID: 816048884517940842}
   m_Layer: 8
   m_Name: ShyEnemy
   m_TagString: Untagged
@@ -55,6 +56,8 @@ MonoBehaviour:
   _playerData: {fileID: 0}
   _target: {fileID: 0}
   _stunTimer: 0
+  _respawnRange: 50
+  _startPosition: {x: 0, y: 0}
 --- !u!135 &2627902832780696164
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -187,6 +190,19 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 120
   m_CollisionDetection: 1
+--- !u!114 &816048884517940842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073036462156325855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c8e4082e3b90343bb5a10e7cdae730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyData: {fileID: 11400000, guid: 670875d1292de784aa5c8befb136ac42, type: 2}
 --- !u!1 &1113151278739647575
 GameObject:
   m_ObjectHideFlags: 0

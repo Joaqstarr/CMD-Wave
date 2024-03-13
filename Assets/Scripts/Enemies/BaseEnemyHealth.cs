@@ -2,17 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseEnemyHealth : MonoBehaviour
+public class BaseEnemyHealth : MonoBehaviour, IHittable
 {
+    private int _health;
+    [SerializeField]
+    private BaseEnemyData _enemyData;
+
+
+    private bool _dead = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _health = _enemyData.health;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Hit(int damage, GameObject from)
     {
-        
+        _health -= damage;
+
+        if (_health <= 0)
+        {
+            _health = 0;
+            Kill();
+        }
     }
+
+    public void Kill()
+    {
+        _dead = true;
+    }
+
+
+
+    public bool IsDead
+    {
+        get{ return _dead; }
+    }
+
+    public void Revive()
+    {
+        _health = _enemyData.health;
+
+        _dead = false;
+    }
+
+
 }

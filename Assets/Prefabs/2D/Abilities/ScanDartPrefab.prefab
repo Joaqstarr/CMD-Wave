@@ -211,6 +211,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: b0beb4196c6228d4ca0ac558960076e4, type: 2}
   _fogAlpha: 0.1
   _fogRefreshRate: 0.2
+  _minimumFogDistance: 5
 --- !u!23 &3122462228794530488
 MeshRenderer:
   m_ObjectHideFlags: 0
