@@ -36,7 +36,7 @@ public class ScanDartScan : MonoBehaviour
     private Vector3[] _vertices;
     private Vector2[] _uv;
     private int[] _triangles;
-    private GameObject[] _rayCollisions;
+    public GameObject[] _rayCollisions;
     private GameObject _pooledBlip;
     private List<GameObject> _blips;
     private int _numBlips;
@@ -85,13 +85,22 @@ public class ScanDartScan : MonoBehaviour
     private void OnEnable()
     {
         //InvokeRepeating("MakeFogHole", _fogRefreshRate, _fogRefreshRate);
+        _scanWaiting = false;
+    }
+
+    private void OnDisable()
+    {
+        DeleteBlips();
     }
 
     private void Update()
     {
         MakeFogHole();
 
-        if (!_scanWaiting) StartCoroutine(CollisionScan());
+        if (!_scanWaiting)
+        {
+            StartCoroutine(CollisionScan());
+        }
     }
 
     public void DrawViewCone()
@@ -139,9 +148,21 @@ public class ScanDartScan : MonoBehaviour
             {
                 if (_rayCollisions[i] != null)
                 {
-                    Debug.Log("gone");
-                    //StartCoroutine(BlipGhostEffect(_rayCollisions[i]));
                     _rayCollisions[i].SetActive(false);
+                    _rayCollisions[i] = null;
+                }
+            }
+    }
+
+    public void GhostBlips()
+    {
+        // delete any blips from last frame
+        if (_rayCollisions.Count() > 0)
+            for (int i = 0; i < _rayCollisions.Count(); i++)
+            {
+                if (_rayCollisions[i] != null)
+                {
+                    StartCoroutine(BlipGhostEffect(_rayCollisions[i]));
                     _rayCollisions[i] = null;
                 }
             }
@@ -182,7 +203,6 @@ public class ScanDartScan : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, _rayVector, out hit, _viewDistance, _collisionMask))
                 {
-                    Debug.Log("blip");
                     // draw blip on hit
                     _rayCollisions[i] = GetBlip(hit.point);
                     // check if enemy was hit
@@ -192,6 +212,7 @@ public class ScanDartScan : MonoBehaviour
                         _rayCollisions[i].GetComponent<MeshRenderer>().material = data.defaultColor;
                     _rayCollisions[i].SetActive(true);
                 }
+                Debug.Log("blips drawn");
             }
         }
         yield return new WaitForSeconds(1f / _sampleRate);
