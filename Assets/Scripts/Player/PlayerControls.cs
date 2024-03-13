@@ -161,6 +161,7 @@ public class PlayerControls : MonoBehaviour
         }
         if (_possesedInput != null)
         {
+            _possesedInput.OnEquippedPower(Value);
             return false;
         }
 
