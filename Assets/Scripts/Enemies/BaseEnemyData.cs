@@ -15,7 +15,7 @@ public class BaseEnemyData : ScriptableObject
 
     [Header("Combat")]
     public int health;
-    public float damage;
+    public int damage;
     public float knockbackValue;
     public float stunDuration;
 

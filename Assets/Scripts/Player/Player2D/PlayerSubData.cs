@@ -14,7 +14,7 @@ public class PlayerSubData : ScriptableObject
     //public float bounceModifier; unused currently - could be used to add bounce back from collisions
 
     [Header("Combat")]
-    public float health;
+    public int health;
     public float invulnTime;
 
     [Header("View Cone")]

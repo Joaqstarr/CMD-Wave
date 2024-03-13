@@ -37,6 +37,7 @@ public class ShyEnemyManager : MonoBehaviour
     [HideInInspector]
     public float _stunTimer;
 
+    private PlayerSubHealth _playerSubHealth;
     [HideInInspector]
     public Vector2 _startPosition;
 
@@ -105,4 +106,21 @@ public class ShyEnemyManager : MonoBehaviour
     {
         get { return _enemyData; }
     }
+
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("PlayerSub"))
+        {
+            if(_playerSubHealth == null)
+                _playerSubHealth =collision.gameObject.GetComponent<PlayerSubHealth>();
+
+            _playerSubHealth.OnHit(_enemyData.damage, Knockback(collision.transform.position), _enemyData.stunDuration);
+        }
+    }
+    private Vector3 Knockback(Vector3 playerPos)
+    {
+         return (playerPos - transform.position).normalized * _enemyData.knockbackValue; 
+    }
+
 }

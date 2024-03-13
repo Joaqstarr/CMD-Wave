@@ -8,7 +8,7 @@ public class TestEnemy : MonoBehaviour
 {
     private PlayerSubManager _player;
 
-    private float _damage = 15;
+    private int _damage = 15;
     private float _stunDuration = 1;
     private float _knockbackValue = 30;
     private Vector3 _knockbackVector;

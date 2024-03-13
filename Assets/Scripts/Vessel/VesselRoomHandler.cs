@@ -284,4 +284,9 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
             }
         }
     }
+
+    public void DamageRoom()
+    {
+        Debug.Log("Damage Room Now!!");
+    }
 }

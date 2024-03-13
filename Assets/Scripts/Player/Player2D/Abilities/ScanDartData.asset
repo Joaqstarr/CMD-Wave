@@ -27,7 +27,7 @@ MonoBehaviour:
     m_Bits: 457
   resolution: 20
   fov: 360
-  viewDistance: 5
+  viewDistance: 2
   rayResolution: 20
   sampleRate: 10
   blipObject: {fileID: 5160852551703549048, guid: 930ee4125b11b8b44ac4113eac39bb7d, type: 3}

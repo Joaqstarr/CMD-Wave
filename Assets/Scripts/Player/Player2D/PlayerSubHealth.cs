@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,14 +9,17 @@ public class PlayerSubHealth : MonoBehaviour
 
     private PlayerSubManager _subManager;
 
-    private float _health;
+    private int _health;
     private float _invulnTime;
 
     private bool _isInvuln;
     private float _invulnTimer;
     private bool _isStunned;
 
+    private CinemachineImpulseSource _shakeSource;
 
+    public delegate void PlayerHitDel(float strength);
+    public static PlayerHitDel OnHitDel;
     void Start()
     {
         // component assignments
@@ -24,6 +28,7 @@ public class PlayerSubHealth : MonoBehaviour
         // variable assignments
         _health = data.health;
         _invulnTime = data.invulnTime;
+        _shakeSource = GetComponent<CinemachineImpulseSource>();
     }
 
     // Update is called once per frame
@@ -32,17 +37,40 @@ public class PlayerSubHealth : MonoBehaviour
         IFrameCooldown();
     }
 
-    public void OnHit(float damage, Vector2 knockback, float stunDuration)
+    public void OnHit(int damage, Vector2 knockback, float stunDuration, bool damageRoom = true)
     {
-        if (!_isInvuln)
+        bool hittingWall = damage == 0 && damageRoom == false;
+
+        if (!_isInvuln || hittingWall)
         {
+            float strength = 1;
             // damage, kb, invuln
             _health -= damage;
             Debug.Log("Current health: " + _health);
             _subManager.Rb.AddForce(knockback, ForceMode.Impulse);
-            _isInvuln = true;
-            _invulnTimer = _invulnTime;
+            if (!hittingWall)
+            {
+                _isInvuln = true;
+                _invulnTimer = _invulnTime;
+            }
+            else
+            {
+                strength = 0.2f;
+            }
 
+
+            if (_shakeSource != null)
+                _shakeSource.GenerateImpulseWithForce(strength);
+
+
+            if(VesselRoomHandler.Instance != null && damageRoom)
+                VesselRoomHandler.Instance.DamageRoom();
+
+
+            if(OnHitDel != null)
+            {
+                OnHitDel(strength);
+            }
             // stun
             if (stunDuration > 0)
             {
