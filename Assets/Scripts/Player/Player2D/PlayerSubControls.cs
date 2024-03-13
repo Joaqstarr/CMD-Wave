@@ -97,7 +97,6 @@ public class PlayerSubControls : PlayerControls, IDataPersistance
             return false;
         }
 
-        Debug.Log(Value.isPressed);
         _powerPressed = Value.isPressed;
 
         return true;

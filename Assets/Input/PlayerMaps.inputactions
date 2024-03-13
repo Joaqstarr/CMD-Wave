@@ -208,12 +208,12 @@
                 },
                 {
                     "name": "EquippedPower",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "9dcac87e-5936-4a42-831e-975cf5405515",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
