@@ -10,7 +10,7 @@ public class ScreenDamageIndicator : MonoBehaviour
 
     private RawImage _screenImage;
     private Material _screenMaterial;
-    private float _startGlitchiness;
+    private float _startGlitchiness = 0.015f;
     [SerializeField]
     private float _endGlitchiness;
     [SerializeField]
@@ -24,7 +24,7 @@ public class ScreenDamageIndicator : MonoBehaviour
     {
         _screenImage = GetComponent<RawImage>();
         _screenMaterial = _screenImage.material;
-        _startGlitchiness = _screenMaterial.GetFloat("_GlitchAmount");
+        _screenMaterial.SetFloat("_GlitchAmount", _startGlitchiness);
     }
 
     private void OnEnable()

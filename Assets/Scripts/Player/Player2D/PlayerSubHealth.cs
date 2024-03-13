@@ -20,6 +20,10 @@ public class PlayerSubHealth : MonoBehaviour
 
     public delegate void PlayerHitDel(float strength);
     public static PlayerHitDel OnHitDel;
+
+    [SerializeField]
+    private AudioClip[] _hitClips;
+    private AudioSource _audioSource;
     void Start()
     {
         // component assignments
@@ -30,6 +34,8 @@ public class PlayerSubHealth : MonoBehaviour
         _invulnTime = data.invulnTime;
         _shakeSource = GetComponent<CinemachineImpulseSource>();
         InvokeRepeating("TickDamage", data.healthDrainTickTime, data.healthDrainTickTime);
+
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -63,12 +69,14 @@ public class PlayerSubHealth : MonoBehaviour
             if (_shakeSource != null)
                 _shakeSource.GenerateImpulseWithForce(strength);
 
-
-            if(VesselRoomHandler.Instance != null && damageRoom)
+            if (VesselRoomHandler.Instance != null && damageRoom)
                 VesselRoomHandler.Instance.DamageRoom();
 
 
-            if(OnHitDel != null)
+            PlayHitSound(strength);
+
+
+            if (OnHitDel != null)
             {
                 OnHitDel(strength);
             }
@@ -93,10 +101,6 @@ public class PlayerSubHealth : MonoBehaviour
             if (_shakeSource != null)
                 _shakeSource.GenerateImpulseWithForce(strength);
 
-            if (OnHitDel != null)
-            {
-                OnHitDel(strength);
-            }
 
             int newHealth = Mathf.Max(_health - dmg, data.healthNoDrain);
             _health = newHealth;
@@ -114,6 +118,17 @@ public class PlayerSubHealth : MonoBehaviour
                 Debug.Log("IFrames gone");
                 _isInvuln = false;
             }
+        }
+    }
+
+    private void PlayHitSound(float vol = 1)
+    {
+        if(_audioSource != null)
+        {
+            int ran = Random.Range(0, _hitClips.Length);
+            AudioClip audioClip = _hitClips[ran];
+
+            _audioSource.PlayOneShot(audioClip, vol);
         }
     }
 }

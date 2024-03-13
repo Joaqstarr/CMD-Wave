@@ -45,7 +45,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1556820
+  m_Intensity: 467046
   m_Range: 16.94
   m_SpotAngle: 103
   m_InnerSpotAngle: 21.80208
@@ -262,6 +262,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5886160074040853597, guid: 7bd05c044f54f4d4db07d33c34b6a57f, type: 3}
+      propertyPath: m_Intensity
+      value: 236714.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886160074040853597, guid: 7bd05c044f54f4d4db07d33c34b6a57f, type: 3}
       propertyPath: m_SpotAngle
       value: 59
       objectReference: {fileID: 0}
@@ -311,6 +315,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6634758532481533362, guid: 7bd05c044f54f4d4db07d33c34b6a57f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7606638904075224350, guid: 7bd05c044f54f4d4db07d33c34b6a57f, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8863112082387239483, guid: 7bd05c044f54f4d4db07d33c34b6a57f, type: 3}

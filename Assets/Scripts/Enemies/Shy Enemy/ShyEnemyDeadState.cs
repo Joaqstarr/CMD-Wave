@@ -20,7 +20,7 @@ public class ShyEnemyDeadState : ShyEnemyBaseState
         enemy.Pathfinder.canMove = true;
         enemy.Rb.drag = _startDrag;
         enemy.Rb.useGravity = false;
-        enemy.transform.position = enemy._startPosition;
+        enemy.Rb.MovePosition(enemy._startPosition);
     }
 
     public override void OnFixedUpdateState(ShyEnemyManager enemy)
