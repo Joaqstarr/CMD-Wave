@@ -12,7 +12,7 @@ public class CommandContext
 {
     [SerializeField]
     private List<CommandBase> _commands = new List<CommandBase>();
-    public string[] CheckAndExecuteCommand(string command, out bool shouldClear, out CommandContext overrideContext, string args = null)
+    public string[] CheckAndExecuteCommand(string command, out bool shouldClear, out CommandContext overrideContext, out AudioClip sfx, string args = null)
     {
         for (int i = 0; i < _commands.Count; i++)
         { 
@@ -20,11 +20,12 @@ public class CommandContext
             {
 
                 shouldClear = _commands[i].ShouldClear;
-                string[] result = _commands[i].Execute(out overrideContext, args);
+                string[] result = _commands[i].Execute(out overrideContext,out sfx, args);
                 return result;
 
             }
         }
+        sfx = null;
         shouldClear = false;
         overrideContext = null;
         return null;
@@ -68,6 +69,12 @@ public class CommandLineManager : MonoBehaviour
 
     [SerializeField]
     private CommandBase _helpCommand;
+    [Header("Sounds")]
+    [SerializeField]
+    private AudioClip _beginCommandLine;
+    [SerializeField]
+    private AudioClip _defaultCommandEnteredSound;
+    private AudioSource _audioSource;
     private void Awake()
     {
 
@@ -77,7 +84,7 @@ public class CommandLineManager : MonoBehaviour
     void Start()
     {
 
-
+        _audioSource = GetComponent<AudioSource>();
         _textBox = GetComponentInChildren<TMP_InputField>();
 
     }
@@ -97,6 +104,7 @@ public class CommandLineManager : MonoBehaviour
         _enteringCommand = true;
         _textBox.text = string.Empty;
         _textBox.ActivateInputField();
+        PlaySound(_beginCommandLine);
     }
 
     public void CommandEntered(string command)
@@ -106,6 +114,7 @@ public class CommandLineManager : MonoBehaviour
 
         _textBox.text = string.Empty;
         bool foundCommand = false;
+        AudioClip sfx = null;
 
         string argument = string.Empty;
         if(command.Split(" ", StringSplitOptions.RemoveEmptyEntries).Length > 1)
@@ -119,14 +128,16 @@ public class CommandLineManager : MonoBehaviour
 
         if(_helpCommand.CheckCommand(command))
         {
-            OutputLine(_helpCommand.Execute(out _commandOveride), _helpCommand.ShouldClear);
+            OutputLine(_helpCommand.Execute(out _commandOveride, out sfx),_helpCommand.ShouldClear);
+            PlaySound(sfx);
+
             return;
         }
 
 
         if (_commandOveride != null && _commandOveride.Count > 0)
         {
-            string[] output = _commandOveride.CheckAndExecuteCommand(command, out bool clear, out CommandContext overrideContext, argument);
+            string[] output = _commandOveride.CheckAndExecuteCommand(command, out bool clear, out CommandContext overrideContext, out sfx, argument);
             _commandOveride = overrideContext;
             if (output != null)
             {
@@ -140,7 +151,7 @@ public class CommandLineManager : MonoBehaviour
         {
             bool clear;
                 
-            string[] executeResult = _commands[i].CheckAndExecuteCommand(command, out clear, out CommandContext overrideContext, argument);
+            string[] executeResult = _commands[i].CheckAndExecuteCommand(command, out clear, out CommandContext overrideContext, out sfx, argument);
             _commandOveride = overrideContext;
 
             if (executeResult != null)
@@ -150,6 +161,13 @@ public class CommandLineManager : MonoBehaviour
                 break;
             }
         }
+
+
+        if (sfx == null)
+            sfx = _defaultCommandEnteredSound;
+
+        PlaySound(sfx);
+        
 
         if (!foundCommand)
         {
@@ -213,5 +231,11 @@ public class CommandLineManager : MonoBehaviour
     public bool IsTyping
     {
         get { return _enteringCommand; }
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (_audioSource != null)
+            _audioSource.PlayOneShot(clip);
     }
 }

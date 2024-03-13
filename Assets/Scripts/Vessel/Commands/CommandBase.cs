@@ -10,6 +10,8 @@ public abstract class CommandBase : MonoBehaviour
     protected bool _shouldClear;
     [SerializeField]
     private bool _addByDefault;
+    [SerializeField]
+    protected AudioClip _soundWhenExecuted;
 
     private void Start()
     {
@@ -18,7 +20,7 @@ public abstract class CommandBase : MonoBehaviour
             CommandLineManager.Instance.AddCommand(this);
         }
     }
-    public abstract string[] Execute(out CommandContext overrideContext, string arg =null);
+    public abstract string[] Execute(out CommandContext overrideContext, out AudioClip sfx, string arg =null);
 
     public virtual bool CheckCommand(string commandName)
     {

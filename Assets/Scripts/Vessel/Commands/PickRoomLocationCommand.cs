@@ -10,8 +10,10 @@ public class PickRoomLocationCommand : CommandBase
     [SerializeField]
     private ItemPickupCommand _pickupCommand;
 
-    public override string[] Execute(out CommandContext overrideContext, string arg = null)
+    public override string[] Execute(out CommandContext overrideContext, out AudioClip sfx,string arg = null)
     {
+        sfx = _soundWhenExecuted;
+
         overrideContext = null;
         if(_position.x < 0)
         {

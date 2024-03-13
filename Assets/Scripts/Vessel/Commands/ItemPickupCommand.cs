@@ -9,17 +9,24 @@ public class ItemPickupCommand : CommandBase
     private string _itemToPickup = "";
 
     private Room _roomToAdd;
-    
+
+    [SerializeField]
+    private AudioClip _failedCommandSound;
     [SerializeField]
     private CommandContext _waitForNameContext;
     [SerializeField]
     private CommandContext _waitForLocationContext;
-    public override string[] Execute(out CommandContext overrideContext, string arg = null)
+
+
+    public override string[] Execute(out CommandContext overrideContext, out AudioClip sfx, string arg = null)
     {
+        sfx = _soundWhenExecuted;
 
         overrideContext = null;
         if(_itemsInRange.Count <= 0)
         {
+            sfx = _failedCommandSound;
+
             return CommandLineManager.StringToArray("No Items Nearby");
         }
         if (arg != string.Empty)
@@ -43,6 +50,7 @@ public class ItemPickupCommand : CommandBase
                 overrideContext = _waitForNameContext;
                 _isAwaitingItemName = true;
                 _itemToPickup = "";
+
                 return CommandLineManager.StringToArray("Please Enter Item Name:");
             }
             else
@@ -62,10 +70,12 @@ public class ItemPickupCommand : CommandBase
                 }
                 else
                 {
+                    sfx = _failedCommandSound;
                     return CommandLineManager.StringToArray("Invalid Item Name");
                 }
             }
         }
+        sfx = _failedCommandSound;
         return CommandLineManager.StringToArray("Invalid Item Name");
 
     }

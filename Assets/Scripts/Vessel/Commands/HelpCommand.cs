@@ -5,8 +5,10 @@ using UnityEngine;
 public class HelpCommand : CommandBase
 {
     [SerializeField]private CommandLineManager _commandLineManager;
-    public override string[] Execute(out CommandContext overrideContext, string arg = null)
+    public override string[] Execute(out CommandContext overrideContext, out AudioClip sfx, string arg = null)
     {
+        sfx = _soundWhenExecuted;
+
         overrideContext = _commandLineManager.CommandOveride;
 
         CommandBase[] possibleCommands = _commandLineManager.GetPossibleCommands();

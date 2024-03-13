@@ -9,8 +9,12 @@ public class DropRoomCommand : CommandBase
     [SerializeField]
     private CommandContext _awaitingInputContext;
     private string _inputCommand;
-    public override string[] Execute(out CommandContext overrideContext, string arg = null)
+    [SerializeField]
+    private AudioClip _failedCommandSound;
+    public override string[] Execute(out CommandContext overrideContext,out AudioClip sfx, string arg = null)
     {
+        sfx = _soundWhenExecuted;
+
         if (_awaitingInput)
         {
             arg = _inputCommand;
@@ -43,6 +47,7 @@ public class DropRoomCommand : CommandBase
                 {
                     VesselRoomHandler.Instance.UpdateMap(false);
                     _awaitingInput = false;
+                    sfx = _failedCommandSound;
                     return CommandLineManager.StringToArray("Invalid Room Position");
                 }
             }
@@ -86,7 +91,9 @@ public class DropRoomCommand : CommandBase
 
                 VesselRoomHandler.Instance.UpdateMap(false);
                 _awaitingInput = false;
-                return CommandLineManager.StringToArray("Invalid Room Position 2" + arg + ", " + amountOfRooms);
+                sfx = _failedCommandSound;
+
+                return CommandLineManager.StringToArray("Invalid Room Position" + arg + ", " + amountOfRooms);
             }
         }
         else
@@ -105,7 +112,9 @@ public class DropRoomCommand : CommandBase
         }
         VesselRoomHandler.Instance.UpdateMap(false);
         _awaitingInput = false;
-        return CommandLineManager.StringToArray("Invalid Room Position 3");
+        sfx = _failedCommandSound;
+
+        return CommandLineManager.StringToArray("Invalid Room Position");
 
     }
     public override bool CheckCommand(string commandName)

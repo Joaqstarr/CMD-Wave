@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 654.4361, g: 425.01422, b: 343.5435, a: 1}
+  m_IndirectSpecularColor: {r: 654.4356, g: 425.01422, b: 343.53958, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1587,6 +1587,7 @@ MonoBehaviour:
   _commandDescription: Loads Game Data
   _shouldClear: 1
   _addByDefault: 0
+  _soundWhenExecuted: {fileID: 0}
 --- !u!114 &147689154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1603,6 +1604,7 @@ MonoBehaviour:
   _commandDescription: Saves Game Data
   _shouldClear: 1
   _addByDefault: 0
+  _soundWhenExecuted: {fileID: 0}
 --- !u!1001 &174604773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26783,6 +26785,7 @@ GameObject:
   - component: {fileID: 873748834}
   - component: {fileID: 873748835}
   - component: {fileID: 873748836}
+  - component: {fileID: 873748837}
   m_Layer: 5
   m_Name: Console
   m_TagString: Untagged
@@ -26825,6 +26828,8 @@ MonoBehaviour:
   _commands:
   - _commands: []
   _helpCommand: {fileID: 873748835}
+  _beginCommandLine: {fileID: 8300000, guid: 94a489a733f7f2840a8abd0c8ab0c632, type: 3}
+  _defaultCommandEnteredSound: {fileID: 8300000, guid: 5e79f97b566849448b5ee0777ddbc82d, type: 3}
 --- !u!114 &873748835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26841,6 +26846,7 @@ MonoBehaviour:
   _commandDescription: Describes Available Commands
   _shouldClear: 1
   _addByDefault: 0
+  _soundWhenExecuted: {fileID: 0}
   _commandLineManager: {fileID: 873748834}
 --- !u!114 &873748836
 MonoBehaviour:
@@ -26858,7 +26864,104 @@ MonoBehaviour:
   _commandDescription: Clears Terminal Log.
   _shouldClear: 1
   _addByDefault: 1
+  _soundWhenExecuted: {fileID: 0}
   _commandLineManager: {fileID: 873748834}
+--- !u!82 &873748837
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873748832}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -1010310077819890588, guid: 636784146d44b814c8b1a2f14dbed51e, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &907940287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3286504144662189039, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
@@ -27389,6 +27492,7 @@ MonoBehaviour:
   _commandDescription: 
   _shouldClear: 0
   _addByDefault: 1
+  _soundWhenExecuted: {fileID: 0}
 --- !u!4 &996336460
 Transform:
   m_ObjectHideFlags: 0
@@ -39042,6 +39146,7 @@ MonoBehaviour:
   _commandDescription: Allows User to view map.
   _shouldClear: 0
   _addByDefault: 0
+  _soundWhenExecuted: {fileID: 0}
   _mapControls: {fileID: 1728336815}
   _mapVirtualCamera: {fileID: 51966603}
 --- !u!114 &1728336815
@@ -40347,6 +40452,7 @@ GameObject:
   - component: {fileID: 1928314963}
   - component: {fileID: 1928314962}
   - component: {fileID: 1928314961}
+  - component: {fileID: 1928314965}
   m_Layer: 5
   m_Name: ItemIndicators
   m_TagString: Untagged
@@ -40438,6 +40544,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pool: {fileID: 1475554389}
   _itemIndicatorPrefab: {fileID: 6029614168727287066, guid: 3410c8ec9551ab34ca4aec0f954f801d, type: 3}
+--- !u!114 &1928314965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928314959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f3dd4193fb886f42943e1709f6f3b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _screenSpacePrefab: {fileID: 970484827074541502, guid: 9e396a774f2f3b949aa8835c1c36544f, type: 3}
 --- !u!43 &1928352617
 Mesh:
   m_ObjectHideFlags: 0
@@ -40616,6 +40735,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 269423552}
     m_Modifications:
+    - target: {fileID: 1069844173496321416, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _failedCommandSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4399db52f3538fd4c80ac2a1d116aed3, type: 3}
     - target: {fileID: 1730125559575496779, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: _plane
       value: 
@@ -40745,9 +40868,17 @@ PrefabInstance:
       value: Room Coordinate
       objectReference: {fileID: 0}
     - target: {fileID: 5149799429926061849, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _soundWhenExecuted
+      value: 
+      objectReference: {fileID: 8300000, guid: 98bab445f95ddc94d8c770c4bf1ce27b, type: 3}
+    - target: {fileID: 5149799429926061849, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: _commandDescription
       value: Enter Desired Room Coordinate. Options listed on map to right. ->
       objectReference: {fileID: 0}
+    - target: {fileID: 7249539874730659434, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _failedCommandSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4399db52f3538fd4c80ac2a1d116aed3, type: 3}
     - target: {fileID: 8159995191691637025, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: camera2D
       value: 

@@ -7,8 +7,10 @@ public class StatusReport : CommandBase
     
     private Room[] _rooms;
 
-    public override string[] Execute(out CommandContext overrideContext, string arg = null)
+    public override string[] Execute(out CommandContext overrideContext, out AudioClip sfx, string arg = null)
     {
+        sfx = _soundWhenExecuted;
+
         overrideContext = null;
         /*
         string[] result = new string[CreateBounds()];

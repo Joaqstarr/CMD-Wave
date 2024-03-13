@@ -6,8 +6,10 @@ public class ClearCommand : CommandBase
 {
     [SerializeField]
     private CommandLineManager _commandLineManager;
-    public override string[] Execute(out CommandContext overrideContext, string arg = null)
+    public override string[] Execute(out CommandContext overrideContext, out AudioClip sfx,string arg = null)
     {
+        sfx = _soundWhenExecuted;
+
         overrideContext = _commandLineManager.CommandOveride;
 
 

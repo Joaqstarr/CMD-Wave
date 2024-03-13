@@ -11,8 +11,10 @@ public class MapCommand : CommandBase
     [SerializeField]
     CinemachineVirtualCamera _mapVirtualCamera;
 
-    public override string[] Execute(out CommandContext overrideContext, string arg = null)
+    public override string[] Execute(out CommandContext overrideContext, out AudioClip sfx,string arg = null)
     {
+        sfx = _soundWhenExecuted;
+
 
         overrideContext = null;
         if (_isFlying)
