@@ -121,4 +121,17 @@ public class Room : MonoBehaviour
             return count;
         }
     }
+
+    public void ClearAttachments()
+    {
+        _attachedLeft = null;
+        _attachedRight = null;
+        _attachedUp = null; 
+        _attachedDown = null;
+    }
+
+    public bool Attached
+    {
+        get { return _attachedLeft != null || _attachedRight != null || _attachedUp != null || _attachedDown != null; }
+    }
 }

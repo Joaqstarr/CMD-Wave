@@ -173,10 +173,8 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
                 AddRoom(RoomPool.Instance.GetHall(), position);
             }
 
-            roomRemoving.Up = null;
-            roomRemoving.Down = null;
-            roomRemoving.Left = null;
-            roomRemoving.Right = null;
+            roomRemoving.ClearAttachments();
+
             UpdateMap(false);
 
 
@@ -243,10 +241,7 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
                 if (!room.IsStatic)
                 {
                     room.transform.parent = RoomPool.Instance.transform;
-                    room.Up = null;
-                    room.Down = null;
-                    room.Left = null;
-                    room.Right = null;
+                    room.ClearAttachments();
 
                 }
             }

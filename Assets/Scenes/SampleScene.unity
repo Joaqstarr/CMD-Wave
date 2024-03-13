@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 654.4361, g: 425.01422, b: 343.5435, a: 1}
+  m_IndirectSpecularColor: {r: 654.4356, g: 425.01422, b: 343.53958, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1719,11 +1719,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5428358695778109738, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
       propertyPath: _roomTag
-      value: SA
+      value: CU
       objectReference: {fileID: 0}
     - target: {fileID: 5428358695778109738, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
       propertyPath: _roomName
-      value: SCAN
+      value: CURRENT
       objectReference: {fileID: 0}
     - target: {fileID: 6796394664378307078, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
       propertyPath: m_Mesh
@@ -1731,7 +1731,7 @@ PrefabInstance:
       objectReference: {fileID: 625834834}
     - target: {fileID: 7020366747488893106, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
       propertyPath: m_Name
-      value: ScanRoom
+      value: CurrentScanRoom
       objectReference: {fileID: 0}
     - target: {fileID: 8998149940607218572, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
       propertyPath: m_Intensity
@@ -1740,7 +1740,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7020366747488893106, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1513492965}
   m_SourcePrefab: {fileID: 100100000, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
 --- !u!1001 &201583525
 PrefabInstance:
@@ -2079,6 +2082,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5161733986919701069}
     m_Modifications:
+    - target: {fileID: 3010303042433853115, guid: 29447f9cf3778144690d4138fccfe44c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4678739137342426214, guid: 29447f9cf3778144690d4138fccfe44c, type: 3}
       propertyPath: m_Name
       value: Door
@@ -35470,6 +35477,23 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &1513492963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7020366747488893106, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
+  m_PrefabInstance: {fileID: 189616358}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1513492965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513492963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20514a1922f0db4d9779825ae9672c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1536602766
 GameObject:
   m_ObjectHideFlags: 0
@@ -36975,7 +36999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6518163391569262947, guid: 142965483f0636b4fad3ef46cd088950, type: 3}
       propertyPath: _itemTag
-      value: SA
+      value: CU
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -49785,10 +49809,6 @@ PrefabInstance:
     - target: {fileID: 1068224327429368103, guid: 142965483f0636b4fad3ef46cd088950, type: 3}
       propertyPath: m_Name
       value: ItemPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 1068224327429368103, guid: 142965483f0636b4fad3ef46cd088950, type: 3}
-      propertyPath: m_Layer
-      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3388340237759906906, guid: 142965483f0636b4fad3ef46cd088950, type: 3}
       propertyPath: m_LocalPosition.x

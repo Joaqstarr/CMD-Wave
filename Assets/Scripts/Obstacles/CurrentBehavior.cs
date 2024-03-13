@@ -14,15 +14,14 @@ public class CurrentBehavior : MonoBehaviour
     Vector3 _particleDirection;
 
     private ParticleSystem _particleSystem;
-    private BoxCollider _boxCollider;
-    private ParticleSystemForceField _particleSystemForceField;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         _particleSystem = GetComponent<ParticleSystem>();
-        _boxCollider = GetComponent<BoxCollider>();
+        //_boxCollider = GetComponent<BoxCollider>();
        // _particleSystemForceField = GetComponent<ParticleSystemForceField>();
 
         _particleDirection.Normalize();
@@ -36,7 +35,16 @@ public class CurrentBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(_particleSystem.isEmitting && !CurrentScan.CurrentScanEquipped)
+        {
+            _particleSystem.Stop();
+            _particleSystem.Clear();
+
+        }
+        if (!_particleSystem.isEmitting && CurrentScan.CurrentScanEquipped)
+        {
+            _particleSystem.Play();
+        }
     }
 
     private void OnDrawGizmosSelected()
