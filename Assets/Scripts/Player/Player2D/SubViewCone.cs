@@ -119,17 +119,15 @@ public class SubViewCone : MonoBehaviour
         aimPos = (aimPos - transform.position).normalized;
         aimPos.z = 0;
 
-        // set static vector variable
-        subAimVector = aimPos;
-
         _aimAngle = Mathf.Atan2(aimPos.y, aimPos.x) * Mathf.Rad2Deg;
         if (_aimAngle < 0) _aimAngle += 360;
 
-        // set static angle variable
+        // set static angle variables
         subAimAngle = _aimAngle;
+        float tempRadians = _aimAngle * (Mathf.PI / 180f);
+        subAimVector = new Vector3(Mathf.Cos(tempRadians), Mathf.Sin(tempRadians));
 
         float angle = _aimAngle + (_fov/2f);
-
 
         //render mesh
         _triangleIndex = 0;

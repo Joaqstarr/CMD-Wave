@@ -88,10 +88,12 @@ public class ScanDartScan : MonoBehaviour
         {
             InvokeRepeating("RepeatDrawFog", 0.1f, 0.1f);
         }
+
+        DrawViewCone();
     }
 
 
-    public void DrawViewCone(Vector3 aimPos)
+    public void DrawViewCone()
     {
 
         // delete any blips from last frame

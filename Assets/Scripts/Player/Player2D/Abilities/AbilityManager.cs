@@ -18,6 +18,8 @@ public class AbilityManager : MonoBehaviour
 
     private AbilityState _state = AbilityState.ready;
 
+    private bool _inputHeld = false;
+    private float _cooldownTimer;
     private void Start()
     {
         _allAbilities = GetComponentsInChildren<AbilityArchetype>();
@@ -44,10 +46,15 @@ public class AbilityManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (PlayerSubControls.Instance.PowerPressed && !_inputHeld)
+        {
+
+        }
+
         switch (_state)
         {
             case AbilityState.ready:
-                if (Input.GetKeyDown(_key))
+                if (PlayerSubControls.Instance.PowerPressed && !_inputHeld)
                 {
                     if (_activeAbility._data.numToPool > 0)
                     {
@@ -65,10 +72,29 @@ public class AbilityManager : MonoBehaviour
                     {
                         _activeAbility.UseAbility(_player.gameObject);
                     }
+
+                    _cooldownTimer = _activeAbility._data.cooldown;
+                    _inputHeld = true;
                 }
-                    break;
+                else if (!PlayerSubControls.Instance.PowerPressed)
+                {
+                    _inputHeld = false;
+                }
+
+                if (_cooldownTimer > 0)
+                    _state = AbilityState.cooldown;
+                break;
 
             case AbilityState.cooldown:
+                if (_cooldownTimer > 0)
+                {
+                    _cooldownTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    Debug.Log("cooldown done");
+                    _state = AbilityState.ready;
+                }
                 break;
         }
     }
