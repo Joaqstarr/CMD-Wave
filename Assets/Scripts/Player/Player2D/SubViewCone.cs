@@ -164,7 +164,7 @@ public class SubViewCone : MonoBehaviour
         _mesh.vertices = _vertices;
         _mesh.uv = _uv;
         _mesh.triangles = _triangles;
-
+        _mesh.RecalculateNormals();
         // Check to scan collision
         if (!_scanWaiting) StartCoroutine(CollisionScan());
 
