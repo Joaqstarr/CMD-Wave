@@ -44,6 +44,9 @@ public class ScanDartScan : MonoBehaviour
     private float _fogAlpha = 0.3f;
     [SerializeField]
     private float _fogRefreshRate = 0.5f;
+    private Vector2 _lastFogPosition;
+    [SerializeField]
+    private float _minimumFogDistance = 8;
 
     private void Start()
     {
@@ -86,7 +89,7 @@ public class ScanDartScan : MonoBehaviour
 
     private void Update()
     {
-
+        MakeFogHole();
 
         if (!_scanWaiting) StartCoroutine(CollisionScan());
     }
@@ -209,6 +212,8 @@ public class ScanDartScan : MonoBehaviour
     }
     private void MakeFogHole()
     {
+        if (Vector3.Distance(transform.position, _lastFogPosition) <= _minimumFogDistance) return;
+        _lastFogPosition = transform.position;
         FogOfWar.Instance.MakeHole(transform.position, _viewDistance, _fogAlpha);
     }
     private void OnDrawGizmosSelected()

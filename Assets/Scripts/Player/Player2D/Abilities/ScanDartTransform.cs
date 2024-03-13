@@ -17,12 +17,16 @@ public class ScanDartTransform : MonoBehaviour
     [HideInInspector]
     public bool _collided = false;
 
+
+
     // Start is called before the first frame update
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<CapsuleCollider>();
         _parent = transform.parent.gameObject;
+        _rb.isKinematic = false;
+
     }
 
     private void Start()
@@ -39,7 +43,7 @@ public class ScanDartTransform : MonoBehaviour
     private void FixedUpdate()
     {
         /*float faceAngle = transform.rotation.eulerAngles.z * (Mathf.PI / 180f);
-        Vector3 angleVector = new Vector3(Mathf.Cos(faceAngle), Mathf.Sin(faceAngle));
+        Vector3 angleVector = new Vector3(Mathf.Cos(faceAngle), Mathf.Sin(faceAngle)); 
         _rb.AddRelativeForce(angleVector * _data.launchForce, ForceMode.Impulse); */
     }
 
@@ -54,6 +58,8 @@ public class ScanDartTransform : MonoBehaviour
         _collider.enabled = true;
         _collided = false;
 
+        _rb.isKinematic = false;
+
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -62,7 +68,8 @@ public class ScanDartTransform : MonoBehaviour
         {
             Debug.Log(collision.gameObject);
             _rb.velocity = Vector3.zero;
-            transform.SetParent(collision.gameObject.transform);
+            _rb.isKinematic = true;
+            transform.SetParent(collision.transform);
             _collider.enabled = false;
         }
     }

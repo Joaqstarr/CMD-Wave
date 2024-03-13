@@ -65,8 +65,8 @@ public class PlayerSubControls : PlayerControls, IDataPersistance
     public override bool OnExit(InputValue Value)
     {
         if (CommandLineManager.Instance.IsTyping) return false;
-
-        FirstPersonPlayerControls.Instance.UnPossess();
+        if(FirstPersonPlayerControls.Instance != null)
+            FirstPersonPlayerControls.Instance.UnPossess();
 
         return true;
     }

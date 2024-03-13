@@ -13,7 +13,7 @@ public abstract class CommandBase : MonoBehaviour
 
     private void Start()
     {
-        if (_addByDefault)
+        if (_addByDefault && CommandLineManager.Instance != null)
         {
             CommandLineManager.Instance.AddCommand(this);
         }
