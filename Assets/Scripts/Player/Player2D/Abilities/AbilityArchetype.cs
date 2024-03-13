@@ -39,4 +39,12 @@ public class AbilityArchetype : MonoBehaviour
             _data.OnActivationFailed();
         }
     }
+
+    public void OnActivationFailed(GameObject player)
+    { 
+        if (_data != null)
+        {
+            _data.OnActivationFailed(player);
+        } 
+    }
 }

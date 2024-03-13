@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 public class ScanDartScan : MonoBehaviour
 {
 
-    public PlayerSubData data;
+    public ScanDartData data;
 
     private Mesh _mesh; // mesh for cone polygons
     private Vector3 _origin; // starting point of cone - should be on player
@@ -41,7 +41,9 @@ public class ScanDartScan : MonoBehaviour
     private List<GameObject> _blips;
     private int _numBlips;
     [SerializeField]
-    private float _fogAlpha = 0.1f;
+    private float _fogAlpha = 0.3f;
+    [SerializeField]
+    private float _fogRefreshRate = 0.5f;
 
     private void Start()
     {
@@ -49,7 +51,7 @@ public class ScanDartScan : MonoBehaviour
         // variable assignments
         _mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = _mesh;
-        GetComponent<MeshCollider>().sharedMesh = _mesh;
+        //GetComponent<MeshCollider>().sharedMesh = _mesh;
 
         _origin = transform.localPosition;
         _fov = data.fov;
@@ -70,43 +72,27 @@ public class ScanDartScan : MonoBehaviour
         _vertices[0] = _origin;
 
         // Blip object pool
-        GameObject holder = new GameObject();
-        holder.name = "BlipHolder";
-        _pooledBlip = data.blipObject;
-        _blips = new List<GameObject>();
-        _numBlips = _rayResolution * 2;
-        GameObject tempObject;
-        for (int i = 0; i < _numBlips; i++)
-        {
-            tempObject = Instantiate(_pooledBlip);
-            tempObject.SetActive(false);
-            tempObject.transform.SetParent(holder.transform);
-            _blips.Add(tempObject);
-        }
-
-        if (FogOfWar.Instance != null)
-        {
-            InvokeRepeating("RepeatDrawFog", 0.1f, 0.1f);
-        }
+        _blips = SubViewCone._blips;
+        _numBlips = _blips.Count;
 
         DrawViewCone();
+
     }
 
+    private void OnEnable()
+    {
+        //InvokeRepeating("MakeFogHole", _fogRefreshRate, _fogRefreshRate);
+    }
+
+    private void Update()
+    {
+
+
+        if (!_scanWaiting) StartCoroutine(CollisionScan());
+    }
 
     public void DrawViewCone()
     {
-
-        // delete any blips from last frame
-        if (_rayCollisions.Count() > 0)
-            for (int i = 0; i < _rayCollisions.Count(); i++)
-            {
-                if (_rayCollisions[i] != null)
-                {
-                    StartCoroutine(BlipGhostEffect(_rayCollisions[i]));
-                    _rayCollisions[i] = null;
-                }
-            }
-
 
         //render mesh
         _triangleIndex = 0;
@@ -114,7 +100,7 @@ public class ScanDartScan : MonoBehaviour
         for (int i = 0; i <= _resolution; i++, _vertexIndex++)
         {
             // set angle
-            _angleRadians = (360f / _resolution) * i;
+            _angleRadians = (360f / _resolution) * (_resolution - i) * (Mathf.PI/180f);
             _angleVector = new Vector3(Mathf.Cos(_angleRadians), Mathf.Sin(_angleRadians));
 
             // set vertices of polygon
@@ -130,7 +116,6 @@ public class ScanDartScan : MonoBehaviour
 
                 _triangleIndex += 3;
             }
-
         }
 
         // set values to mesh to update cone
@@ -142,33 +127,21 @@ public class ScanDartScan : MonoBehaviour
         if (!_scanWaiting) StartCoroutine(CollisionScan());
 
     }
-    private void RepeatDrawFog()
+
+    public void DeleteBlips()
     {
-        DrawFogOfWar(_aimAngle + (_fov / 2f));
-    }
-    private void DrawFogOfWar(float angle)
-    {
-        Vector3[] vertices = new Vector3[3];
-        int vertexIndex = 1;
-
-        vertices[0] = _origin;
-        for (int i = 0; i <= 1; i++, vertexIndex++)
-        {
-            // convert current angle to vector3
-            float angleRadians = angle * (Mathf.PI / 180f);
-            Vector3 angleVector = new Vector3(Mathf.Cos(angleRadians), Mathf.Sin(angleRadians));
-
-            // set vertices of polygon
-            Vector3 vertex = _origin + angleVector * _viewDistance;
-            vertices[vertexIndex] = vertex;
-
-            // increase angle clockwise
-            angle -= _fov;
-        }
-
-        transform.TransformPoints(vertices);
-
-        FogOfWar.Instance.MakeTriangle(vertices[0], vertices[1], vertices[2], _fogAlpha);
+        // delete any blips from last frame
+        if (_rayCollisions.Count() > 0)
+            for (int i = 0; i < _rayCollisions.Count(); i++)
+            {
+                if (_rayCollisions[i] != null)
+                {
+                    Debug.Log("gone");
+                    //StartCoroutine(BlipGhostEffect(_rayCollisions[i]));
+                    _rayCollisions[i].SetActive(false);
+                    _rayCollisions[i] = null;
+                }
+            }
     }
 
     public IEnumerator BlipGhostEffect(GameObject blip)
@@ -179,6 +152,8 @@ public class ScanDartScan : MonoBehaviour
 
     public IEnumerator CollisionScan()
     {
+        DeleteBlips();
+
         _scanWaiting = true;
         // fire standarized raycasts to scan for collision
         for (int i = 0; i < _rayResolution; i++)
@@ -204,6 +179,7 @@ public class ScanDartScan : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, _rayVector, out hit, _viewDistance, _collisionMask))
                 {
+                    Debug.Log("blip");
                     // draw blip on hit
                     _rayCollisions[i] = GetBlip(hit.point);
                     // check if enemy was hit
@@ -230,6 +206,10 @@ public class ScanDartScan : MonoBehaviour
             }
         }
         return null;
+    }
+    private void MakeFogHole()
+    {
+        FogOfWar.Instance.MakeHole(transform.position, _viewDistance, _fogAlpha);
     }
     private void OnDrawGizmosSelected()
     {

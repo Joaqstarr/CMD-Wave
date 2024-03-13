@@ -30,4 +30,8 @@ public abstract class AbilityData : ScriptableObject
     {
 
     }
+    public virtual void OnActivationFailed(GameObject player)
+    {
+
+    }
 }

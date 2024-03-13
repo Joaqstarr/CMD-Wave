@@ -8,11 +8,13 @@ using UnityEngine.Animations;
 public class ScanDartTransform : MonoBehaviour
 {
     public ScanDartData _data;
-    public GameObject _dartUI;
+    public GameObject _dartVisuals;
+    public GameObject _scanArea;
     private GameObject _parent;
     private Rigidbody _rb;
     private CapsuleCollider _collider;
 
+    [HideInInspector]
     public bool _collided = false;
 
     // Start is called before the first frame update
@@ -31,7 +33,7 @@ public class ScanDartTransform : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        _dartUI.transform.position = transform.position;
+        _dartVisuals.transform.position = transform.position;
     }
 
     private void FixedUpdate()
@@ -43,6 +45,8 @@ public class ScanDartTransform : MonoBehaviour
 
     public void ResetDart()
     {
+        _scanArea.GetComponent<ScanDartScan>().DeleteBlips();
+        Debug.Log("deleted");
         _rb.velocity = Vector3.zero;
         transform.position = _parent.transform.position;
         if (transform.parent != _parent.transform)

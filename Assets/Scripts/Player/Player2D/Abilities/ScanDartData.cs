@@ -12,6 +12,17 @@ public class ScanDartData : AbilityData
     public float launchForce;
     public LayerMask collideWith;
 
+    [Header("Scan Area")]
+    public int resolution;
+    public float fov;
+    public float viewDistance;
+    public int rayResolution;
+    public int sampleRate;
+    public GameObject blipObject;
+    public LayerMask collisionMask;
+    public Material defaultColor;
+    public Material enemyColor;
+
     public override void UseAbility(GameObject player, GameObject ability)
     {
         GameObject dart = ability.transform.Find("ScanDartTransform").gameObject;
@@ -30,7 +41,7 @@ public class ScanDartData : AbilityData
             dart.GetComponent<ScanDartParent>().RecallTransform();
             GameObject transform = dart.transform.Find("ScanDartTransform").gameObject;
             dart.transform.position = player.transform.position;
-            transform.GetComponent<ScanDartTransform>()._dartUI.transform.position = dart.transform.position;
+            transform.GetComponent<ScanDartTransform>()._dartVisuals.transform.position = dart.transform.position;
             transform.GetComponent<ScanDartTransform>().ResetDart();
             dart.SetActive(false);
         }

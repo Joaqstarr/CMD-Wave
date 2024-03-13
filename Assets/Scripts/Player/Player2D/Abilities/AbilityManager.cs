@@ -46,11 +46,6 @@ public class AbilityManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (PlayerSubControls.Instance.PowerPressed && !_inputHeld)
-        {
-
-        }
-
         switch (_state)
         {
             case AbilityState.ready:
@@ -102,6 +97,19 @@ public class AbilityManager : MonoBehaviour
     public void Equip(AbilityArchetype ability)
     {
         _activeAbility = ability;
+    }
+
+    public bool Equip(string ab)
+    {
+        foreach (AbilityArchetype ability in _allAbilities)
+        {
+            if (ability._data.commandShortcut.Equals(ab))
+            {
+                _activeAbility = ability;
+                return true;
+            }
+        }
+        return false;
     }
 
     private GameObject GetAbilityObject(AbilityArchetype ability)

@@ -13,6 +13,7 @@ public class SubViewCone : MonoBehaviour
     public static Vector3 subAimVector;
 
     public PlayerSubData data;
+    public ScanDartData scanDartData;
 
     public Camera camera2D; // camera for 2D terminal
 
@@ -41,10 +42,28 @@ public class SubViewCone : MonoBehaviour
     private int[] _triangles;
     private GameObject[] _rayCollisions;
     private GameObject _pooledBlip;
-    private List<GameObject> _blips;
+    public static List<GameObject> _blips;
     private int _numBlips;
     [SerializeField]
     private float _fogAlpha = 0.1f;
+
+    private void Awake()
+    {
+        // Blip object pool
+        GameObject holder = new GameObject();
+        holder.name = "BlipHolder";
+        _pooledBlip = data.blipObject;
+        _blips = new List<GameObject>();
+        _numBlips = (data.rayResolution + scanDartData.rayResolution * scanDartData.numToPool) * 2;
+        GameObject tempObject;
+        for (int i = 0; i < _numBlips; i++)
+        {
+            tempObject = Instantiate(_pooledBlip);
+            tempObject.SetActive(false);
+            tempObject.transform.SetParent(holder.transform);
+            _blips.Add(tempObject);
+        }
+    }
 
     private void Start()
     {
@@ -72,21 +91,6 @@ public class SubViewCone : MonoBehaviour
         _rayCollisions = new GameObject[_rayResolution];
 
         _vertices[0] = _origin;
-
-        // Blip object pool
-        GameObject holder = new GameObject();
-        holder.name = "BlipHolder";
-        _pooledBlip = data.blipObject;
-        _blips = new List<GameObject>();
-        _numBlips = _rayResolution * 2;
-        GameObject tempObject;
-        for (int i = 0; i < _numBlips; i++)
-        {
-            tempObject = Instantiate(_pooledBlip);
-            tempObject.SetActive(false);
-            tempObject.transform.SetParent(holder.transform);
-            _blips.Add(tempObject);
-        }
 
         if (FogOfWar.Instance != null)
         {
