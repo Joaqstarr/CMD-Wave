@@ -87,7 +87,6 @@ public class AbilityManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("cooldown done");
                     _state = AbilityState.ready;
                 }
                 break;

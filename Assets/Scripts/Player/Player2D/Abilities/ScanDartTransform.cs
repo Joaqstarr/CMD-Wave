@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.Playables;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -49,7 +50,6 @@ public class ScanDartTransform : MonoBehaviour
 
     public void ResetDart()
     {
-        _scanArea.GetComponent<ScanDartScan>().DeleteBlips();
         Debug.Log("deleted");
         _rb.velocity = Vector3.zero;
         transform.position = _parent.transform.position;

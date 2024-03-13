@@ -40,9 +40,10 @@ public class ScanDartData : AbilityData
         {
             dart.GetComponent<ScanDartParent>().RecallTransform();
             GameObject transform = dart.transform.Find("ScanDartTransform").gameObject;
+            Debug.Log("Starting recall");
+            transform.GetComponent<ScanDartTransform>().ResetDart();
             dart.transform.position = player.transform.position;
             transform.GetComponent<ScanDartTransform>()._dartVisuals.transform.position = dart.transform.position;
-            transform.GetComponent<ScanDartTransform>().ResetDart();
             dart.SetActive(false);
         }
     }
