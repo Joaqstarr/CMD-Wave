@@ -12,6 +12,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: ShipWreckPiece
+    second: {fileID: 2100000, guid: 3ead8dcc6c07fa7459e7f517102f5b8c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Spike
     second: {fileID: 2100000, guid: 49651e9bd9369ed45a578e24cdbe3de0, type: 2}
   materials:

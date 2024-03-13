@@ -191,6 +191,8 @@ Material:
     - _EnableFogOnTransparent: 1
     - _EnableGeometricSpecularAA: 0
     - _EnergyConservingSpecularColor: 1
+    - _GridStength: 0
+    - _GridThickness: 4
     - _HeightAmplitude: 0.02
     - _HeightCenter: 0.5
     - _HeightMapParametrization: 0
@@ -280,6 +282,8 @@ Material:
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
     - _GradientColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GridCellSize: {r: 1, g: 1, b: 0, a: 0}
+    - _GridColor: {r: 0, g: 1, b: 0.6877449, a: 0}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _MinMaxCameraDist: {r: -0.42, g: 1.12, b: 0, a: 0}
