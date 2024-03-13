@@ -8,7 +8,8 @@ public class WorldspaceObjectToFollow : MonoBehaviour
     private Sprite _uiImage;
     private void Awake()
     {
-        ScreenspaceFollowerManager._worldspaceObjectToFollows.Add(this);
+        if(ScreenspaceFollowerManager._worldspaceObjectToFollows != null)
+            ScreenspaceFollowerManager._worldspaceObjectToFollows.Add(this);
     }
     public Sprite UiImage { get { return _uiImage; } }
     public bool IsVisible { get { return gameObject.activeInHierarchy; } }

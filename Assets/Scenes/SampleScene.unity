@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 654.4356, g: 425.01422, b: 343.53958, a: 1}
+  m_IndirectSpecularColor: {r: 654.4361, g: 425.01422, b: 343.5435, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -40891,6 +40891,10 @@ PrefabInstance:
       propertyPath: SubControls
       value: 
       objectReference: {fileID: 1143794029}
+    - target: {fileID: 8159995191691637025, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _terrainMask.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

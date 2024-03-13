@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Device;
 using UnityEngine.Rendering.HighDefinition;
@@ -46,6 +47,8 @@ public class SubViewCone : MonoBehaviour
     private int _numBlips;
     [SerializeField]
     private float _fogAlpha = 0.1f;
+    [SerializeField]
+    private LayerMask _terrainMask; // layer mask for raycast terrain collisions
 
     private void Awake()
     {
@@ -136,14 +139,20 @@ public class SubViewCone : MonoBehaviour
         //render mesh
         _triangleIndex = 0;
         _vertexIndex = 1;
+        RaycastHit hit;
         for (int i = 0; i <= _resolution; i++, _vertexIndex++)
         {
             // convert current angle to vector3
             _angleRadians = angle * (Mathf.PI / 180f);
             _angleVector = new Vector3(Mathf.Cos(_angleRadians), Mathf.Sin(_angleRadians));
 
+            float vertextDistance = _viewDistance;
+            if(Physics.Raycast(transform.position, _angleVector, out hit, _viewDistance, _terrainMask))
+                vertextDistance = hit.distance;
+
+
             // set vertices of polygon
-            Vector3 vertex = _origin + _angleVector * _viewDistance;
+            Vector3 vertex = _origin + _angleVector * vertextDistance;
             _vertices[_vertexIndex] = vertex;
 
             // add vertices of polygon to triangles array
@@ -178,6 +187,48 @@ public class SubViewCone : MonoBehaviour
         Vector3[] vertices = new Vector3[3];
         int vertexIndex = 1;
 
+
+        float vertexDistance = 0;
+
+        float rayAngle = angle;
+
+        RaycastHit hit;
+        //calculate distance
+        for (int i = 0; i <= _resolution; i++, _vertexIndex++)
+        {
+            // convert current angle to vector3
+            float angleRadians = rayAngle * (Mathf.PI / 180f);
+            Vector3 angleVector = new Vector3(Mathf.Cos(angleRadians), Mathf.Sin(angleRadians));
+
+            if (Physics.Raycast(transform.position, _angleVector, out hit, _viewDistance, _terrainMask))
+            {
+                
+                if(hit.distance > vertexDistance)
+                    vertexDistance = hit.distance;
+
+
+            }
+            else
+            {
+                vertexDistance = _viewDistance;
+                break;
+            }
+
+
+            // set vertices of polygon
+
+
+            // increase angle clockwise
+            rayAngle -= _angleIncrease;
+        }
+
+
+
+
+
+
+
+
         vertices[0] = _origin;
         for (int i = 0; i <= 1; i++, vertexIndex++)
         {
@@ -186,7 +237,7 @@ public class SubViewCone : MonoBehaviour
             Vector3 angleVector = new Vector3(Mathf.Cos(angleRadians), Mathf.Sin(angleRadians));
 
             // set vertices of polygon
-            Vector3 vertex = _origin + angleVector * _viewDistance;
+            Vector3 vertex = _origin + angleVector * vertexDistance;
             vertices[vertexIndex] = vertex;
 
             // increase angle clockwise
