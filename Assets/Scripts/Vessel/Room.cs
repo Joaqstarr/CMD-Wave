@@ -87,6 +87,8 @@ public class Room : MonoBehaviour
     }
     public string RoomTag {  get { return _roomTag; } }
 
+    public string RoomName { get { return _roomName; } }
+
     public Room Left { get { return _attachedLeft; } set { _attachedLeft = value; } }
     public Room Right { get { return _attachedRight; } set { _attachedRight = value; } }
     public Room Down { get { return _attachedDown; } set { _attachedDown = value; } }

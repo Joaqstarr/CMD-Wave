@@ -518,6 +518,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 102122169}
   m_LocalEulerAnglesHint: {x: 66.57, y: 0, z: 0}
+--- !u!1 &43624551 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7020366747488893106, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
+  m_PrefabInstance: {fileID: 1559732915}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &46639146 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4012177246229063828, guid: c985079fbdd28f7458f39db838734b03, type: 3}
@@ -38000,6 +38005,14 @@ PrefabInstance:
       propertyPath: _roomName
       value: Torpedo
       objectReference: {fileID: 0}
+    - target: {fileID: 5428358695778109738, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
+      propertyPath: _commandsOnRoom.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5428358695778109738, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
+      propertyPath: _commandsOnRoom.Array.data[0]
+      value: 
+      objectReference: {fileID: 1559732918}
     - target: {fileID: 6796394664378307078, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -38015,13 +38028,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7020366747488893106, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1559732918}
   m_SourcePrefab: {fileID: 100100000, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
 --- !u!4 &1559732916 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 276113614367181545, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
   m_PrefabInstance: {fileID: 1559732915}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1559732918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43624551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b06ce9d4a3939b04294ed185cd1c1a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _commandName: to
+  _commandDescription: Equips torpedo. Can call with "to" or "torpedo".
+  _shouldClear: 0
+  _addByDefault: 0
+  _soundWhenExecuted: {fileID: 0}
 --- !u!1 &1568722119
 GameObject:
   m_ObjectHideFlags: 0

@@ -123,7 +123,7 @@ public class AbilityManager : MonoBehaviour
     {
         foreach (AbilityArchetype ability in _allAbilities)
         {
-            if (ability._data.commandShortcut.Equals(ab))
+            if (ability._data.commandShortcut.ToLower().Equals(ab.ToLower()))
             {
                 _activeAbility = ability;
                 return true;
