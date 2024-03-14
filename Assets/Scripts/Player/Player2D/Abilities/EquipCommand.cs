@@ -18,8 +18,11 @@ public class EquipCommand : CommandBase
 
         overrideContext = null;
 
+        if (AbilityManager.Main._activeAbility._data.commandShortcut.ToLower().Equals(_abilityTag.ToLower()))
+            return CommandLineManager.StringToArray(_abilityName + " is already equipped");
+
         AbilityManager.Main.Equip(_abilityTag);
-        return CommandLineManager.StringToArray("Equipped Torpedo");
+        return CommandLineManager.StringToArray("Equipped " + _abilityName);
     }
 
     public override bool CheckCommand(string commandName)

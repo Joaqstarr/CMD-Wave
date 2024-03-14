@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  cooldown: 0.8
+  cooldown: 0.7
   launchForce: 200
   collideWith:
     serializedVersion: 2

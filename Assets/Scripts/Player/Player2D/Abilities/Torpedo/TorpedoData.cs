@@ -38,11 +38,7 @@ public class TorpedoData : AbilityData
     {
         if (canShoot)
         {
-            for (int i = 0; i < numToPool; i++)
-            {
-                if (!poolObjects[i].activeInHierarchy)
-                    return poolObjects[i];
-            }
+            return poolObjects[numToPool - reloadCounter];
         }
         return null;
     }
@@ -57,6 +53,7 @@ public class TorpedoData : AbilityData
         }
 
         canShoot = true;
+        reloadCounter = numToPool;
     }
 
     public IEnumerator LaunchTorpedo(GameObject player, GameObject ability)
