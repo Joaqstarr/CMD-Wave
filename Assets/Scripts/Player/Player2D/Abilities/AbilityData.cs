@@ -29,6 +29,11 @@ public abstract class AbilityData : ScriptableObject
 
     }
 
+    public virtual void UseOnRelease(GameObject player) 
+    {
+    
+    }
+
     public virtual void OnActivationFailed()
     {
 

@@ -20,6 +20,7 @@ public class AbilityManager : MonoBehaviour
     private AbilityState _state = AbilityState.ready;
 
     private bool _inputHeld = false;
+    private bool _inputHeldLastFrame = false;
     private float _cooldownTimer;
 
     private void Awake()
@@ -67,7 +68,7 @@ public class AbilityManager : MonoBehaviour
             case AbilityState.ready:
                 if (_activeAbility != null)
                 {
-                    if (PlayerSubControls.Instance.PowerPressed && !_inputHeld)
+                    if (PlayerSubControls.Instance.PowerPressed && !_inputHeld || (_activeAbility._data.commandShortcut == "da" && (_inputHeld || _inputHeldLastFrame)))
                     {
                         if (_activeAbility._data.numToPool > 0)
                         {
@@ -83,11 +84,17 @@ public class AbilityManager : MonoBehaviour
                         }
                         else
                         {
-                            _activeAbility.UseAbility(_player.gameObject);
+                            _activeAbility.UseAbility(_player);
                         }
+                        _inputHeldLastFrame = _inputHeld;
+                        _inputHeld = PlayerSubControls.Instance.PowerPressed;
+                        if (!(_activeAbility._data.commandShortcut == "da") || (_inputHeldLastFrame && !_inputHeld))
+                        {
+                            _cooldownTimer = _activeAbility._data.cooldown;
 
-                        _cooldownTimer = _activeAbility._data.cooldown;
-                        _inputHeld = true;
+                            if (_activeAbility._data.commandShortcut == "da")
+                                _activeAbility._data.UseOnRelease(_player);
+                        }
                     }
                     else if (!PlayerSubControls.Instance.PowerPressed)
                     {
@@ -105,6 +112,7 @@ public class AbilityManager : MonoBehaviour
                 if (_cooldownTimer > 0)
                 {
                     _cooldownTimer -= Time.deltaTime;
+                    _inputHeldLastFrame = false;
                 }
                 else
                 {
