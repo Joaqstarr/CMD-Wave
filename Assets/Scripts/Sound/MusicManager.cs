@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,5 +32,11 @@ public class MusicManager : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         _musicSource.Play();
         _isWaiting = false;
+
+        DOVirtual.Float(0, 1, _musicSource.clip.length*0.1f, (x) => { _musicSource.volume = x; });
+
+        yield return new WaitForSeconds(_musicSource.clip.length * 0.8f);
+        DOVirtual.Float(1, 0, _musicSource.clip.length * 0.1f, (x) => { _musicSource.volume = x; });
+
     }
 }

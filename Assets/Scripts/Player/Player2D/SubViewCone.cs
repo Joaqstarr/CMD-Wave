@@ -297,7 +297,7 @@ public class SubViewCone : MonoBehaviour
         _scanWaiting = false;
     }
 
-    private Vector3 ConvertAimCoordinate(Vector2 aimInput)
+    public Vector3 ConvertAimCoordinate(Vector2 aimInput)
     {
         Vector3 screenPoint = aimInput;
         screenPoint.z = Mathf.Abs(transform.position.z - camera2D.transform.position.z);

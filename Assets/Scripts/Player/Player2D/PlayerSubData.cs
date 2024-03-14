@@ -30,5 +30,9 @@ public class PlayerSubData : ScriptableObject
     public LayerMask collisionMask;
     public Material defaultColor;
     public Material enemyColor;
+    public float cameraLookAhead = 5f;
+    [Header("Sound")]
+    [Range(0, 1)]
+    public float minimumEngineVolume;
 
 }

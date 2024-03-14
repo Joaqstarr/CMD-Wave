@@ -28,8 +28,12 @@ public class SubMovementState : SubBaseState
 
     public override void OnUpdateState(PlayerSubManager player)
     {
+        UpdateCamFollow(player);
+
+        if (player.EngineSource != null)
+            player.EngineSource.volume = ((player.Rb.velocity.magnitude / player.SubData.moveSpeed)*(1-player.SubData.minimumEngineVolume))+player.SubData.minimumEngineVolume;
         // switch state conditions
-        
+       
         // stun state
         if (player._stunTimer > 0)
         {
@@ -75,6 +79,14 @@ public class SubMovementState : SubBaseState
             _rb.AddForce(new Vector2(-frictionX, -frictionY), ForceMode.Impulse);
         }
 
+    }
+
+    private void UpdateCamFollow(PlayerSubManager player)
+    {
+        Debug.Log(player.SubViewCone.ConvertAimCoordinate(_subControls.AimInput) + ", " + _subControls.AimInput + ", " + (player.SubViewCone.ConvertAimCoordinate(_subControls.AimInput) - player.transform.position));
+
+
+        player.CamFollow.localPosition = Vector3.ClampMagnitude( (Vector3.zero +(player.SubViewCone.ConvertAimCoordinate(_subControls.AimInput) - player.transform.position)), _subData.cameraLookAhead);
     }
 
 }

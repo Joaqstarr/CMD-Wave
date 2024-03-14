@@ -20,6 +20,9 @@ public class PlayerSubManager : MonoBehaviour
     public PlayerSubControls SubControls { get; private set; }
     public Rigidbody Rb {  get; private set; }
     public PlayerSubHealth Health { get; private set; }
+    public AudioSource EngineSource ;
+    public Transform CamFollow;
+    public SubViewCone SubViewCone { get; private set; }
     #endregion
 
     #region Variables
@@ -32,7 +35,7 @@ public class PlayerSubManager : MonoBehaviour
         SubControls = GetComponent<PlayerSubControls>();
         Rb = GetComponent<Rigidbody>();
         Health = GetComponent<PlayerSubHealth>();
-
+        SubViewCone = GetComponentInChildren<SubViewCone>();
         // movement state
         CurrentState = MovementState;
 
