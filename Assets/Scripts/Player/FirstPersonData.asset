@@ -19,3 +19,4 @@ MonoBehaviour:
   InteractionMask:
     serializedVersion: 2
     m_Bits: 64
+  MinimumFootStepDistance: 4
