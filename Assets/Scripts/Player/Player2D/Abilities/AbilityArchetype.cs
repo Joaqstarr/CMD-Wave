@@ -16,6 +16,14 @@ public class AbilityArchetype : MonoBehaviour
     {
         
     }
+
+    private void OnEnable()
+    {
+        if ( _data != null )
+        {
+            _data.OnStart();
+        }
+    }
     public void UseAbility(GameObject player, GameObject ability)
     {
         if (_data !=  null)
@@ -46,5 +54,14 @@ public class AbilityArchetype : MonoBehaviour
         {
             _data.OnActivationFailed(player);
         } 
+    }
+
+    public GameObject GetAbilityObject()
+    {
+        if ( _data != null)
+        {
+            return _data.GetAbilityObject();
+        }
+        return null;
     }
 }

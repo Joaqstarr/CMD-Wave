@@ -15,7 +15,10 @@ public abstract class AbilityData : ScriptableObject
     public GameObject[] poolObjects;
     public float cooldown;
 
+    public virtual void OnStart()
+    {
 
+    }
     public virtual void UseAbility(GameObject player, GameObject ability)
     {
 
@@ -33,5 +36,10 @@ public abstract class AbilityData : ScriptableObject
     public virtual void OnActivationFailed(GameObject player)
     {
 
+    }
+
+    public virtual GameObject GetAbilityObject()
+    {
+        return null;
     }
 }

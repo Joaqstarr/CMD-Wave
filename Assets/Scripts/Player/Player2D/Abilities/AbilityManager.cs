@@ -7,9 +7,10 @@ using UnityEngine.UIElements;
 
 public class AbilityManager : MonoBehaviour
 {
+    public static AbilityManager Main;
+
     public AbilityArchetype[] _allAbilities;
     public AbilityArchetype _activeAbility;
-    public KeyCode _key; //for testing
     private GameObject _player;
     private enum AbilityState {
         ready,
@@ -20,6 +21,11 @@ public class AbilityManager : MonoBehaviour
 
     private bool _inputHeld = false;
     private float _cooldownTimer;
+
+    private void Awake()
+    {
+        Main = this;
+    }
     private void Start()
     {
         _allAbilities = GetComponentsInChildren<AbilityArchetype>();
@@ -40,6 +46,16 @@ public class AbilityManager : MonoBehaviour
             }
         }
 
+        if (_allAbilities[0] != null)
+        {
+            _activeAbility = _allAbilities[0];
+        }
+        else
+        {
+            _activeAbility = null;
+        }
+
+
         _player = transform.parent.gameObject;
     }
 
@@ -49,36 +65,41 @@ public class AbilityManager : MonoBehaviour
         switch (_state)
         {
             case AbilityState.ready:
-                if (PlayerSubControls.Instance.PowerPressed && !_inputHeld)
+                if (_activeAbility != null)
                 {
-                    if (_activeAbility._data.numToPool > 0)
+                    if (PlayerSubControls.Instance.PowerPressed && !_inputHeld)
                     {
-                        GameObject ability = GetAbilityObject(_activeAbility);
-                        if (ability != null)
+                        if (_activeAbility._data.numToPool > 0)
                         {
-                            _activeAbility.UseAbility(_player.gameObject, ability);
+                            GameObject ability = GetAbilityObject(_activeAbility);
+                            if (ability != null)
+                            {
+                                _activeAbility.UseAbility(_player, ability);
+                            }
+                            else
+                            {
+                                _activeAbility.OnActivationFailed();
+                            }
                         }
                         else
                         {
-                            _activeAbility.OnActivationFailed();
+                            _activeAbility.UseAbility(_player.gameObject);
                         }
+
+                        _cooldownTimer = _activeAbility._data.cooldown;
+                        _inputHeld = true;
                     }
-                    else
+                    else if (!PlayerSubControls.Instance.PowerPressed)
                     {
-                        _activeAbility.UseAbility(_player.gameObject);
+                        _inputHeld = false;
                     }
 
-                    _cooldownTimer = _activeAbility._data.cooldown;
-                    _inputHeld = true;
+                    if (_cooldownTimer > 0)
+                        _state = AbilityState.cooldown;
+                    break;
                 }
-                else if (!PlayerSubControls.Instance.PowerPressed)
-                {
-                    _inputHeld = false;
-                }
-
-                if (_cooldownTimer > 0)
-                    _state = AbilityState.cooldown;
-                break;
+                else
+                    break; // command terminal error message?
 
             case AbilityState.cooldown:
                 if (_cooldownTimer > 0)
@@ -111,15 +132,13 @@ public class AbilityManager : MonoBehaviour
         return false;
     }
 
+    public void UpdateAbilities()
+    {
+        _allAbilities = GetComponentsInChildren<AbilityArchetype>();
+    }
+
     private GameObject GetAbilityObject(AbilityArchetype ability)
     {
-        for (int i = 0; i < ability._data.numToPool; i++)
-        {
-            if (!ability._data.poolObjects[i].activeInHierarchy)
-            {
-                return ability._data.poolObjects[i];
-            }
-        }
-        return null;
+        return ability.GetAbilityObject();
     }
 }

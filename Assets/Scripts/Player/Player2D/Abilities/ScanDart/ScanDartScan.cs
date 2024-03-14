@@ -212,7 +212,6 @@ public class ScanDartScan : MonoBehaviour
                         _rayCollisions[i].GetComponent<MeshRenderer>().material = data.defaultColor;
                     _rayCollisions[i].SetActive(true);
                 }
-                Debug.Log("blips drawn");
             }
         }
         yield return new WaitForSeconds(1f / _sampleRate);

@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.Playables;
 using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
 
-[CreateAssetMenu(menuName = "ScanDart/Scan Dart")]
+[CreateAssetMenu(menuName = "Abilities/Scan Dart")]
 public class ScanDartData : AbilityData
 {
     public float launchForce;
@@ -33,6 +34,17 @@ public class ScanDartData : AbilityData
     public override void OnActivationFailed()
     {
         RecallDarts(GameObject.Find("SubPlayer")); // just for testing - change later
+    }
+    public override GameObject GetAbilityObject()
+    {
+        for (int i = 0; i < numToPool; i++)
+        {
+            if (!poolObjects[i].activeInHierarchy)
+            {
+                return poolObjects[i];
+            }
+        }
+        return null;
     }
     public void RecallDarts(GameObject player)
     {
