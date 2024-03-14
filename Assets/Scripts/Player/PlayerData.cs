@@ -11,5 +11,7 @@ public class PlayerData : ScriptableObject
     [Header("Interactable")]
     public float InteractionRange;
     public LayerMask InteractionMask;
+    [Header("Sounds")]
+    public float MinimumFootStepDistance = 1;
 
 }

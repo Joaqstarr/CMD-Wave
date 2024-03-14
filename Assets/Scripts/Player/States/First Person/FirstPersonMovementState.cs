@@ -13,6 +13,7 @@ public class FirstPersonMovementState : FirstPersonBaseState
     private GameObject _highlightedObject;
     private bool _pressedLastFrame;
     private bool _pressedInteractable = false;
+    private float _distanceWalked;
     public override void OnEnterState(FirstPersonPlayerManager player)
     {
         #region Global Variable Setup
@@ -26,8 +27,7 @@ public class FirstPersonMovementState : FirstPersonBaseState
         if (_player == null)
             _player = player;
         #endregion
-
-
+        _distanceWalked = 0;
     }
 
     public override void OnExitState(FirstPersonPlayerManager player)
@@ -41,6 +41,11 @@ public class FirstPersonMovementState : FirstPersonBaseState
         LookY();
         _highlightedObject = CheckInteractable();
 
+        if (_distanceWalked > player.PlayerData.MinimumFootStepDistance)
+        {
+            _distanceWalked = 0;
+            player.FootstepSource.PlayOneShot(player.Footsteps[Random.Range(0, player.Footsteps.Length)]);
+        }
 
         if (_highlightedObject != null && !_pressedInteractable)
         {
@@ -57,6 +62,8 @@ public class FirstPersonMovementState : FirstPersonBaseState
     {
         Vector3 MoveDirection = _player.transform.forward * _playerControls.MoveInput.y + _player.transform.right * _playerControls.MoveInput.x;
         MoveDirection *= _playerData.MoveSpeed;
+        _distanceWalked += MoveDirection.magnitude * Time.deltaTime;
+
         MoveDirection.y += _playerData.Gravity;
         _controller.Move(MoveDirection * Time.deltaTime);
     }

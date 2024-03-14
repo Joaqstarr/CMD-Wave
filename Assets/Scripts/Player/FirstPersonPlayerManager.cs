@@ -18,14 +18,18 @@ public class FirstPersonPlayerManager : MonoBehaviour
     public FirstPersonPlayerControls FirstPersonControls { get; private set; }
     [SerializeField]
     private Transform _headPos;
-    
+
+    public AudioClip[] Footsteps;
+    public AudioSource FootstepSource;
     #endregion
     void Start()
     {
 
+
         //component setup
         CharacterController = GetComponent<CharacterController>();
         FirstPersonControls = GetComponent<FirstPersonPlayerControls>();
+        FootstepSource = GetComponent<AudioSource>();
 
         //state setup
         SwitchState(MovementState);
