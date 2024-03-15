@@ -16,6 +16,8 @@ public class AnglerManager : BaseEnemyManager
     public Rigidbody Rb;
     public Item ItemBait;
     public Vector2 StartLocation {  get; private set; }
+    public Vector2 StartItemLocation { get; private set; }
+
     private void Start()
     {
         IdleState = new AnglerIdleState();
@@ -26,6 +28,7 @@ public class AnglerManager : BaseEnemyManager
         BaseData = Data;
         SwitchState(IdleState);
         StartLocation = transform.position;
+        StartItemLocation = ItemBait.transform.position;
 
         
     }

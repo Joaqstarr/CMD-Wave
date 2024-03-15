@@ -9,6 +9,8 @@ public class AnglerDeadState : BaseEnemyState
 
     public override void OnEnterState(BaseEnemyManager enemy)
     {
+        enemy.Pathfinder.canMove = false;
+        enemy.DestinationSetter.target = null;
 
         if (manager == null)
             manager = (AnglerManager)enemy;
@@ -24,6 +26,7 @@ public class AnglerDeadState : BaseEnemyState
         manager.Rb.isKinematic = true;
         manager.Rb.MovePosition(manager.StartLocation);
         manager.ItemBait.Spawn(manager.ItemBait.RoomCode);
+        manager.ItemBait.GetComponent<Rigidbody>().MovePosition(manager.StartItemLocation);
 
     }
 
@@ -33,5 +36,7 @@ public class AnglerDeadState : BaseEnemyState
 
     public override void OnUpdateState(BaseEnemyManager enemy)
     {
+        if (Vector2.Distance(enemy.Target.position, manager.StartLocation) > enemy.BaseData._respawnRange)
+            enemy._enemyHealth.Revive();
     }
 }

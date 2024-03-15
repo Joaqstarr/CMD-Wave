@@ -21,7 +21,7 @@ public class BaseEnemyManager : MonoBehaviour
     public AIPath Pathfinder { get; private set; }
     [HideInInspector]
     public AIDestinationSetter DestinationSetter { get; private set; }
-    private BaseEnemyHealth _enemyHealth;
+    public BaseEnemyHealth _enemyHealth { get; private set; }
     protected void Start()
     {
         Target = GameObject.Find("SubPlayer").transform;
@@ -63,6 +63,8 @@ public class BaseEnemyManager : MonoBehaviour
         CurrentState = newState;
 
         CurrentState.OnEnterState(this);
+
+        Debug.Log(newState.ToString());
     }
 
 }

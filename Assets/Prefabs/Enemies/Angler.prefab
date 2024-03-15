@@ -285,6 +285,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4274807635362683742, guid: 142965483f0636b4fad3ef46cd088950, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6518163391569262947, guid: 142965483f0636b4fad3ef46cd088950, type: 3}
       propertyPath: _itemTag
       value: AN
@@ -296,43 +300,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1068224327429368103, guid: 142965483f0636b4fad3ef46cd088950, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1147667076634561050}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 142965483f0636b4fad3ef46cd088950, type: 3}
 --- !u!114 &1263149403871387784 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6518163391569262947, guid: 142965483f0636b4fad3ef46cd088950, type: 3}
   m_PrefabInstance: {fileID: 5472630704262142443}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4981448466936590540}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e5511db26eec5a4383d6096991c710f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &4981448466936590540 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1068224327429368103, guid: 142965483f0636b4fad3ef46cd088950, type: 3}
-  m_PrefabInstance: {fileID: 5472630704262142443}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1147667076634561050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4981448466936590540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c8e4082e3b90343bb5a10e7cdae730, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyData: {fileID: 0}
-  OnHit:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &7275422120369675697 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3388340237759906906, guid: 142965483f0636b4fad3ef46cd088950, type: 3}
