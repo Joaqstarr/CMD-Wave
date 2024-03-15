@@ -15,7 +15,7 @@ MonoBehaviour:
   MoveSpeed: 10
   LookSpeed: 1
   Gravity: -9.8
-  InteractionRange: 2
+  InteractionRange: 7
   InteractionMask:
     serializedVersion: 2
     m_Bits: 64

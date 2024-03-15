@@ -6,4 +6,6 @@ using UnityEngine;
 public interface IInteractable
 {
     public void OnInteracted(PlayerControls playerInteracted);
+
+    public bool CheckInteractable(float distance);
 }

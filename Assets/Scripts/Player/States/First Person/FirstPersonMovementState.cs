@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class FirstPersonMovementState : FirstPersonBaseState
 {
     private CharacterController _controller;
@@ -10,7 +10,7 @@ public class FirstPersonMovementState : FirstPersonBaseState
     private FirstPersonPlayerManager _player;
 
 
-    private GameObject _highlightedObject;
+    private IInteractable _highlightedObject;
     private bool _pressedLastFrame;
     private bool _pressedInteractable = false;
     private float _distanceWalked;
@@ -52,7 +52,7 @@ public class FirstPersonMovementState : FirstPersonBaseState
             if (!_pressedLastFrame && _playerControls.SelectPressed)
             {
                 _pressedInteractable = true;
-                _highlightedObject.SendMessage("OnInteracted", _playerControls);
+                _highlightedObject.OnInteracted(_playerControls);
             }
         }
         _pressedLastFrame = _playerControls.SelectPressed;
@@ -93,12 +93,18 @@ public class FirstPersonMovementState : FirstPersonBaseState
 
     }
 
-    private GameObject CheckInteractable()
+    private IInteractable CheckInteractable()
     {
         RaycastHit hit;
         if(Physics.Raycast(_player.HeadPos.position, _player.HeadPos.forward, out hit,_playerData.InteractionRange, _playerData.InteractionMask))
         {
-            return hit.transform.gameObject;
+            IInteractable foundComponent = (IInteractable)hit.transform.GetComponent(typeof(IInteractable));
+
+            if (foundComponent == null) return null;
+
+            if(!foundComponent.CheckInteractable(hit.distance)) return null;
+
+            return foundComponent;
         }
         _pressedInteractable = false;
         return null;

@@ -21,11 +21,18 @@ public class PlayerSubHealth : MonoBehaviour
     public delegate void PlayerHitDel(float strength);
     public static PlayerHitDel OnHitDel;
 
+    public static PlayerSubHealth Instance;
+
     [SerializeField]
     private AudioClip[] _hitClips;
     private AudioSource _audioSource;
     void Start()
     {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
+
         // component assignments
         _subManager = GetComponent<PlayerSubManager>();
 
@@ -130,5 +137,10 @@ public class PlayerSubHealth : MonoBehaviour
 
             _audioSource.PlayOneShot(audioClip, vol);
         }
+    }
+
+    public int Health
+    {
+        get { return _health; }
     }
 }

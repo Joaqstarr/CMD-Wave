@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Room : MonoBehaviour
@@ -34,6 +35,9 @@ public class Room : MonoBehaviour
     [SerializeField]
     private Door _rightDoor;
     private int _dmg;
+
+    
+    private RepairPoint[] _damages;
     private void Awake()
     {
         if(_roomTag.Length < 2)
@@ -44,6 +48,7 @@ public class Room : MonoBehaviour
         {
            // _roomTag = _roomTag.Substring(0, 3);
         }
+        _damages = GetComponentsInChildren<RepairPoint>();
     }
 
     public void UpdateDoors()
@@ -139,12 +144,19 @@ public class Room : MonoBehaviour
 
     public void Damage()
     {
-        Debug.Log("damaging room " + _roomTag);
-        _dmg++;
+        if(_damages.Length > 0 ) { }
+            _damages[Random.Range(0, _damages.Length)].Damage();
     }
     public int DamageAmount
     {
-        get { return _dmg; }
+        get {
+            int amt = 0;
+            for (int i = 0; i < _damages.Length; i++)
+                if (_damages[i].IsDamaged)
+                    amt++;
+
+            return amt; 
+        }
     }
 
 }
