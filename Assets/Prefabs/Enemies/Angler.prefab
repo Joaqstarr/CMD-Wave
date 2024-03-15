@@ -174,6 +174,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: 1067340cc50f42e4ea8037a90533437d, type: 2}
+  OnHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2304824938777731749}
+        m_TargetAssemblyTypeName: AnglerManager, Assembly-CSharp
+        m_MethodName: Hit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!54 &2483798121479095502
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -315,6 +330,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 0}
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &7275422120369675697 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3388340237759906906, guid: 142965483f0636b4fad3ef46cd088950, type: 3}

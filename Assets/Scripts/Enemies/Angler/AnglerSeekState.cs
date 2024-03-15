@@ -14,12 +14,23 @@ public class AnglerSeekState : BaseEnemyState
         if (manager == null)
             manager = (AnglerManager)enemy;
 
-        manager.Rb.isKinematic = false;
 
-        Vector3 direction = enemy.Target.position - enemy.transform.position;
-        direction.Normalize();
+        if (!manager.ItemBait.gameObject.activeInHierarchy)
+        {
 
-        manager.Rb.AddForce(direction * enemy.BaseData.speed, ForceMode.Impulse);
+            manager.Rb.isKinematic = false;
+
+            Vector3 direction = enemy.Target.position - enemy.transform.position;
+            direction.Normalize();
+
+            manager.Rb.AddForce(direction * enemy.BaseData.speed, ForceMode.Impulse);
+        }
+        else
+        {
+            enemy.Pathfinder.canMove = true;
+            manager.ItemBait.Collect();
+
+        }
 
     }
 

@@ -15,6 +15,7 @@ public class AnglerManager : BaseEnemyManager
     private float _deadDistance = 5f;
     public Rigidbody Rb;
     public Item ItemBait;
+    public Vector2 StartLocation {  get; private set; }
     private void Start()
     {
         IdleState = new AnglerIdleState();
@@ -24,6 +25,7 @@ public class AnglerManager : BaseEnemyManager
         Rb = GetComponent<Rigidbody>();
         BaseData = Data;
         SwitchState(IdleState);
+        StartLocation = transform.position;
 
         
     }
@@ -37,6 +39,12 @@ public class AnglerManager : BaseEnemyManager
             transform.DOMove((Vector2)transform.position + (direction * _deadDistance), 2f).SetEase(Ease.InCubic);
         }
     }
-
+    public void Hit()
+    {
+        if(CurrentState == IdleState && !_dead)
+        {
+            SwitchState(AttackState);
+        }
+    }
 
 }

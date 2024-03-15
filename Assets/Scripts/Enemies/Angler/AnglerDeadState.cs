@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class AnglerDeadState : BaseEnemyState
@@ -21,7 +22,8 @@ public class AnglerDeadState : BaseEnemyState
     {
         manager.Rb.useGravity = false;
         manager.Rb.isKinematic = true;
-
+        manager.Rb.MovePosition(manager.StartLocation);
+        manager.ItemBait.Spawn(manager.ItemBait.RoomCode);
 
     }
 
