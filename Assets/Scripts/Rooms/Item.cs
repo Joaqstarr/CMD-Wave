@@ -8,7 +8,6 @@ public class Item : MonoBehaviour
     public delegate void ItemDelegate(string key);
     public ItemDelegate ItemSpawned;
     public ItemDelegate ItemDespawned;
-
     [SerializeField]
     private string _itemTag;
 

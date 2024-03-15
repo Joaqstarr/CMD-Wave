@@ -12,8 +12,6 @@ public class ArmEnemyManager : BaseEnemyManager
     #region State References
 
     public BaseEnemyState AttackState = new ArmEnemyAttackState();
-    public BaseEnemyState IdleState = new ArmEnemyIdleState();
-    public BaseEnemyState DeadState = new ArmEnemyDeadState();
 
     #endregion
 
@@ -21,26 +19,19 @@ public class ArmEnemyManager : BaseEnemyManager
 
     [HideInInspector]
     public SplineContainer meshSpline;
-    [HideInInspector]
-    public AIPath Pathfinder { get; private set; }
-    [HideInInspector]
-    public AIDestinationSetter DestinationSetter { get; private set; }
 
-    public Transform Target;
+
     public EnemyCollision ArmPart;
     public EnemyCollision[] ArmParts;
-    public BaseEnemyHealth _enemyHealth { get; private set; }
 
     #endregion
     private void Start()
     {
-        Target = GameObject.Find("SubPlayer").transform;
-
+        IdleState = new ArmEnemyIdleState();
+        DeadState = new ArmEnemyDeadState();
+        base.Start();
         BaseData = Data;
-        Pathfinder = GetComponentInChildren<AIPath>();
-        DestinationSetter = GetComponentInChildren<AIDestinationSetter>();
         meshSpline = GetComponent<SplineContainer>();
-        _enemyHealth = GetComponent<BaseEnemyHealth>();
 
         BezierKnot[] knots = new BezierKnot[4];
         knots[0] = new BezierKnot(-Vector3.up);
@@ -67,22 +58,7 @@ public class ArmEnemyManager : BaseEnemyManager
 
 
     }
-    protected void Update()
-    {
-        if (_enemyHealth.IsDead != _dead)
-        {
-            _dead = _enemyHealth.IsDead;
-            if (_dead)
-            {
-                SwitchState(DeadState);
-            }
-            else
-            {
-                SwitchState(IdleState);
-            }
-        }
-        base.Update();
-    }
+
     public void SetKnotPosition(int index, Vector3 position)
     {
         BezierKnot newKnot = meshSpline.Spline[index];

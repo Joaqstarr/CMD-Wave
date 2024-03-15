@@ -66,7 +66,6 @@ public class ScanDartTransform : MonoBehaviour
     {
         if ((_data.collideWith & (1 << collision.gameObject.layer)) != 0)
         {
-            Debug.Log(collision.gameObject);
             _rb.velocity = Vector3.zero;
             _rb.isKinematic = true;
             transform.SetParent(collision.transform);

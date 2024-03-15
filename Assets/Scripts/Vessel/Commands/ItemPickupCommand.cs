@@ -36,6 +36,12 @@ public class ItemPickupCommand : CommandBase
             {
                 //pickup item
                 _roomToAdd = RoomPool.Instance.GetRoom(_itemsInRange[itemPickupIndex].RoomCode);
+                if(_roomToAdd == null)
+                {
+                    _itemsInRange[itemPickupIndex].Collect();
+                    return CommandLineManager.StringToArray("ROOM NOT FOUND");
+
+                }
                 overrideContext = _waitForLocationContext;
                 VesselRoomHandler.Instance.UpdateMap(true);
                 return GetPickUpMessage(_itemsInRange[itemPickupIndex].RoomCode);

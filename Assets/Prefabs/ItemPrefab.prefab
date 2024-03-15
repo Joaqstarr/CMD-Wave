@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5511db26eec5a4383d6096991c710f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemTag: TO
+  _itemTag: FI
   _gizmoColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!54 &4274807635362683742
 Rigidbody:

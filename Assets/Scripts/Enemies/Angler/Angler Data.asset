@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9809956e83ed154e9ca3783882cadfd, type: 3}
-  m_Name: DashData
+  m_Script: {fileID: 11500000, guid: 519ef3d04c4ce8147bb79530554873b6, type: 3}
+  m_Name: Angler Data
   m_EditorClassIdentifier: 
-  abilityName: Dash
-  commandShortcut: da
-  abilityPrefab: {fileID: 0}
-  numToPool: 0
-  poolObjects: []
-  cooldown: 1
-  _maxDashSpeed: 0
-  _chargeTime: 1.5
+  detectionRadius: 0
+  attackRadius: 0
+  _respawnRange: 50
+  speed: 50
+  acceleration: 0
+  health: 45
+  damage: 10
+  knockbackValue: 30
+  stunDuration: 0

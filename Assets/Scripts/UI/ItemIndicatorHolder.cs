@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ItemIndicatorHolder : MonoBehaviour
@@ -9,7 +10,7 @@ public class ItemIndicatorHolder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        List<Item> list = _pool.ItemList;
+        List<Item> list = FindObjectsByType<Item>(FindObjectsSortMode.None).ToList();
 
         for (int i = 0; i < list.Count; i++)
         {
