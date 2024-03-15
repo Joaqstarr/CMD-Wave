@@ -187,6 +187,30 @@ public class PlayerControls : MonoBehaviour
         return true;
     }
 
+    private Vector2 _moveInput;
+    public virtual bool OnProbeMove(InputValue Value)
+    {
+        if (CommandLineManager.Instance != null)
+        {
+            if (CommandLineManager.Instance.IsTyping)
+            {
+                return false;
+            }
+        }
+        if (_possesedInput != null)
+        {
+            _possesedInput.OnProbeMove(Value);
+            return false;
+        }
+
+        return true;
+    }
+
+    public Vector2 MoveInput
+    {
+        get { return _moveInput; }
+    }
+
     public virtual bool OnExit(InputValue Value)
     {
         if (CommandLineManager.Instance != null)
