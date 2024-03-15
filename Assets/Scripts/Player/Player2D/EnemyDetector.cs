@@ -23,11 +23,13 @@ public class EnemyDetector : MonoBehaviour
     }
     private void OnTriggerEnter(Collider collision)
     {
-        _enemyHealths.Add(collision.transform.GetComponent<BaseEnemyHealth>());
+        BaseEnemyHealth healthToAdd = collision.transform.GetComponentInParent<BaseEnemyHealth>();
+        if(healthToAdd != null) 
+        _enemyHealths.Add(collision.transform.GetComponentInParent<BaseEnemyHealth>());
     }
     private void OnTriggerExit(Collider collision)
     {
-        _enemyHealths.Remove(collision.transform.GetComponent<BaseEnemyHealth>());
+        _enemyHealths.Remove(collision.transform.GetComponentInParent<BaseEnemyHealth>());
 
     }
 }

@@ -24,9 +24,10 @@ public class Torpedo : MonoBehaviour
         if ((_data.collideWith & (1 << collision.gameObject.layer)) != 0)
         {
             Debug.Log(collision.gameObject);
-            if (collision.gameObject.GetComponent<IHittable>()  != null)
+            IHittable hitInterface = collision.gameObject.GetComponentInParent<IHittable>();
+            if (hitInterface != null)
             {
-                collision.gameObject.GetComponent<IHittable>().Hit(_data.damage, this.gameObject);
+                hitInterface.Hit(_data.damage, this.gameObject);
             }
             this.gameObject.SetActive(false);
         }

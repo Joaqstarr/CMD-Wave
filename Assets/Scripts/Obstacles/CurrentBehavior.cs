@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(ParticleSystem), typeof(BoxCollider))]
+[RequireComponent(typeof(ParticleSystem))]
 public class CurrentBehavior : MonoBehaviour
 {
     [SerializeField]

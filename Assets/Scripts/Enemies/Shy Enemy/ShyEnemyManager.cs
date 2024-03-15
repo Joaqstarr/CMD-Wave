@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,6 +43,7 @@ public class ShyEnemyManager : MonoBehaviour
     public Vector2 _startPosition;
 
     private bool _dead = false;
+    private float _deadDistance = 3;
     #endregion
     void Start()
     {
@@ -108,9 +110,19 @@ public class ShyEnemyManager : MonoBehaviour
     }
 
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("PlayerSub"))
+        if (collision.gameObject.CompareTag("Terrain"))
+        {
+            Rb.isKinematic = true;
+            Vector2 direction = (collision.contacts[0].point - transform.position).normalized;
+            transform.DOMove((Vector2) transform.position +  (direction*_deadDistance), 2f).SetEase(Ease.InCubic);
+        }
+    }
+
+    private void OnCollisionStay(Collision collision) 
+    {
+        if (collision.gameObject.CompareTag("PlayerSub") && !_dead)
         {
             if(_playerSubHealth == null)
                 _playerSubHealth =collision.gameObject.GetComponent<PlayerSubHealth>();

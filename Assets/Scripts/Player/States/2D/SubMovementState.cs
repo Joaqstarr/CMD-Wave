@@ -83,7 +83,6 @@ public class SubMovementState : SubBaseState
 
     private void UpdateCamFollow(PlayerSubManager player)
     {
-        Debug.Log(player.SubViewCone.ConvertAimCoordinate(_subControls.AimInput) + ", " + _subControls.AimInput + ", " + (player.SubViewCone.ConvertAimCoordinate(_subControls.AimInput) - player.transform.position));
 
 
         player.CamFollow.localPosition = Vector3.ClampMagnitude( (Vector3.zero +(player.SubViewCone.ConvertAimCoordinate(_subControls.AimInput) - player.transform.position)), _subData.cameraLookAhead);

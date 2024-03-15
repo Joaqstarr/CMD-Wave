@@ -24,7 +24,7 @@ MonoBehaviour:
   fov: 30
   resolution: 15
   viewDistance: 15
-  rayResolution: 60
+  rayResolution: 90
   sampleRate: 10
   blipObject: {fileID: 5160852551703549048, guid: 930ee4125b11b8b44ac4113eac39bb7d, type: 3}
   collisionMask:
