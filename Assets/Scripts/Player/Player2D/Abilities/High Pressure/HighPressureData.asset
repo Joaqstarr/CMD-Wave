@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c231c520e15e94784d209c71ca4e38, type: 3}
+  m_Name: HighPressureData
+  m_EditorClassIdentifier: 
+  abilityName: PressureModule
+  commandShortcut: pr
+  abilityPrefab: {fileID: 5994736223270090275, guid: 77f28747693686944a8dc5fd143bf028, type: 3}
+  numToPool: 1
+  poolObjects:
+  - {fileID: 0}
+  cooldown: 1
+  blastRadius: 7
+  blastDuration: 0.5
+  knockback: 100
+  stunDuration: 5

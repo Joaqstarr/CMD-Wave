@@ -37,6 +37,7 @@ public class AbilityManager : MonoBehaviour
                 ability._data.poolObjects = new GameObject[ability._data.numToPool];
                 GameObject holder = new GameObject(ability.name + "Holder");
                 holder.transform.parent = this.transform;
+                holder.transform.position = this.transform.position;
                 GameObject tempObject;
                 for (int i = 0;  i < ability._data.numToPool; i++)
                 {
@@ -70,6 +71,7 @@ public class AbilityManager : MonoBehaviour
                 {
                     if (PlayerSubControls.Instance.PowerPressed && !_inputHeld || (_activeAbility._data.commandShortcut == "da" && (_inputHeld || _inputHeldLastFrame)))
                     {
+                        Debug.Log(_activeAbility._data.numToPool > 0);
                         if (_activeAbility._data.numToPool > 0)
                         {
                             GameObject ability = GetAbilityObject(_activeAbility);

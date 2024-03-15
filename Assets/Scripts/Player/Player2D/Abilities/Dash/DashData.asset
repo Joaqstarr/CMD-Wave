@@ -17,6 +17,6 @@ MonoBehaviour:
   abilityPrefab: {fileID: 0}
   numToPool: 0
   poolObjects: []
-  cooldown: 1
-  _maxDashSpeed: 0
-  _chargeTime: 1.5
+  cooldown: 0.3
+  _maxDashSpeed: 70
+  _chargeTime: 0.8

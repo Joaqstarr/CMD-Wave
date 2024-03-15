@@ -3,8 +3,9 @@ using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
-public class ShyEnemyManager : MonoBehaviour
+public class ShyEnemyManager : MonoBehaviour, IKnockbackable
 {
     [SerializeField]
     private  ShyEnemyData _enemyData;
@@ -127,12 +128,21 @@ public class ShyEnemyManager : MonoBehaviour
             if(_playerSubHealth == null)
                 _playerSubHealth =collision.gameObject.GetComponent<PlayerSubHealth>();
 
-            _playerSubHealth.OnHit(_enemyData.damage, Knockback(collision.transform.position), _enemyData.stunDuration);
+            _playerSubHealth.OnHit(_enemyData.damage, KnockbackPlayer(collision.transform.position), _enemyData.stunDuration);
         }
     }
-    private Vector3 Knockback(Vector3 playerPos)
+    private Vector3 KnockbackPlayer(Vector3 playerPos)
     {
          return (playerPos - transform.position).normalized * _enemyData.knockbackValue; 
+    }
+
+    public void Knockback(float force, float stunDuration, Vector3 origin)
+    {
+        Debug.Log(transform.position - origin);
+        float tempAngle = Mathf.Atan2(transform.position.y - origin.y, transform.position.y - origin.x) * Mathf.Rad2Deg;
+        Vector3 collisionDir = new Vector3(Mathf.Cos(tempAngle * (Mathf.PI / 180f)), Mathf.Sin(tempAngle * (Mathf.PI / 180f)));
+        Rb.AddForce((transform.position - origin) * force, ForceMode.Impulse);
+        Debug.Log("Force: " + (transform.position - origin) * force);
     }
 
 }
