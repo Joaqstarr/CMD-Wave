@@ -19,10 +19,15 @@ public class HighPressureBlast : MonoBehaviour
     private Transform _parent;
     private float _runTime;
 
+    private void Awake()
+    {
+        _hasBlast = true;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        _parent = transform.parent;
+        _parent = GameObject.Find("HighPressureHolder").transform;
         transform.position = _parent.position;
     }
 
@@ -69,16 +74,17 @@ public class HighPressureBlast : MonoBehaviour
     }
     private IEnumerator Deactivate()
     {
+        _hasBlast = false;
         yield return new WaitForSeconds(0.5f);
         this.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        IKnockbackable knockbackInterace = collision.gameObject.GetComponent<IKnockbackable>();
-        if (knockbackInterace != null)
+        IKnockbackable knockbackInterface = collision.gameObject.GetComponent<IKnockbackable>();
+        if (knockbackInterface != null)
         {
-            knockbackInterace.Knockback(_data.knockback, _data.stunDuration, transform.position);
+            knockbackInterface.Knockback(_data.knockback, _data.stunDuration, transform.position);
         }
     }
 }

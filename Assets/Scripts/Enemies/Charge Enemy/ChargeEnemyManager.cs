@@ -3,54 +3,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargeEnemyManager : MonoBehaviour
+public class ChargeEnemyManager : BaseEnemyManager, IKnockbackable
 {
     [SerializeField]
-    private BaseEnemyData _enemyData;
+    public ChargeEnemyData _data;
 
-    #region StateReferences
-    public ChargeEnemyBaseState CurrentState { get; private set; }
-    public ChargeEnemyIdleState IdleState { get; private set; } = new ChargeEnemyIdleState();
-    public ChargeEnemySeekState SeekState { get; private set; } = new ChargeEnemySeekState();
-    public ChargeEnemyAttackState AttackState { get; private set; } = new ChargeEnemyAttackState();
-    public ChargeEnemyHitState HitState { get; private set; } = new ChargeEnemyHitState();
+    #region State References
+
+    public BaseEnemyState SeekState = new ChargeEnemySeekState();
+    public BaseEnemyState AttackState = new ChargeEnemyAttackState();
+
     #endregion
 
     #region ComponentReferences
     public Rigidbody Rb { get; private set; }
-    public BaseEnemyHealth Health { get; private set; }
-    public AIDestinationSetter DestinationSetter { get; private set; }
-    public AIPath Pathfinder { get; private set; }
+
     #endregion
 
     #region Variables
     [HideInInspector]
-    public GameObject _player;
+    public GameObject Player;
     [HideInInspector]
-    public PlayerSubData _playerData;
+    public float chargeCooldownTimer = 0;
     [HideInInspector]
-    public Transform _target;
-    [HideInInspector]
-    public float _stunTimer;
+    public Vector2 _startPosition;
+
     #endregion
     void Start()
     {
+        IdleState = new ChargeEnemyIdleState();
+        //DeadState = new ChargeEnemyDeadState();
         // set components
         Rb = GetComponent<Rigidbody>();
-        Health = GetComponent<BaseEnemyHealth>();
-        DestinationSetter = GetComponent<AIDestinationSetter>();
-        Pathfinder = GetComponent<AIPath>();
 
-        // set variables
-        _player = GameObject.FindGameObjectWithTag("PlayerSub");
-        _playerData = _player.GetComponent<PlayerSubManager>().SubData;
-        _target = transform.Find("Target");
+        // find player
+        Player = GameObject.Find("SubPlayer");
 
-        // set target
-        DestinationSetter.target = _target;
+        BaseData = Data;
+        _startPosition = transform.position;
+
+        base.Start();
 
         // movement state
-        CurrentState = IdleState;
+        SwitchState(IdleState);
 
         // enter state
         CurrentState.OnEnterState(this);
@@ -59,7 +54,7 @@ public class ChargeEnemyManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        CurrentState.OnUpdateState(this);
+        base.Update();
     }
 
     private void FixedUpdate()
@@ -67,18 +62,18 @@ public class ChargeEnemyManager : MonoBehaviour
         CurrentState.OnFixedUpdateState(this);
     }
 
-    public void SwitchState(ChargeEnemyBaseState newState)
+    public void Knockback(float force, float stunDuration, Vector3 origin)
     {
-        if (CurrentState != null)
-            CurrentState.OnExitState(this);
-
-        CurrentState = newState;
-
-        CurrentState.OnEnterState(this);
+        Rb.velocity = Vector3.zero;
+        Debug.Log(transform.position - origin);
+        float tempAngle = Mathf.Atan2(transform.position.y - origin.y, transform.position.y - origin.x) * Mathf.Rad2Deg;
+        Vector3 collisionDir = new Vector3(Mathf.Cos(tempAngle * (Mathf.PI / 180f)), Mathf.Sin(tempAngle * (Mathf.PI / 180f)));
+        Rb.AddForce((collisionDir) * force, ForceMode.Impulse);
+        Debug.Log("Force: " + (transform.position - origin) * force);
     }
 
-    public BaseEnemyData EnemyData
+    public ChargeEnemyData Data
     {
-        get { return _enemyData; }
+        get { return _data; }
     }
 }

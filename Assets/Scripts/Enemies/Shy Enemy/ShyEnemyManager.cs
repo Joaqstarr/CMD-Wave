@@ -129,6 +129,8 @@ public class ShyEnemyManager : MonoBehaviour, IKnockbackable
                 _playerSubHealth =collision.gameObject.GetComponent<PlayerSubHealth>();
 
             _playerSubHealth.OnHit(_enemyData.damage, KnockbackPlayer(collision.transform.position), _enemyData.stunDuration);
+
+            Rb.angularVelocity = Vector3.zero;
         }
     }
     private Vector3 KnockbackPlayer(Vector3 playerPos)
@@ -138,10 +140,11 @@ public class ShyEnemyManager : MonoBehaviour, IKnockbackable
 
     public void Knockback(float force, float stunDuration, Vector3 origin)
     {
+        Rb.angularVelocity = Vector3.zero;
         Debug.Log(transform.position - origin);
         float tempAngle = Mathf.Atan2(transform.position.y - origin.y, transform.position.y - origin.x) * Mathf.Rad2Deg;
         Vector3 collisionDir = new Vector3(Mathf.Cos(tempAngle * (Mathf.PI / 180f)), Mathf.Sin(tempAngle * (Mathf.PI / 180f)));
-        Rb.AddForce((transform.position - origin) * force, ForceMode.Impulse);
+        Rb.AddForce((collisionDir) * force, ForceMode.Impulse);
         Debug.Log("Force: " + (transform.position - origin) * force);
     }
 

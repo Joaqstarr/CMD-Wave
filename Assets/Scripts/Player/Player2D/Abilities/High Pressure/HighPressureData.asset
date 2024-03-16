@@ -21,5 +21,5 @@ MonoBehaviour:
   cooldown: 1
   blastRadius: 7
   blastDuration: 0.5
-  knockback: 100
+  knockback: 30
   stunDuration: 5

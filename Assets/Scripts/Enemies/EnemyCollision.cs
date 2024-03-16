@@ -20,6 +20,6 @@ public class EnemyCollision : MonoBehaviour
 
     private Vector3 Knockback(Vector3 playerPos)
     {
-        return (playerPos - transform.position).normalized * Manager.BaseData.knockbackValue;
+        return ((playerPos - transform.position) * 1000).normalized * Manager.BaseData.knockbackValue;
     }
 }

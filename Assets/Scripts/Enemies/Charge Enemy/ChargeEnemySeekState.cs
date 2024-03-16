@@ -2,31 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargeEnemySeekState : ChargeEnemyBaseState
+public class ChargeEnemySeekState : BaseEnemyState
 {
-    public override void OnEnterState(ChargeEnemyManager enemy)
+    private ChargeEnemyManager manager;
+    public override void OnEnterState(BaseEnemyManager enemy)
     {
-        Debug.Log("Idling");
-        enemy.Pathfinder.canMove = false;
+        enemy.Pathfinder.canMove = true;
+        enemy.DestinationSetter.target = null;
+
+        if (manager == null)
+            manager = (ChargeEnemyManager)enemy;
+
+        manager.DestinationSetter.target = enemy.Target;
     }
 
-    public override void OnExitState(ChargeEnemyManager enemy)
+    public override void OnExitState(BaseEnemyManager enemy)
     {
         enemy.Pathfinder.canMove = true;
     }
 
-    public override void OnUpdateState(ChargeEnemyManager enemy)
+    public override void OnUpdateState(BaseEnemyManager enemy)
     {
+        if (manager.chargeCooldownTimer > 0)
+            manager.chargeCooldownTimer -= Time.deltaTime;
 
         // switch state conditionals
 
-        // seek
-        if (Vector3.Distance(enemy.transform.position, enemy._player.transform.position) <= enemy.EnemyData.detectionRadius)
-            if (!Physics.Linecast(enemy.transform.position, enemy._player.transform.position, 9))
-                enemy.SwitchState(enemy.SeekState);
+        // idle
+        if (Vector3.Distance(enemy.transform.position, manager.Player.transform.position) > manager.Data.detectionRadius)
+            enemy.SwitchState(manager.IdleState);
+        //else if (Physics.Linecast(enemy.transform.position, manager.Player.transform.position, 9))
+        //enemy.SwitchState(manager.IdleState);
+
+        // attack
+        if (manager.chargeCooldownTimer <= 0)
+            if (Vector3.Distance(enemy.transform.position, manager.Player.transform.position) <= manager.Data.attackRadius)
+                enemy.SwitchState(manager.AttackState);
+
     }
 
-    public override void OnFixedUpdateState(ChargeEnemyManager enemy)
+    public override void OnFixedUpdateState(BaseEnemyManager enemy)
     {
 
     }

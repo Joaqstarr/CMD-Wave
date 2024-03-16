@@ -78,7 +78,6 @@ public class AbilityManager : MonoBehaviour
                             GameObject ability = GetAbilityObject(_activeAbility);
                             if (ability != null)
                             {
-                                Debug.Log("Try fire");
                                 _activeAbility.UseAbility(_player, ability);
                             }
                             else
@@ -90,7 +89,6 @@ public class AbilityManager : MonoBehaviour
                         {
                             if (_activeAbility._data.commandShortcut == "pb")
                             {
-                                Debug.Log("go to data script");
                                 _activeAbility.UseAbility(_player, _probe);
                             }
                             else
