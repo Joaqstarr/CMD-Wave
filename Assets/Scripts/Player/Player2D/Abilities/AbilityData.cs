@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.WSA;
 
 //[CreateAssetMenu(menuName = "AbilityData/Ability Data")]
 public abstract class AbilityData : ScriptableObject

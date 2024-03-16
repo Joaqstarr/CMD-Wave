@@ -2,10 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor.Playables;
 using UnityEngine;
-using UnityEngine.Rendering.HighDefinition;
 
 [CreateAssetMenu(menuName = "Abilities/Scan Dart")]
 public class ScanDartData : AbilityData

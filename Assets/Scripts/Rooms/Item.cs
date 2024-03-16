@@ -42,7 +42,7 @@ public class Item : MonoBehaviour
     {
         Gizmos.color = _gizmoColor;
         Gizmos.DrawSphere(transform.position, 1f);
-        Handles.Label(transform.position, _itemTag);
+        //Handles.Label(transform.position, _itemTag);
     }
 
 

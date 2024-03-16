@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Jobs;
 using UnityEngine.UIElements;
+using static UnityEditor.Rendering.HighDefinition.LightmappingHDRP.BakeProbeOptions;
 
 public class FogOfWar : MonoBehaviour, IDataPersistance
 {
@@ -26,6 +27,7 @@ public class FogOfWar : MonoBehaviour, IDataPersistance
     private NativeArray<Color32> PixelArray;
 
     private JobHandle HandleJob;
+    private JobHandle HandleConeJob;
 
 
 
@@ -79,6 +81,9 @@ public class FogOfWar : MonoBehaviour, IDataPersistance
         return pixelPosition;
          
     }
+
+
+
     struct MakeFogHole : IJob
     {
         public Vector2Int pixelPosition;
@@ -181,24 +186,114 @@ public class FogOfWar : MonoBehaviour, IDataPersistance
            alpha = alphaToSet
         };
         HandleJob = fogMultithread.Schedule();
-        fogOfWarTexture.Apply();
-        StartCoroutine(CompleteJob());
+        //fogOfWarTexture.Apply();
+        StartCoroutine(CompleteJob(HandleJob));
     }
 
 
-    IEnumerator CompleteJob()
+    IEnumerator CompleteJob(JobHandle jobToHandle)
     {
         yield return new WaitForEndOfFrame();
-        HandleJob.Complete();
+        jobToHandle.Complete();
+        fogOfWarTexture.Apply();
         CreateSprite();
 
     }
+
+    struct MakeFogTriangle : IJob
+    {
+        public NativeArray<Color32> Pixels;
+        public Vector2Int _pixelScale;
+        public Vector2Int TextureSize;
+        public Vector2Int pixelPosA;
+        public Vector2Int pixelPosB;
+        public Vector2Int pixelPosC;
+        public float coneFadeRemap;
+        public float _alpha;
+        public void Execute()
+        {
+
+            int minX = Mathf.Min(pixelPosA.x, Mathf.Min(pixelPosB.x, pixelPosC.x));
+            int maxX = Mathf.Max(pixelPosA.x, Mathf.Max(pixelPosB.x, pixelPosC.x));
+            int minY = Mathf.Min(pixelPosA.y, Mathf.Min(pixelPosB.y, pixelPosC.y));
+            int maxY = Mathf.Max(pixelPosA.y, Mathf.Max(pixelPosB.y, pixelPosC.y));
+            for (int x = minX; x <= maxX; x++)
+            {
+
+                for (int y = minY; y <= maxY; y++)
+                {
+                    Vector2Int pixelCheckPos = new Vector2Int(x, y);
+                    if (IsPointInTriangle(pixelCheckPos, pixelPosA, pixelPosB, pixelPosC))
+                    {
+
+                        Color pixelColor = GetPixel(x, y);
+
+
+                        Vector2 closestPoint = FindNearestPointOnLine(pixelPosA, ((pixelPosB + pixelPosC) / 2) - pixelPosA, pixelCheckPos);
+
+                        Vector2 furthestPoint;
+                        if (Vector2.Distance(pixelCheckPos, pixelPosB) < Vector2.Distance(pixelCheckPos, pixelPosC))
+                            furthestPoint = FindNearestPointOnLine(pixelPosA, pixelPosB - pixelPosA, pixelCheckPos);
+                        else
+                            furthestPoint = FindNearestPointOnLine(pixelPosA, pixelPosC - pixelPosA, pixelCheckPos);
+
+
+                        float distance = Vector2.Distance(pixelCheckPos, closestPoint);
+                        distance = distance / Vector2.Distance(furthestPoint, closestPoint);
+
+
+                        distance -= coneFadeRemap;
+                        distance = Mathf.Clamp01(distance);
+                        distance *= 1 / (1 - coneFadeRemap);
+
+                        pixelColor.a = Mathf.Min(pixelColor.a, Mathf.Lerp(_alpha, 1, distance));
+
+
+                        // if(new Vector2Int(Mathf.RoundToInt(furthestPoint.x), Mathf.RoundToInt(y)) == pixelCheckPos)
+                        //  fogOfWarTexture.SetPixel(Mathf.RoundToInt( furthestPoint.x), Mathf.RoundToInt(y), Color.red);
+                        //  else
+
+                        SetPixel(x, y, pixelColor);
+                    }
+                }
+            }
+        }
+        private Color32 GetPixel(int x, int y)
+        {
+            return Pixels[(y * TextureSize.x) + x];
+        }
+        private void SetPixel(int x, int y, Color32 pixel)
+        {
+            Pixels[(y * TextureSize.x) + x] = pixel;
+        }
+        private Vector2 FindNearestPointOnLine(Vector2 origin, Vector2 direction, Vector2 point)
+        {
+            direction.Normalize();
+            Vector2 lhs = point - origin;
+
+            float dotP = Vector2.Dot(lhs, direction);
+            return origin + direction * dotP;
+        }
+        private bool IsPointInTriangle(Vector2Int pt, Vector2Int v1, Vector2Int v2, Vector2Int v3)
+        {
+            bool b1 = Sign(pt, v1, v2) < 0.0f;
+            bool b2 = Sign(pt, v2, v3) < 0.0f;
+            bool b3 = Sign(pt, v3, v1) < 0.0f;
+            return (b1 == b2) && (b2 == b3);
+        }
+        private float Sign(Vector2Int p1, Vector2Int p2, Vector2Int p3)
+        {
+            return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
+        }
+    }
     public void MakeTriangle(Vector2 a, Vector2 b, Vector2 c, float alpha = 0)
     {
+
+
+        /*
         Vector2Int pixelPosA = WorldToPixel(a);
         Vector2Int pixelPosB = WorldToPixel(b);
         Vector2Int pixelPosC = WorldToPixel(c);
-
 
         int minX = Mathf.Min(pixelPosA.x, Mathf.Min(pixelPosB.x, pixelPosC.x));
         int maxX = Mathf.Max(pixelPosA.x, Mathf.Max(pixelPosB.x, pixelPosC.x));
@@ -244,34 +339,38 @@ public class FogOfWar : MonoBehaviour, IDataPersistance
 
                 }
             }
+        
         }
+        */
 
+
+        PixelArray = fogOfWarTexture.GetRawTextureData<Color32>();
+        MakeFogTriangle fogMultithread = new MakeFogTriangle()
+        {
+            Pixels = PixelArray,
+            _pixelScale = pixelScale,
+            TextureSize = _textureSize,
+            pixelPosA = WorldToPixel(a),
+            pixelPosB = WorldToPixel(b),
+            pixelPosC = WorldToPixel(c),
+            _alpha = alpha,
+            coneFadeRemap = _coneFadeRemap
+        };
+        HandleConeJob = fogMultithread.Schedule(HandleJob);
         fogOfWarTexture.Apply();
-        CreateSprite();
+        StartCoroutine(CompleteJob(HandleConeJob));
+
+
+        //fogOfWarTexture.Apply();
+        //CreateSprite();
     }
 
 
-    public Vector2 FindNearestPointOnLine(Vector2 origin, Vector2 direction, Vector2 point)
-    {
-        direction.Normalize();
-        Vector2 lhs = point - origin;
 
-        float dotP = Vector2.Dot(lhs, direction);
-        return origin + direction * dotP;
-    }
 
-    private bool IsPointInTriangle(Vector2Int pt, Vector2Int v1, Vector2Int v2, Vector2Int v3)
-    {
-        bool b1 = Sign(pt, v1, v2) < 0.0f;
-        bool b2 = Sign(pt, v2, v3) < 0.0f;
-        bool b3 = Sign(pt, v3, v1) < 0.0f;
-        return (b1 == b2) && (b2 == b3);
-    }
 
-    private float Sign(Vector2Int p1, Vector2Int p2, Vector2Int p3)
-    {
-        return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
-    }
+
+
 
     private void CreateSprite()
     {

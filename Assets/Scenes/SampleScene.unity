@@ -8,8 +8,8 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 9fc0d4010bbf28b4594072e72b8655ab
+  m_OcclusionCullingData: {fileID: 36300000, guid: 855944038de7eea4380c24158bdc9440, type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -2558,6 +2558,14 @@ PrefabInstance:
     - target: {fileID: 1380508503310860417, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
       propertyPath: m_CustomSpotLightShadowCone
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912319875015826731, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912319875015826731, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2895111500048241025, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
       propertyPath: m_SelectedEditorRenderState
@@ -28202,7 +28210,7 @@ MonoBehaviour:
   antialiasing: 0
   SMAAQuality: 2
   dithering: 0
-  stopNaNs: 0
+  stopNaNs: 1
   taaSharpenStrength: 0.5
   TAAQuality: 1
   taaHistorySharpening: 0.35
@@ -54314,6 +54322,10 @@ PrefabInstance:
       value: 7290000
       objectReference: {fileID: 0}
     - target: {fileID: 1436305023850768513, guid: ccb9d41700144cf4fafbd9afd1b3bf3d, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436305023850768513, guid: ccb9d41700144cf4fafbd9afd1b3bf3d, type: 3}
       propertyPath: m_BounceIntensity
       value: 4
       objectReference: {fileID: 0}
@@ -54356,6 +54368,10 @@ PrefabInstance:
     - target: {fileID: 4685715044916358322, guid: ccb9d41700144cf4fafbd9afd1b3bf3d, type: 3}
       propertyPath: m_LuxAtDistance
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685715044916358322, guid: ccb9d41700144cf4fafbd9afd1b3bf3d, type: 3}
+      propertyPath: m_ShadowNearPlane
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5355111676815345484, guid: ccb9d41700144cf4fafbd9afd1b3bf3d, type: 3}
       propertyPath: m_LocalPosition.y
