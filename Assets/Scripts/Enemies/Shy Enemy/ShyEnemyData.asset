@@ -19,6 +19,6 @@ MonoBehaviour:
   acceleration: 3
   health: 70
   damage: 20
-  knockbackValue: 200
+  knockbackValue: 15
   stunDuration: 0.5
   stunReactionTime: 0.3

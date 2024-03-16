@@ -19,7 +19,7 @@ MonoBehaviour:
   acceleration: 6
   health: 70
   damage: 15
-  knockbackValue: 35
+  knockbackValue: 60
   stunDuration: 0.5
   chargeForceValue: 400
   chargeStartupTime: 1

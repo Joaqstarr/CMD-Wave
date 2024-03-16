@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,6 +28,8 @@ public class ChargeEnemyManager : BaseEnemyManager, IKnockbackable
     public float chargeCooldownTimer = 0;
     [HideInInspector]
     public Vector2 _startPosition;
+
+    private float _deadDistance = 3;
 
     #endregion
     void Start()
@@ -70,6 +73,16 @@ public class ChargeEnemyManager : BaseEnemyManager, IKnockbackable
         Vector3 collisionDir = new Vector3(Mathf.Cos(tempAngle * (Mathf.PI / 180f)), Mathf.Sin(tempAngle * (Mathf.PI / 180f)));
         Rb.AddForce((collisionDir) * force, ForceMode.Impulse);
         Debug.Log("Force: " + (transform.position - origin) * force);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Terrain"))
+        {
+            Rb.isKinematic = true;
+            Vector2 direction = (collision.contacts[0].point - transform.position).normalized;
+            transform.DOMove((Vector2)transform.position + (direction * _deadDistance), 2f).SetEase(Ease.InCubic);
+        }
     }
 
     public ChargeEnemyData Data
