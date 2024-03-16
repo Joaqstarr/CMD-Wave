@@ -13,11 +13,17 @@ public class TestConsole : MonoBehaviour, IInteractable
         return distance < _range;
     }
 
+    public string GetInteractableLabel()
+    {
+        return "Press E to enter Console";
+    }
+
     public void OnInteracted(PlayerControls playerInteracted)
     {
         //GetComponentInChildren<CinemachineVirtualCamera>().Priority = 11;
         playerInteracted.Possess(_subPlayer);
     }
 
+    
 
 }

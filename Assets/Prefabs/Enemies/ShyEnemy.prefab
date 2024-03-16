@@ -172,7 +172,7 @@ Rigidbody:
   m_GameObject: {fileID: 1073036462156325855}
   serializedVersion: 4
   m_Mass: 10
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -203,6 +203,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: 670875d1292de784aa5c8befb136ac42, type: 2}
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1113151278739647575
 GameObject:
   m_ObjectHideFlags: 0

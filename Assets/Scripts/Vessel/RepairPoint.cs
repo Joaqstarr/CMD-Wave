@@ -42,4 +42,9 @@ public class RepairPoint : MonoBehaviour, IInteractable
         _projector.enabled = true;
         _ParticleSystem.Play();
     }
+
+    public string GetInteractableLabel()
+    {
+        return "Press E to Repair Damage";
+    }
 }

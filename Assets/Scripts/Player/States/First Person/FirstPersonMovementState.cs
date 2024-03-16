@@ -10,7 +10,6 @@ public class FirstPersonMovementState : FirstPersonBaseState
     private FirstPersonPlayerManager _player;
 
 
-    private IInteractable _highlightedObject;
     private bool _pressedLastFrame;
     private bool _pressedInteractable = false;
     private float _distanceWalked;
@@ -39,7 +38,7 @@ public class FirstPersonMovementState : FirstPersonBaseState
         Move();
         LookX();
         LookY();
-        _highlightedObject = CheckInteractable();
+        player._highlightedObject = (_playerControls.IsPosessing)? null : CheckInteractable();
 
         if (_distanceWalked > player.PlayerData.MinimumFootStepDistance)
         {
@@ -47,12 +46,12 @@ public class FirstPersonMovementState : FirstPersonBaseState
             player.FootstepSource.PlayOneShot(player.Footsteps[Random.Range(0, player.Footsteps.Length)]);
         }
 
-        if (_highlightedObject != null && !_pressedInteractable)
+        if (player._highlightedObject != null && !_pressedInteractable)
         {
             if (!_pressedLastFrame && _playerControls.SelectPressed)
             {
                 _pressedInteractable = true;
-                _highlightedObject.OnInteracted(_playerControls);
+                player._highlightedObject.OnInteracted(_playerControls);
             }
         }
         _pressedLastFrame = _playerControls.SelectPressed;

@@ -321,6 +321,9 @@ public class PlayerControls : MonoBehaviour
         Debug.Log(this + " unpossessed");
     }
 
-
+    public bool IsPosessing
+    {
+        get { return _possesedInput != null; }
+    }
 
 }

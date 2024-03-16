@@ -21,6 +21,9 @@ public class FirstPersonPlayerManager : MonoBehaviour
 
     public AudioClip[] Footsteps;
     public AudioSource FootstepSource;
+    [HideInInspector]
+    public IInteractable _highlightedObject;
+
     #endregion
     void Start()
     {
