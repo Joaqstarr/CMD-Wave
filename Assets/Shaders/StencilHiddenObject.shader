@@ -21,10 +21,9 @@ Shader "Unlit/StencilHiddenObject"
         {
             Stencil
             {
-                Ref [_StencilID]
-                Comp Always
-                Pass Replace
-                Fail Keep
+                readMask [_StencilID]
+                Comp Less
+
             }
             CGPROGRAM
 

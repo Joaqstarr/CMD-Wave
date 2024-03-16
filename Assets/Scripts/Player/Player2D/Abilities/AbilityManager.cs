@@ -78,6 +78,7 @@ public class AbilityManager : MonoBehaviour
                             GameObject ability = GetAbilityObject(_activeAbility);
                             if (ability != null)
                             {
+                                Debug.Log("Try fire");
                                 _activeAbility.UseAbility(_player, ability);
                             }
                             else

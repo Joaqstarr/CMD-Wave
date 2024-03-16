@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class AbilityArchetype : MonoBehaviour
 {
@@ -26,8 +27,11 @@ public class AbilityArchetype : MonoBehaviour
     }
     public void UseAbility(GameObject player, GameObject ability)
     {
+        Debug.Log("Try fire ability");
         if (_data !=  null)
         {
+            Debug.Log("Try fire ability now");
+
             _data.UseAbility(player, ability);
         }
     }

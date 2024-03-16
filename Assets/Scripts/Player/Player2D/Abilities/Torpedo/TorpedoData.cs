@@ -11,12 +11,18 @@ public class TorpedoData : AbilityData
 
     private int reloadCounter;
     private bool canShoot = true;
+    //private GameObject _player;
     public override void OnStart()
     {
         reloadCounter = numToPool;
+        canShoot = true;
     }
     public override void UseAbility(GameObject player, GameObject ability)
     {
+       // if(_player == null)
+            //_player = player;
+
+        Debug.Log("Try fire torp");
         if (canShoot)
         {
             ability.SetActive(true);
@@ -32,7 +38,7 @@ public class TorpedoData : AbilityData
 
     public override void OnActivationFailed()
     {
-        Reload(GameObject.Find("SubPlayer")); // for testing - remove eventually
+        //Reload(GameObject.Find("SubPlayer")); // for testing - remove eventually
     }
     public override GameObject GetAbilityObject()
     {
@@ -43,7 +49,7 @@ public class TorpedoData : AbilityData
         return null;
     }
 
-    public void Reload(GameObject player)
+    public int Reload(GameObject player)
     {
         foreach (GameObject torpedo in poolObjects)
         {
@@ -53,7 +59,9 @@ public class TorpedoData : AbilityData
         }
 
         canShoot = true;
+        int ammoToLoad = numToPool - reloadCounter;
         reloadCounter = numToPool;
+        return ammoToLoad;
     }
 
     public IEnumerator LaunchTorpedo(GameObject player, GameObject ability)
@@ -64,5 +72,13 @@ public class TorpedoData : AbilityData
 
         ability.transform.Rotate(new Vector3(0, 0, SubViewCone.subAimAngle - (ability.transform.rotation.eulerAngles.z) - 90));
         ability.GetComponent<Rigidbody>().AddForce(SubViewCone.subAimVector * launchForce);
+    }
+    public int MaxAmmo
+    {
+        get { return numToPool; }
+    }
+    public int CurrentAmmo
+    {
+        get { return reloadCounter; }
     }
 }
