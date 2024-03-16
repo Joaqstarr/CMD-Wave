@@ -1,8 +1,12 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
+using Unity.Jobs;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Jobs;
+using UnityEngine.UIElements;
 
 public class FogOfWar : MonoBehaviour, IDataPersistance
 {
@@ -18,6 +22,11 @@ public class FogOfWar : MonoBehaviour, IDataPersistance
     [SerializeField]
     private float _coneFadeRemap = 0.7f;
     public static FogOfWar Instance;
+
+    private NativeArray<Color32> PixelArray;
+
+    private JobHandle HandleJob;
+
 
 
     public void Awake()
@@ -70,9 +79,64 @@ public class FogOfWar : MonoBehaviour, IDataPersistance
         return pixelPosition;
          
     }
-
-    public void MakeHole(Vector2 position, float holeRadius, float alpha = 0)
+    struct MakeFogHole : IJob
     {
+        public Vector2Int pixelPosition;
+        public int radius;
+        public NativeArray<Color32> Pixels;
+        public Vector2Int _pixelScale;
+        public Vector2Int TextureSize;
+        public float alpha;
+        public void Execute()
+        {
+            int px, nx, py, ny, distance;
+            for (int i = 0; i < radius; i++)
+            {
+                distance = Mathf.RoundToInt(Mathf.Sqrt(radius * radius - i * i));
+                for (int j = 0; j < distance; j++)
+                {
+                    px = Mathf.Clamp(pixelPosition.x + i, 0, _pixelScale.x);
+                    nx = Mathf.Clamp(pixelPosition.x - i, 0, _pixelScale.x);
+                    py = Mathf.Clamp(pixelPosition.y + j, 0, _pixelScale.y);
+                    ny = Mathf.Clamp(pixelPosition.y - j, 0, _pixelScale.y);
+
+
+
+                    Color pColor = GetPixel(px, py);
+
+                    pColor.a = Mathf.Min(pColor.a, Mathf.Lerp(alpha, 1, Mathf.Sin((float)j / distance) * Mathf.Cos((float)i / radius)));
+                    SetPixel(px, py, pColor);
+
+                    pColor = GetPixel(nx, py);
+                    pColor.a = Mathf.Min(pColor.a, Mathf.Lerp(alpha, 1, Mathf.Sin((float)j / distance) * Mathf.Cos((float)i / radius)));
+                    SetPixel(nx, py, pColor);
+
+                    pColor = GetPixel(px, ny);
+                    pColor.a = Mathf.Min(pColor.a, Mathf.Lerp(alpha, 1, Mathf.Sin((float)j / distance) * Mathf.Cos((float)i / radius)));
+                    SetPixel(px, ny, pColor);
+
+                    pColor = GetPixel(nx, ny);
+                    pColor.a = Mathf.Min(pColor.a, Mathf.Lerp(alpha, 1, Mathf.Sin((float)j / distance) * Mathf.Cos((float)i / radius)));
+                    SetPixel(nx, ny, pColor);
+                }
+
+            }
+
+            
+        }
+
+        private Color32 GetPixel(int x, int y)
+        {
+            return Pixels[(y * TextureSize.x) + x];
+        }
+        private void SetPixel(int x, int y, Color32 pixel)
+        {
+            Pixels[(y * TextureSize.x) + x] = pixel;
+        }
+    }
+    public void MakeHole(Vector2 position, float holeRadius, float alphaToSet = 0)
+    {
+        /*
         Vector2Int pixelPosition = WorldToPixel(position);
         int radius = Mathf.RoundToInt(holeRadius * pixelScale.x / worldScale.x);
         int px, nx, py, ny, distance;
@@ -104,10 +168,31 @@ public class FogOfWar : MonoBehaviour, IDataPersistance
                 fogOfWarTexture.SetPixel(nx, ny, pColor );
             }
         }
+        */
+
+        PixelArray = fogOfWarTexture.GetRawTextureData<Color32>();
+        MakeFogHole fogMultithread = new MakeFogHole()
+        {
+           pixelPosition = WorldToPixel(position),
+           radius = Mathf.RoundToInt(holeRadius * pixelScale.x / worldScale.x),
+           Pixels = PixelArray,
+           _pixelScale = pixelScale,
+           TextureSize = _textureSize,
+           alpha = alphaToSet
+        };
+        HandleJob = fogMultithread.Schedule();
         fogOfWarTexture.Apply();
-        CreateSprite();
+        StartCoroutine(CompleteJob());
     }
 
+
+    IEnumerator CompleteJob()
+    {
+        yield return new WaitForEndOfFrame();
+        HandleJob.Complete();
+        CreateSprite();
+
+    }
     public void MakeTriangle(Vector2 a, Vector2 b, Vector2 c, float alpha = 0)
     {
         Vector2Int pixelPosA = WorldToPixel(a);
