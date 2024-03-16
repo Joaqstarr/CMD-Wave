@@ -3803,7 +3803,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 4.96}
   CollisionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     type: 1
     collisionMode: 0
@@ -3973,7 +3973,7 @@ ParticleSystem:
         m_RotationOrder: 4
     minKillSpeed: 0
     maxKillSpeed: 10000
-    radiusScale: 1
+    radiusScale: 0.25
     collidesWith:
       serializedVersion: 2
       m_Bits: 131007

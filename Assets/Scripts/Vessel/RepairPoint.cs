@@ -13,7 +13,8 @@ public class RepairPoint : MonoBehaviour, IInteractable
     public bool IsDamaged = false;
     public bool CheckInteractable(float distance)
     {
-        return true;
+        
+        return IsDamaged;
     }
 
     public void OnInteracted(PlayerControls playerInteracted)

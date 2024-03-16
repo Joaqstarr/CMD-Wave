@@ -235,6 +235,7 @@ public class CommandLineManager : MonoBehaviour
 
     private void PlaySound(AudioClip clip)
     {
+        if(clip != null)
         if (_audioSource != null)
             _audioSource.PlayOneShot(clip);
     }

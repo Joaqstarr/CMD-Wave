@@ -8,8 +8,10 @@ public class OutputLog : MonoBehaviour
 {
     [SerializeField]
     private CommandLineManager _commandManager;
-
     private TMP_Text _textComponent;
+
+    private int startingLength = 0;
+    private float _timePerChar = 0.01f;
     private void Start()
     {
         _textComponent = GetComponent<TMP_Text>();
@@ -45,9 +47,24 @@ public class OutputLog : MonoBehaviour
         {
             _textComponent.text = "";
         }
+        startingLength = _textComponent.text.Length;
+
+
         foreach (string msg in msgs)
         {
             PrintToLog(msg, false);
         }
+        _textComponent.maxVisibleCharacters = startingLength;
+        StartCoroutine(UpdateTextDisplayAmount(_timePerChar));
     }
+
+    private IEnumerator UpdateTextDisplayAmount(float time) { 
+
+        while(_textComponent.maxVisibleCharacters != _textComponent.text.Length)
+        {
+            yield return new WaitForSeconds(time);
+            _textComponent.maxVisibleCharacters += 1;
+        }
+    }
+ 
 }

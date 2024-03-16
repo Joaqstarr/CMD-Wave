@@ -187,7 +187,6 @@ public class PlayerControls : MonoBehaviour
         return true;
     }
 
-    private Vector2 _moveInput;
     public virtual bool OnProbeMove(InputValue Value)
     {
         if (CommandLineManager.Instance != null)
@@ -206,10 +205,6 @@ public class PlayerControls : MonoBehaviour
         return true;
     }
 
-    public Vector2 MoveInput
-    {
-        get { return _moveInput; }
-    }
 
     public virtual bool OnExit(InputValue Value)
     {
