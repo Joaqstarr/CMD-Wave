@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 638cffdad205d7047a6af285bc4dc96f, type: 3}
   m_Name: ChargeEnemyData
   m_EditorClassIdentifier: 
-  detectionRadius: 0
-  attackRadius: 0
+  detectionRadius: 15
+  attackRadius: 5
   _respawnRange: 50
-  speed: 0
-  acceleration: 0
+  speed: 4
+  acceleration: 6
   health: 70
   damage: 15
   knockbackValue: 35
   stunDuration: 0.5
-  chargeForceValue: 0
-  chargePauseTime: 0
-  chargeCooldown: 0
+  chargeForceValue: 400
+  chargeStartupTime: 1
+  chargeEndLagTime: 1
+  chargeCooldownTime: 2

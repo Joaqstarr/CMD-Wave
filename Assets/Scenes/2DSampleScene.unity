@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 4251.888, g: 2547.1448, b: 1577.4866, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1099,6 +1099,10 @@ PrefabInstance:
     - target: {fileID: 5994736223270090275, guid: 77f28747693686944a8dc5fd143bf028, type: 3}
       propertyPath: m_Name
       value: HighPressureBlast
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994736223270090275, guid: 77f28747693686944a8dc5fd143bf028, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7272626482128775353, guid: 77f28747693686944a8dc5fd143bf028, type: 3}
       propertyPath: m_SortingLayer
@@ -2213,6 +2217,71 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c13a8250fbb66af4c972f8f4c9be39b5, type: 3}
+--- !u!1001 &709381598458837840
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1574904029842452025, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: m_Name
+      value: ChargeEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574904029842452025, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3783631911862362343, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1937267068}
+    - target: {fileID: 6971721461732638657, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 23.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 6971721461732638657, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6971721461732638657, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6971721461732638657, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6971721461732638657, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6971721461732638657, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6971721461732638657, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6971721461732638657, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6971721461732638657, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6971721461732638657, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
 --- !u!1001 &1155197926995534508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2464,6 +2533,7 @@ SceneRoots:
   - {fileID: 405629658}
   - {fileID: 1942951960}
   - {fileID: 6974153109094687286}
+  - {fileID: 709381598458837840}
   - {fileID: 1155197926995534508}
   - {fileID: 290415793}
   - {fileID: 1537292419}

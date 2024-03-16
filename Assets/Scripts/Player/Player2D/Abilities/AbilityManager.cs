@@ -150,6 +150,11 @@ public class AbilityManager : MonoBehaviour
         return false;
     }
 
+    public void DeEquip()
+    {
+        _activeAbility = null;
+    }
+
     public void UpdateAbilities()
     {
         _allAbilities = GetComponentsInChildren<AbilityArchetype>();
