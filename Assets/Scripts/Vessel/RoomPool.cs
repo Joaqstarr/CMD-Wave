@@ -14,7 +14,7 @@ public class RoomPool : MonoBehaviour
     [SerializeField]
     private int _hallwayCount = 15;
     private List<Room> _hallways = new List<Room>();
-    private void Start()
+    private void Awake()
     {
         if(Instance == null)
         {

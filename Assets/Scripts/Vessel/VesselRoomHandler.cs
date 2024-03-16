@@ -16,12 +16,13 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
     public static VesselRoomHandler Instance {  get; private set; }
     public CommandContext RoomsContext { get; private set; } = new CommandContext();
 
+
     [Header("Debug")]
     [SerializeField]
     private Vector2Int _roomArraySize;
     private Vector2Int[] _roomPositions;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (Instance == null)
         {
@@ -233,7 +234,9 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
     {
         RoomsContext.Clear();
         PlacedRooms.Clear();
+        
         UpdateRooms();
+        AddRoom(_commandRoom, new Vector2Int(0, 2));
         for(int i = 0; i < _rooms.Length; i++)
         {
             foreach(Room room in _rooms)
@@ -274,7 +277,6 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
     {
 
         ClearRooms();
-        AddRoom(_commandRoom, _commandRoom.PositionVector);
 
         for (int i = 0; i < _roomPositions.Length; i++)
         {
@@ -303,5 +305,22 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
 
             return dmg;
         }
+    }
+
+    private void NewGame()
+    {
+        ClearRooms();
+        AddRoom(RoomPool.Instance.GetRoom("DO"), new Vector2Int(1, 2));
+    }
+
+    private void OnEnable()
+    {
+        GameStartManager.GameStarted += NewGame;
+    }
+
+    private void OnDisable()
+    {
+        GameStartManager.GameStarted -= NewGame;
+
     }
 }

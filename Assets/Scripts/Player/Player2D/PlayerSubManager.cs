@@ -11,9 +11,10 @@ public class PlayerSubManager : MonoBehaviour
 
     #region StateReferences
     public SubBaseState CurrentState { get; private set; }
-    public SubMovementState MovementState { get; private set; } = new SubMovementState();
-    public SubStunState StunState { get; private set; } = new SubStunState();
-    public SubDeathState DeathState { get; private set; } = new SubDeathState();
+    public SubBaseState MovementState { get; private set; } = new SubMovementState();
+    public SubBaseState StunState { get; private set; } = new SubStunState();
+    public SubBaseState DeathState { get; private set; } = new SubDeathState();
+    public SubBaseState StartState { get; private set; } = new PlayerSubStartGameState();
     #endregion
 
     #region ComponentReferences
@@ -27,6 +28,12 @@ public class PlayerSubManager : MonoBehaviour
 
     #region Variables
     public float _stunTimer;
+
+    [Header("Game Start settings")]
+
+    public TweenData _startTween;
+    public Vector3 _newGamePos;
+    public Vector3 _firstMapPos;
     #endregion
 
     void Start()
@@ -37,7 +44,7 @@ public class PlayerSubManager : MonoBehaviour
         Health = GetComponent<PlayerSubHealth>();
         SubViewCone = GetComponentInChildren<SubViewCone>();
         // movement state
-        CurrentState = MovementState;
+        CurrentState = StartState;
 
         // enter state
         CurrentState.OnEnterState(this);

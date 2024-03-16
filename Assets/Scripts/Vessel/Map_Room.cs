@@ -32,13 +32,16 @@ public class Map_Room : MonoBehaviour
     [SerializeField]
     private Map_Room _onRight;
 
+    [SerializeField]
+    private RectTransform _transform;
+    [SerializeField]
+
+    TMP_Text _label;
+
     [Header("Tweens")]
     [SerializeField] private TweenData _appearTween;
     [SerializeField] private TweenData _disapearTween;
 
-    private RectTransform _transform;
-
-    TMP_Text _label;
     enum RoomStates { 
         Hidden,
         Selectable,

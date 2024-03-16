@@ -14,6 +14,8 @@ public class CurrentBehavior : MonoBehaviour
     Vector3 _particleDirection;
 
     private ParticleSystem _particleSystem;
+    [SerializeField]
+    private bool _alwaysHide = false;
 
 
 
@@ -35,7 +37,7 @@ public class CurrentBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_particleSystem.isEmitting && !CurrentScan.CurrentScanEquipped)
+        if(_particleSystem.isEmitting && !CurrentScan.CurrentScanEquipped || _alwaysHide)
         {
             _particleSystem.Stop();
             _particleSystem.Clear();

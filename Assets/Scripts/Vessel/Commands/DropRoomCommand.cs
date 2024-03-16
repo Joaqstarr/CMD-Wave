@@ -40,6 +40,8 @@ public class DropRoomCommand : CommandBase
 
                         }
                     }
+                    CheckStartGame(droppedKey);
+
                     return CommandLineManager.StringToArray("Room Removed: " + droppedKey.ToUpper());
 
                 }
@@ -73,6 +75,7 @@ public class DropRoomCommand : CommandBase
 
                                 }
                             }
+                            CheckStartGame(droppedKey);
                             return CommandLineManager.StringToArray("Room Removed: " + droppedKey.ToUpper());
 
                         }
@@ -144,5 +147,14 @@ public class DropRoomCommand : CommandBase
     }
     private Vector2Int IntToPos(int pos) {
         return new Vector2Int(Mathf.FloorToInt(pos/10f), pos%10);
+    }
+
+    private void CheckStartGame(string key)
+    {
+        if(key.ToUpper() == "DO")
+        {
+            if (GameStartManager.Instance != null)
+                GameStartManager.Instance.LockSubPosition = false;
+        }
     }
 }

@@ -38,7 +38,6 @@ public class OutputLog : MonoBehaviour
 
         _textComponent.text = _textComponent.text + msg;
 
-
     }
 
     public void PrintToLog(string[] msgs, bool shouldClear)

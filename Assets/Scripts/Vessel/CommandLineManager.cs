@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -75,27 +76,54 @@ public class CommandLineManager : MonoBehaviour
     [SerializeField]
     private AudioClip _defaultCommandEnteredSound;
     private AudioSource _audioSource;
+
+    private RectTransform _rectTransform;
+    [SerializeField]
+    private RectSettings _startingRect;
+    [SerializeField]
+    private RectSettings _inGameRect;
+    [SerializeField]
+    private RectSettings _typingRect;
+    private bool _lockSize = false;
+
+    [Serializable]
+    public struct RectSettings
+    {
+        public float XPosition;
+        public float Width;
+        public TweenData tweenData;
+    }
+
+
+    [Header("New Game Settings")]
+    [SerializeField]
+    private CommandContext _newGameContext;
+
     private void Awake()
     {
 
         if (Instance == null)
             Instance = this;
+        _rectTransform = GetComponent<RectTransform>();
     }
     void Start()
     {
 
         _audioSource = GetComponent<AudioSource>();
         _textBox = GetComponentInChildren<TMP_InputField>();
-
+        
     }
 
     private void OnEnable()
     {
         PlayerSubControls.openCommandLine += StartCommandLine;
+        GameStartManager.GameStarted += NewGame;
     }
     private void OnDisable()
     {
         PlayerSubControls.openCommandLine -= StartCommandLine;
+        GameStartManager.GameStarted -= NewGame;
+
 
     }
     public void StartCommandLine()
@@ -105,10 +133,12 @@ public class CommandLineManager : MonoBehaviour
         _textBox.text = string.Empty;
         _textBox.ActivateInputField();
         PlaySound(_beginCommandLine);
+        SwitchRectSettings(_typingRect);
     }
 
     public void CommandEntered(string command)
     {
+        SwitchRectSettings(_inGameRect);
         _enteringCommand = false;
         if (command == string.Empty) return;
 
@@ -238,5 +268,31 @@ public class CommandLineManager : MonoBehaviour
         if(clip != null)
         if (_audioSource != null)
             _audioSource.PlayOneShot(clip);
+    }
+
+    public void SwitchRectSettings(RectSettings newRect, float timeOverride = -1)
+    {
+        if (_lockSize) return;
+
+        float time = newRect.tweenData.Duration;
+        if (timeOverride >= 0)
+            time = timeOverride;
+        _rectTransform.DOAnchorPosX(newRect.XPosition, time).SetEase(newRect.tweenData.Ease);
+        _rectTransform.DOSizeDelta(new Vector2(newRect.Width, _rectTransform.rect.height), time).SetEase(newRect.tweenData.Ease);
+    }
+
+    private void NewGame()
+    {
+        _commandOveride = _newGameContext;
+        SwitchRectSettings(_startingRect);
+        _lockSize = true;
+
+    }
+
+    public void PowerOn()
+    {
+        _lockSize = false;
+        SwitchRectSettings(_inGameRect, 1f);
+
     }
 }

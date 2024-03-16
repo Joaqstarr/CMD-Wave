@@ -41,6 +41,7 @@ public class SaveManager : MonoBehaviour
 
     public void NewGame()
     {
+        GameStartManager.Instance.StartGame();
         _gameData = new SaveData();
     }
 
