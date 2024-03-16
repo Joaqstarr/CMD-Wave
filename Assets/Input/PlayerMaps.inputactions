@@ -555,6 +555,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "EquippedPower",
+                    "type": "Value",
+                    "id": "49186ac2-56d0-48f1-ab00-23d20fb8f167",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -565,6 +574,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard + M",
+                    "action": "CommandLine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3736e0cd-36a5-40f7-be76-5d485bffabb8",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
                     "action": "CommandLine",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -583,10 +603,10 @@
                 {
                     "name": "up",
                     "id": "6dbe4f57-0286-47d6-8b91-74350957690f",
-                    "path": "",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard + M",
                     "action": "ProbeMove",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -594,10 +614,10 @@
                 {
                     "name": "down",
                     "id": "a131da7a-b5d8-4a1b-a64d-dfe6be6a1427",
-                    "path": "",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard + M",
                     "action": "ProbeMove",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -605,10 +625,10 @@
                 {
                     "name": "left",
                     "id": "1f6e021c-065b-4c73-becc-7a7326952b9e",
-                    "path": "",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard + M",
                     "action": "ProbeMove",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -616,10 +636,10 @@
                 {
                     "name": "right",
                     "id": "c40d9e96-af4b-423a-8a4b-31e6f20cfb79",
-                    "path": "",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard + M",
                     "action": "ProbeMove",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -643,6 +663,17 @@
                     "processors": "",
                     "groups": "Keyboard + M",
                     "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c9761c54-b2de-4044-9577-616193db0251",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EquippedPower",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

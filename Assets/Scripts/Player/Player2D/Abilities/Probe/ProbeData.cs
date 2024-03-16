@@ -6,33 +6,64 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/Probe")]
 public class ProbeData : AbilityData
 {
+    [Header("Movement")]
+    public float moveSpeed;
+    public float acceleration;
+    public float decceleration;
+    public float velocityModifier;
+    public float frictionModifier;
+    //public float bounceModifier; unused currently - could be used to add bounce back from collisions
+
+    [Header("Combat")]
+    public int health;
+    public float invulnTime;
+    public int healthNoDrain = 10;
+    public float healthDrainTickTime = 0.8f;
+
+    [Header("View Cone")]
+    public float fov;
+    public int resolution;
+    public float viewDistance;
+    public int rayResolution;
+    //public float blipGhostTime; // unnecessary? just use 1/sampleRate - more realistic/accurate
+    public int sampleRate;
+    public GameObject blipObject;
+    public LayerMask collisionMask;
+    public Material defaultColor;
+    public Material enemyColor;
+    public float cameraLookAhead = 5f;
+    [Header("Sound")]
+    [Range(0, 1)]
+    public float minimumEngineVolume;
 
     private bool _isControlling;
 
+    public override void OnStart()
+    {
+        _isControlling = false;
+    }
     public override void UseAbility(GameObject player, GameObject ability)
     {
-        Probe probe = ability.GetComponent<Probe>();
-        probe.gameObject.SetActive(true);
-        FirstPersonPlayerControls.Instance.Possess(ability.GetComponent<Probe>()._probeControls, false);
-        _isControlling = true;
-        probe.transform.position = PlayerSubControls.Instance.transform.position;
+        if (!_isControlling)
+        {
+            ability.transform.parent = null;
+            ProbeObject probe = ability.GetComponent<ProbeObject>();
+            probe.gameObject.SetActive(true);
+            FirstPersonPlayerControls.Instance.Possess(ability.GetComponent<ProbeObject>()._probeControls, false);
 
-        probe._mapVirtualCamera.Priority = 11;
-    }
+            probe._mapVirtualCamera.Priority = 11;
 
-    public override void OnActivationFailed()
-    {
-        FirstPersonPlayerControls.Instance.UnPossess(poolObjects[0].GetComponent<Probe>()._probeControls);
-        poolObjects[0].GetComponent<Probe>()._mapVirtualCamera.Priority = 0;
-        _isControlling = false;
-        poolObjects[0].SetActive(false);
+            _isControlling = true;
+        }
+        else
+        {
+            FirstPersonPlayerControls.Instance.UnPossess(ability.GetComponent<ProbeObject>()._probeControls);
+            ability.GetComponent<ProbeObject>()._mapVirtualCamera.Priority = 0;
+            ability.GetComponent<ProbeObject>().Reparent();
+            ability.SetActive(false);
 
-    }
-    public override GameObject GetAbilityObject()
-    {
-        if (poolObjects[0].activeInHierarchy)
-            return poolObjects[0];
-        return null;
+            _isControlling = false;
+        }
     }
 
 }

@@ -110,10 +110,12 @@ public class PlayerSubControls : PlayerControls, IDataPersistance
     public Vector2 AimInput
     {
         get { return _aimInput; }
+        set { _aimInput = value; }
     }
     public bool PowerPressed
     {
         get { return _powerPressed; }
+        set { _powerPressed = value; }
     }
 
     [SerializeField] RectTransform _plane;
@@ -140,6 +142,7 @@ public class PlayerSubControls : PlayerControls, IDataPersistance
         base.OnUnPosessed();
 
         _moveInput = Vector2.zero;
+        _powerPressed = false;
         
 
         if (_screenCamera != null)

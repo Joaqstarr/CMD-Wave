@@ -11,6 +11,7 @@ public class AbilityManager : MonoBehaviour
 
     public AbilityArchetype[] _allAbilities;
     public AbilityArchetype _activeAbility;
+    private GameObject _probe;
     private GameObject _player;
     private enum AbilityState {
         ready,
@@ -59,6 +60,7 @@ public class AbilityManager : MonoBehaviour
 
 
         _player = transform.parent.gameObject;
+        _probe = transform.Find("ProbeObject").gameObject;
     }
 
     // Update is called once per frame
@@ -69,9 +71,8 @@ public class AbilityManager : MonoBehaviour
             case AbilityState.ready:
                 if (_activeAbility != null)
                 {
-                    if (PlayerSubControls.Instance.PowerPressed && !_inputHeld || (_activeAbility._data.commandShortcut == "da" && (_inputHeld || _inputHeldLastFrame)))
+                    if ((PlayerSubControls.Instance.PowerPressed || (_activeAbility._data.commandShortcut == "pb" && ProbeControls.Instance.PowerPressed) && !_inputHeld || (_activeAbility._data.commandShortcut == "da" && (_inputHeld || _inputHeldLastFrame))))
                     {
-                        Debug.Log(_activeAbility._data.numToPool > 0);
                         if (_activeAbility._data.numToPool > 0)
                         {
                             GameObject ability = GetAbilityObject(_activeAbility);
@@ -86,7 +87,15 @@ public class AbilityManager : MonoBehaviour
                         }
                         else
                         {
-                            _activeAbility.UseAbility(_player);
+                            if (_activeAbility._data.commandShortcut == "pb")
+                            {
+                                Debug.Log("go to data script");
+                                _activeAbility.UseAbility(_player, _probe);
+                            }
+                            else
+                            {
+                                _activeAbility.UseAbility(_player);
+                            }
                         }
                         _inputHeldLastFrame = _inputHeld;
                         _inputHeld = PlayerSubControls.Instance.PowerPressed;

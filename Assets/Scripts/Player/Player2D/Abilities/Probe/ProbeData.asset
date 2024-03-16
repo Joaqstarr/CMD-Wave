@@ -15,9 +15,29 @@ MonoBehaviour:
   abilityName: Probe
   commandShortcut: pb
   abilityPrefab: {fileID: 0}
-  numToPool: 1
-  poolObjects: []
+  numToPool: 0
+  poolObjects:
+  - {fileID: 0}
   cooldown: 0.5
-  _mapVirtualCamera: {fileID: 0}
-  _probeControls: {fileID: 0}
-  _probe: {fileID: 0}
+  moveSpeed: 11
+  acceleration: 6
+  decceleration: 4
+  velocityModifier: 1.2
+  frictionModifier: 0.05
+  health: 20
+  invulnTime: 2
+  healthNoDrain: 10
+  healthDrainTickTime: 1.5
+  fov: 30
+  resolution: 15
+  viewDistance: 15
+  rayResolution: 90
+  sampleRate: 10
+  blipObject: {fileID: 5160852551703549048, guid: 930ee4125b11b8b44ac4113eac39bb7d, type: 3}
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 457
+  defaultColor: {fileID: 2100000, guid: acabf66198dd85f4292e1074b95cf084, type: 2}
+  enemyColor: {fileID: 2100000, guid: a0a2e5c1d6422af4c9061faa66a1d4bd, type: 2}
+  cameraLookAhead: 5
+  minimumEngineVolume: 0

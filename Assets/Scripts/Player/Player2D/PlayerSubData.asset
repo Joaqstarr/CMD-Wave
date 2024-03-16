@@ -29,7 +29,7 @@ MonoBehaviour:
   blipObject: {fileID: 5160852551703549048, guid: 930ee4125b11b8b44ac4113eac39bb7d, type: 3}
   collisionMask:
     serializedVersion: 2
-    m_Bits: 473
+    m_Bits: 457
   defaultColor: {fileID: 2100000, guid: acabf66198dd85f4292e1074b95cf084, type: 2}
   enemyColor: {fileID: 2100000, guid: a0a2e5c1d6422af4c9061faa66a1d4bd, type: 2}
   cameraLookAhead: 5
