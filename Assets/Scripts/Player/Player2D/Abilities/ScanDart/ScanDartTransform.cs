@@ -49,7 +49,6 @@ public class ScanDartTransform : MonoBehaviour
 
     public void ResetDart()
     {
-        Debug.Log("deleted");
         _rb.velocity = Vector3.zero;
         transform.position = _parent.transform.position;
         if (transform.parent != _parent.transform)

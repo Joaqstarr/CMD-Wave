@@ -71,7 +71,7 @@ public class AbilityManager : MonoBehaviour
             case AbilityState.ready:
                 if (_activeAbility != null)
                 {
-                    if ((PlayerSubControls.Instance.PowerPressed || (_activeAbility._data.commandShortcut == "pb" && ProbeControls.Instance.PowerPressed) && !_inputHeld || (_activeAbility._data.commandShortcut == "da" && (_inputHeld || _inputHeldLastFrame))))
+                    if (((PlayerSubControls.Instance.PowerPressed || _activeAbility._data.commandShortcut == "da" && _inputHeldLastFrame) || (_activeAbility._data.commandShortcut == "pb" && ProbeControls.Instance.PowerPressed)) && (!_inputHeld || (_activeAbility._data.commandShortcut == "da" && (_inputHeld || _inputHeldLastFrame))))
                     {
                         if (_activeAbility._data.numToPool > 0)
                         {
@@ -116,13 +116,26 @@ public class AbilityManager : MonoBehaviour
                     break;
                 }
                 else
-                    break; // command terminal error message?
+                {
+                    if (PlayerSubControls.Instance.PowerPressed && !_inputHeld)
+                    {
+                        CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Error: no power equipped."), false);
+                        _inputHeld = true;
+                    }
+
+                    if (!PlayerSubControls.Instance.PowerPressed)
+                        _inputHeld = false;
+
+                    break;
+                }
 
             case AbilityState.cooldown:
                 if (_cooldownTimer > 0)
                 {
                     _cooldownTimer -= Time.deltaTime;
-                    _inputHeldLastFrame = false;
+
+                    _inputHeldLastFrame = _inputHeld;
+                    _inputHeld = PlayerSubControls.Instance.PowerPressed;
                 }
                 else
                 {
@@ -148,6 +161,11 @@ public class AbilityManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void DeEquip()
+    {
+        _activeAbility = null;
     }
 
     public void UpdateAbilities()

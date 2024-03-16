@@ -11,6 +11,8 @@ public class DropRoomCommand : CommandBase
     private string _inputCommand;
     [SerializeField]
     private AudioClip _failedCommandSound;
+    [SerializeField]
+    private AbilityManager _abilityManager;
     public override string[] Execute(out CommandContext overrideContext,out AudioClip sfx, string arg = null)
     {
         sfx = _soundWhenExecuted;
@@ -30,7 +32,8 @@ public class DropRoomCommand : CommandBase
                 if (VesselRoomHandler.Instance.RemoveRoom(IntToPos(pos), out string droppedKey)){
                     if (droppedKey != string.Empty)
                     {
-
+                        if (_abilityManager._activeAbility._data.commandShortcut.ToLower() == droppedKey.ToLower())
+                            _abilityManager.DeEquip();
                         Item droppedItem = ItemPool.Instance.GetFreeItem(droppedKey);
                         if (droppedItem != null)
                         {
@@ -65,7 +68,8 @@ public class DropRoomCommand : CommandBase
                         {
                             if (droppedKey != string.Empty)
                             {
-
+                                if (_abilityManager._activeAbility._data.commandShortcut.ToLower() == droppedKey.ToLower())
+                                    _abilityManager.DeEquip();
                                 Item droppedItem = ItemPool.Instance.GetFreeItem(droppedKey);
                                 if (droppedItem != null)
                                 {
