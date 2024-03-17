@@ -43,6 +43,7 @@ public class SaveManager : MonoBehaviour
     {
         GameStartManager.Instance.StartGame();
         _gameData = new SaveData();
+        Save();
     }
 
     public void Save()
@@ -70,6 +71,10 @@ public class SaveManager : MonoBehaviour
         {
             persistanceObject.LoadData(_gameData);
         }
+
+        VesselRoomHandler.Instance.UpdateMap(false);
+
+
         return true;
         
     }

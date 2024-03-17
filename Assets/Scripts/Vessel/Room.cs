@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Windows;
 
-public class Room : MonoBehaviour
+public class Room : MonoBehaviour, IDataPersistance
 {
     [SerializeField]
     private string _roomTag;
@@ -149,6 +150,46 @@ public class Room : MonoBehaviour
         if(_damages.Length > 0 ) { }
             _damages[Random.Range(0, _damages.Length)].Damage();
     }
+
+    public void SaveData(ref SaveData data)
+    {
+        if (RoomTag == "" || RoomTag == string.Empty || RoomTag == " ") return;
+
+
+        byte result = 0;
+        for(int i = 0; i < _damages.Length; i++)
+        {
+            if (_damages[i].IsDamaged)
+                result |= (byte)(1 << i);
+        }
+
+
+        if(data._roomDamages.ContainsKey(RoomTag.ToUpper()))
+        {
+            data._roomDamages[RoomTag.ToUpper()] = result;
+        }
+        else
+        {
+            data._roomDamages.Add(RoomTag.ToUpper().ToUpper(), result);
+
+        }
+    }
+
+    public void LoadData(SaveData data)
+    {
+        if (RoomTag == "" || RoomTag == string.Empty || RoomTag == " ") return;
+        byte damages = data._roomDamages[RoomTag.ToUpper()];
+
+        
+        for (int i = 0; i < _damages.Length; i++)
+        {
+            if((damages << i) == 1)
+                _damages[i].Damage();
+            else
+                _damages[i].Repair();
+        }
+    }
+
     public int DamageAmount
     {
         get {

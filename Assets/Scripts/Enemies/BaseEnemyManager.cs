@@ -64,7 +64,6 @@ public class BaseEnemyManager : MonoBehaviour
 
         CurrentState.OnEnterState(this);
 
-        Debug.Log(newState.ToString());
     }
 
 }

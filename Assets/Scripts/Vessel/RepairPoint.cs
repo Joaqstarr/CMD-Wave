@@ -11,21 +11,28 @@ public class RepairPoint : MonoBehaviour, IInteractable
     private DecalProjector _projector;
 
     public bool IsDamaged = false;
+    [SerializeField]
+    private float _maxDist = 6f;
     public bool CheckInteractable(float distance)
     {
-        
+        if(distance > _maxDist)
+            return false;
         return IsDamaged;
     }
 
     public void OnInteracted(PlayerControls playerInteracted)
     {
-        _audioSource.volume =0;
-        _projector.enabled = false;
-        _ParticleSystem.Stop();
-        IsDamaged = false;
-        VesselRoomHandler.Instance.UpdateMapColors();
+        Repair();
     }
+    public void Repair()
+    {
+        VesselRoomHandler.Instance.UpdateMapColors();
+        IsDamaged = false;
+        _ParticleSystem.Stop();
+        _projector.enabled = false;
+        _audioSource.volume = 0;
 
+    }
     private void Start()
     {
         _projector = GetComponentInChildren<DecalProjector>();

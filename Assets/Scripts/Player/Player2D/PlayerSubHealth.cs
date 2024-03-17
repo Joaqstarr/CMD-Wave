@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSubHealth : MonoBehaviour
+public class PlayerSubHealth : MonoBehaviour, IDataPersistance
 {
     public PlayerSubData data;
 
@@ -145,6 +145,16 @@ public class PlayerSubHealth : MonoBehaviour
 
             _audioSource.PlayOneShot(audioClip, vol);
         }
+    }
+
+    public void SaveData(ref SaveData data)
+    {
+        data._subHealth = _health;
+    }
+
+    public void LoadData(SaveData data)
+    {
+        _health = data._subHealth;
     }
 
     public int Health

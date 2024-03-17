@@ -193,6 +193,7 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
     public void UpdateMap(bool showSelectable){
         UpdateRooms();
         Map.Instance.GenerateMap(_rooms, showSelectable);
+        UpdateMapColors();
 
     }
 
