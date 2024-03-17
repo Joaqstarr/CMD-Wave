@@ -31149,6 +31149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 963680ec40f219a4dbb3960e96915c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pauseWhenTyping: 0
 --- !u!4 &1282344690 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 276113614367181545, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}

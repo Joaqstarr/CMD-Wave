@@ -135,7 +135,12 @@ public class CommandLineManager : MonoBehaviour
         PlaySound(_beginCommandLine);
         SwitchRectSettings(_typingRect);
     }
-
+    public void EndCommand()
+    {
+        CommandEntered("");
+        _textBox.text = "";
+        _textBox.DeactivateInputField();
+    }
     public void CommandEntered(string command)
     {
         SwitchRectSettings(_inGameRect);

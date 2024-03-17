@@ -32,5 +32,7 @@ public class ControlSettingsUiManager : MonoBehaviour
     {
         int val = value ? 1 : 0;
         PlayerPrefs.SetInt("PauseType", val);
+
+        PauseManager.Instance._pauseWhenTyping = value;
     }
 }

@@ -68,6 +68,9 @@ public class PlayerSubControls : PlayerControls, IDataPersistance
         if(FirstPersonPlayerControls.Instance != null)
             FirstPersonPlayerControls.Instance.UnPossess();
 
+        if (CommandLineManager.Instance != null)
+            CommandLineManager.Instance.EndCommand();
+
         return true;
     }
     public override bool OnAim(InputValue Value)

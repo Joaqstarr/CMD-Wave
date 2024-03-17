@@ -35,6 +35,7 @@ public class FirstPersonMovementState : FirstPersonBaseState
 
     public override void OnUpdateState(FirstPersonPlayerManager player)
     {
+        if (Time.timeScale == 0) return;
         Move();
         LookX();
         LookY();
