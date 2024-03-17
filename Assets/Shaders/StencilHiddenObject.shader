@@ -3,8 +3,9 @@ Shader "Unlit/StencilHiddenObject"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-
         [IntRange] _StencilID("Stencil ID", Range(0, 255)) = 0
+        
+        [HDR] _GlowColor("Glow Color", Color) = (1, 1, 1, 1)
 
     }
     SubShader
@@ -16,15 +17,24 @@ Shader "Unlit/StencilHiddenObject"
             "Queue" = "Geometry-3"
         }
         LOD 100
+        Stencil {
+            Ref[_StencilID]
+            Comp equal
+            Pass keep
+            Fail keep
+        }
 
         Pass
         {
+            /*
             Stencil
             {
-                readMask [_StencilID]
-                Comp Less
-
+                Ref []
+                Comp Equal
+                Pass Keep
+                Fail Replace
             }
+            */
             CGPROGRAM
 
 
@@ -35,6 +45,8 @@ Shader "Unlit/StencilHiddenObject"
             #pragma multi_compile_fog
 
             #include "UnityCG.cginc"
+
+            uniform fixed4 _GlowColor;
 
             struct appdata
             {
@@ -64,7 +76,7 @@ Shader "Unlit/StencilHiddenObject"
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
+                fixed4 col = tex2D(_MainTex, i.uv) * _GlowColor;
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;

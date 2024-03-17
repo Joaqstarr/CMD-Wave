@@ -208,7 +208,7 @@ Material:
     - _SpecularAAThreshold: 0.2
     - _SpecularOcclusionMode: 1
     - _SrcBlend: 1
-    - _StencilID: 1
+    - _StencilID: 5
     - _StencilRef: 0
     - _StencilRefDepth: 8
     - _StencilRefGBuffer: 10

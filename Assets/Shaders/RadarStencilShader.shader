@@ -14,12 +14,17 @@ Shader "Unlit/RadarStencilShader"
             "Queue" = "Geometry-4"
         }
         LOD 100
-
+         Stencil {
+            Ref[_StencilID]
+            Comp always
+            Pass replace
+        }
         Pass
         {
             Blend Zero One
             ZWrite Off
 
+            /*
             Stencil
             {
                 Ref [_StencilID]
@@ -27,6 +32,7 @@ Shader "Unlit/RadarStencilShader"
                 Pass Replace
                 Fail Keep
             }
+            */
         }
     }
 }
