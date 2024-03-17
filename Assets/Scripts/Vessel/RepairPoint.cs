@@ -23,6 +23,7 @@ public class RepairPoint : MonoBehaviour, IInteractable
         _projector.enabled = false;
         _ParticleSystem.Stop();
         IsDamaged = false;
+        VesselRoomHandler.Instance.UpdateMapColors();
     }
 
     private void Start()

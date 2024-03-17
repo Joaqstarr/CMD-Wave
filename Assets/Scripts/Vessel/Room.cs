@@ -153,6 +153,8 @@ public class Room : MonoBehaviour
     {
         get {
             int amt = 0;
+            if (_damages == null)
+                return 0;
             for (int i = 0; i < _damages.Length; i++)
                 if (_damages[i].IsDamaged)
                     amt++;
@@ -160,5 +162,7 @@ public class Room : MonoBehaviour
             return amt; 
         }
     }
+
+
 
 }

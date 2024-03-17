@@ -2859,6 +2859,10 @@ PrefabInstance:
       propertyPath: _pushLocations.Array.data[24].y
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 7825878428035489316, guid: 37eef00d81415c44c84c94cc64fe200a, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9166504159888882849, guid: 37eef00d81415c44c84c94cc64fe200a, type: 3}
       propertyPath: m_Size.x
       value: 102.73188
@@ -10877,7 +10881,9 @@ MonoBehaviour:
 
 
     Use "HELP" at any
-    time for more information.'
+    time for more information.
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b22d9b8903c9b5409565bd25d5933d8, type: 2}
   m_sharedMaterial: {fileID: -4955251742446620056, guid: 1b22d9b8903c9b5409565bd25d5933d8, type: 2}
@@ -28948,7 +28954,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996336458}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4627cb337fffaa49ad71235b728a1b2, type: 3}
   m_Name: 
@@ -28956,7 +28962,7 @@ MonoBehaviour:
   _commandName: Status
   _commandDescription: 
   _shouldClear: 0
-  _addByDefault: 1
+  _addByDefault: 0
   _soundWhenExecuted: {fileID: 0}
 --- !u!4 &996336460
 Transform:
@@ -54766,11 +54772,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2107687334032096670, guid: f3abddece329a9d49ba08970ac8ee730, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -61.3
+      value: -27.23
       objectReference: {fileID: 0}
     - target: {fileID: 2107687334032096670, guid: f3abddece329a9d49ba08970ac8ee730, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 67.2
+      value: -71.6
       objectReference: {fileID: 0}
     - target: {fileID: 2107687334032096670, guid: f3abddece329a9d49ba08970ac8ee730, type: 3}
       propertyPath: m_LocalPosition.z
@@ -54803,6 +54809,14 @@ PrefabInstance:
     - target: {fileID: 2107687334032096670, guid: f3abddece329a9d49ba08970ac8ee730, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7275422120369675697, guid: f3abddece329a9d49ba08970ac8ee730, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7275422120369675697, guid: f3abddece329a9d49ba08970ac8ee730, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -10.13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

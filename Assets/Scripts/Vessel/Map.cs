@@ -51,8 +51,13 @@ public class Map : MonoBehaviour
             {
                 Map_Room curRoom = _locationMap[roomList[i].PositionVector];
                 curRoom.Activate(roomList[i].RoomTag);
+
+                curRoom.SetColorByDamage(roomList[i].DamageAmount);
+                
+
                 if (showSelectable)
                 {
+
                     if (curRoom.RoomTag == "" || curRoom.RoomTag == " ")
                         curRoom.MakeSelectable();
 
@@ -108,6 +113,18 @@ public class Map : MonoBehaviour
                 else
                     _mapRooms[i].MakeSelectable();
 
+            }
+
+        }
+    }
+
+    public void UpdateMapColors(Room[] roomList)
+    {
+        foreach(Room room in roomList) 
+        {
+            if (_locationMap.ContainsKey(room.PositionVector))
+            {
+                _locationMap[room.PositionVector].SetColorByDamage(room.DamageAmount);
             }
 
         }

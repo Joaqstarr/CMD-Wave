@@ -293,8 +293,13 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
 
         int randomRoom = Random.Range(0, _rooms.Length);
         _rooms[randomRoom].Damage();
+        UpdateMapColors();
     }
 
+    public void UpdateMapColors()
+    {
+        Map.Instance.UpdateMapColors(_rooms);
+    }
     public int DamageAmount
     {
         get
@@ -322,5 +327,17 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
     {
         GameStartManager.GameStarted -= NewGame;
 
+    }
+
+    public CommandBase[] GetCommandsFromKey(string key)
+    {
+        for(int i = 0; i < _rooms.Length; i++)
+        {
+            if (_rooms[i].RoomTag.ToLower() == key.ToLower())
+            {
+                return _rooms[i].AssociatedCommands;
+            }
+        }
+        return null;
     }
 }

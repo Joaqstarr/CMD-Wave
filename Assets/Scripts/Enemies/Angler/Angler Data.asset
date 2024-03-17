@@ -15,7 +15,7 @@ MonoBehaviour:
   detectionRadius: 0
   attackRadius: 0
   _respawnRange: 50
-  speed: 50
+  speed: 70
   acceleration: 0
   health: 45
   damage: 10

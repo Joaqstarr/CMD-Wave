@@ -158,7 +158,7 @@ public class CommandLineManager : MonoBehaviour
 
         if(_helpCommand.CheckCommand(command))
         {
-            OutputLine(_helpCommand.Execute(out _commandOveride, out sfx),_helpCommand.ShouldClear);
+            OutputLine(_helpCommand.Execute(out _commandOveride, out sfx, argument),_helpCommand.ShouldClear);
             PlaySound(sfx);
 
             return;
@@ -168,9 +168,7 @@ public class CommandLineManager : MonoBehaviour
         if (_commandOveride != null && _commandOveride.Count > 0)
         {
             string[] output = _commandOveride.CheckAndExecuteCommand(command, out bool clear, out CommandContext overrideContext, out sfx, argument);
-            if(GameStartManager.Instance.LockSubPosition && overrideContext == null)
-            {
-
+            if(GameStartManager.Instance.LockSubPosition && overrideContext == null) { 
             }
                 else
             _commandOveride = overrideContext;
@@ -235,6 +233,9 @@ public class CommandLineManager : MonoBehaviour
 
     public CommandBase[] GetPossibleCommands()
     {
+
+        int maxCommandContexts = _commands.Count;
+        maxCommandContexts = 1;
         List<CommandBase> possibleCommands = new List<CommandBase>();
 
         if(_commandOveride != null)
@@ -246,7 +247,7 @@ public class CommandLineManager : MonoBehaviour
         }
         else
         {
-            for(int i = 0; i< _commands.Count; i++)
+            for(int i = 0; i< maxCommandContexts; i++)
             {
                 for(int j = 0; j < _commands[i].Count; j++)
                 {
@@ -258,6 +259,8 @@ public class CommandLineManager : MonoBehaviour
 
         return possibleCommands.ToArray();
     }
+
+    
 
     public void AddContext(CommandContext context)
     {

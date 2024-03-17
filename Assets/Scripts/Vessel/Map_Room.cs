@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +38,9 @@ public class Map_Room : MonoBehaviour
     [SerializeField]
 
     TMP_Text _label;
+    [Header("Colors")]
+    [SerializeField]private Color _undamagedColor = Color.white;
+    [SerializeField] private Color _damagedColor = Color.red;
 
     [Header("Tweens")]
     [SerializeField] private TweenData _appearTween;
@@ -128,6 +132,20 @@ public class Map_Room : MonoBehaviour
 
         _state = RoomStates.Hidden;
         UpdateLabelText() ;
+    }
+
+    public void SetColorByDamage(int damage)
+    {
+        if(damage > 0)
+        {
+            _roomImage.color = _damagedColor;
+            _transform.DOComplete();
+            _transform.DOShakePosition(_appearTween.Duration, _appearTween.Strength, 9, 90, false, true).SetEase(_appearTween.Ease);
+        }
+        else
+        {
+            _roomImage.color = _undamagedColor;
+        }
     }
     public bool Activated
     {

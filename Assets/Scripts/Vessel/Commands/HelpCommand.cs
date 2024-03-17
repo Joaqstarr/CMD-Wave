@@ -10,13 +10,43 @@ public class HelpCommand : CommandBase
         sfx = _soundWhenExecuted;
 
         overrideContext = _commandLineManager.CommandOveride;
+        string[] Output;
+        CommandBase[] possibleCommands;
 
-        CommandBase[] possibleCommands = _commandLineManager.GetPossibleCommands();
-
-        string[] Output = new string[possibleCommands.Length];
-        for (int i = 0; i < possibleCommands.Length; i++)
+        if (arg.Length > 0)
         {
-            Output[i] = possibleCommands[i].GetHelpLine();
+            possibleCommands = VesselRoomHandler.Instance.GetCommandsFromKey(arg);
+            if(possibleCommands == null)
+            {
+                return CommandLineManager.StringToArray("Room does not exist.");
+            }
+            else
+            {
+
+                Output = new string[Mathf.Max(2, possibleCommands.Length + 1)];
+                Output[0] = "Possible Commands for Room " + arg.ToUpper();
+                if(possibleCommands.Length == 0)
+                {
+                    Output[1] = "NONE";
+                }else
+                for (int i = 1; i < Output.Length; i++)
+                {
+                    Output[i] = possibleCommands[i-1].GetHelpLine();
+                }
+
+                return Output;
+            }
+
+
+
+        }
+        possibleCommands = _commandLineManager.GetPossibleCommands();
+
+        Output = new string[possibleCommands.Length + 1];
+        Output[0] = "Use \"HELP __\" to receive information on a specific Room.\nPossible Commands:";
+        for (int i = 1; i < Output.Length; i++)
+        {
+            Output[i] = possibleCommands[i-1].GetHelpLine();
         }
         return Output;
     }
