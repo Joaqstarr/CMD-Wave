@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: PressureModule
   commandShortcut: pr
-  abilityPrefab: {fileID: 5994736223270090275, guid: 77f28747693686944a8dc5fd143bf028, type: 3}
+  abilityPrefab: {fileID: 571857498697749621, guid: e487195ce8df8b14382183ad45712d7d, type: 3}
   numToPool: 1
   poolObjects:
   - {fileID: 0}

@@ -49,7 +49,7 @@ public class ScanDartTransform : MonoBehaviour
 
     public void ResetDart()
     {
-        _rb.velocity = Vector3.zero;
+        //_rb.velocity = Vector3.zero;
         transform.position = _parent.transform.position;
         if (transform.parent != _parent.transform)
             transform.parent = _parent.transform;
@@ -65,7 +65,8 @@ public class ScanDartTransform : MonoBehaviour
         if ((_data.collideWith & (1 << collision.gameObject.layer)) != 0)
         {
             _rb.velocity = Vector3.zero;
-            _rb.isKinematic = true;
+            if (collision.gameObject.layer == 8)
+                _rb.isKinematic = true;
             transform.SetParent(collision.transform);
             _collider.enabled = false;
         }

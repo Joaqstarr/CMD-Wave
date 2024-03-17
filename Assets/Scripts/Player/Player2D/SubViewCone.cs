@@ -27,6 +27,8 @@ public class SubViewCone : MonoBehaviour
     private int _sampleRate; // how many times a second the cone scans for collision - UNUSED
     private LayerMask _collisionMask; // layer mask for raycast scan collisions
 
+    private Mesh _stencilMesh;
+
     private float _angleIncrease;
     private float _aimAngle;
     private float _angleRadians;
@@ -40,6 +42,9 @@ public class SubViewCone : MonoBehaviour
     private Vector3[] _vertices;
     private Vector2[] _uv;
     private int[] _triangles;
+    private Vector3[] _stencilVertices;
+    private Vector2[] _stencilUv;
+    private int[] _stencilTriangles;
     private GameObject[] _rayCollisions;
     private GameObject _pooledBlip;
     public static List<GameObject> _blips;
@@ -94,6 +99,15 @@ public class SubViewCone : MonoBehaviour
 
         _vertices[0] = _origin;
 
+        // stencil mesh
+        _stencilMesh = new Mesh();
+        transform.Find("RadarStencil").GetComponent<MeshFilter>().mesh = _stencilMesh;
+
+        _stencilVertices = new Vector3[_resolution + 2];
+        _stencilUv = new Vector2[_stencilVertices.Length];
+        _stencilTriangles = new int[_resolution * 3];
+
+
         if (FogOfWar.Instance != null)
         {
             InvokeRepeating("RepeatDrawFog", 0.1f, 0.1f);
@@ -145,14 +159,23 @@ public class SubViewCone : MonoBehaviour
             _angleRadians = angle * (Mathf.PI / 180f);
             _angleVector = new Vector3(Mathf.Cos(_angleRadians), Mathf.Sin(_angleRadians));
 
+            // check collision of cone
             float vertextDistance = _viewDistance;
             if(Physics.Raycast(transform.position, _angleVector, out hit, _viewDistance, _terrainMask))
-                vertextDistance = hit.distance;
+            vertextDistance = hit.distance;
 
 
             // set vertices of polygon
             Vector3 vertex = _origin + _angleVector * vertextDistance;
             _vertices[_vertexIndex] = vertex;
+
+            // stencil cone
+            // check collision of cone
+            float stencilVertextDistance = _viewDistance;
+
+            // set vertices of polygon
+            Vector3 stencilVertex = _origin + _angleVector * stencilVertextDistance;
+            _stencilVertices[_vertexIndex] = stencilVertex;
 
             // add vertices of polygon to triangles array
             if (i > 0)
@@ -160,6 +183,10 @@ public class SubViewCone : MonoBehaviour
                 _triangles[_triangleIndex] = 0;
                 _triangles[_triangleIndex + 1] = _vertexIndex - 1;
                 _triangles[_triangleIndex + 2] = _vertexIndex;
+
+                _stencilTriangles[_triangleIndex] = 0;
+                _stencilTriangles[_triangleIndex + 1] = _vertexIndex - 1;
+                _stencilTriangles[_triangleIndex + 2] = _vertexIndex;
 
                 _triangleIndex += 3;
             }
@@ -173,6 +200,12 @@ public class SubViewCone : MonoBehaviour
         _mesh.uv = _uv;
         _mesh.triangles = _triangles;
         _mesh.RecalculateNormals();
+
+        _stencilMesh.vertices = _stencilVertices;
+        _stencilMesh.uv = _stencilUv;
+        _stencilMesh.triangles = _stencilTriangles;
+        _stencilMesh.RecalculateNormals();
+
         // Check to scan collision
         if (!_scanWaiting) StartCoroutine(CollisionScan());
 

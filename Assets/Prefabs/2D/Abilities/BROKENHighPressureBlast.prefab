@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 5729225281412943580}
   - component: {fileID: 6226970102128739057}
   - component: {fileID: 7272626482128775353}
-  m_Layer: 0
-  m_Name: HighPressureBlast
+  m_Layer: 18
+  m_Name: BROKENHighPressureBlast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4901,7 +4901,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 41db6d8be850d08468792a150041593e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

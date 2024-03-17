@@ -5,8 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/Dash")]
 public class DashData : AbilityData
 {
+    public static bool IsMaxDashing;
     public float _maxDashSpeed;
     public float _chargeTime;
+    public float _breakTerrainActiveTime;
 
     private float _dashChargeModifier = 0;
     private float _holdTime = 0;
@@ -23,8 +25,6 @@ public class DashData : AbilityData
             _dashChargeModifier = 1;
             _holdTime = _chargeTime;
         }
-
-        Debug.Log(_dashChargeModifier);
     }
 
     public override void UseOnRelease(GameObject player)
@@ -36,8 +36,18 @@ public class DashData : AbilityData
     {
         yield return new WaitForFixedUpdate();
         player.GetComponent<Rigidbody>().AddForce(SubViewCone.subAimVector * _maxDashSpeed * _dashChargeModifier, ForceMode.Impulse);
+        if (_dashChargeModifier > 0.9)
+        {
+            IsMaxDashing = true;
+        }
         _holdTime = 0;
         _dashChargeModifier = 0;
+    }
+
+    private IEnumerator SetDashState()
+    {
+        yield return new WaitForSeconds(_breakTerrainActiveTime);
+        IsMaxDashing = false;
     }
 
 }

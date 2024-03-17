@@ -23,6 +23,8 @@ public class ScanDartScan : MonoBehaviour
     private int _sampleRate; // how many times a second the cone scans for collision - UNUSED
     private LayerMask _collisionMask; // layer mask for raycast scan collisions
 
+    private Mesh _stencilMesh;
+
     private float _angleIncrease;
     private float _aimAngle;
     private float _angleRadians;
@@ -36,6 +38,9 @@ public class ScanDartScan : MonoBehaviour
     private Vector3[] _vertices;
     private Vector2[] _uv;
     private int[] _triangles;
+    private Vector3[] _stencilVertices;
+    private Vector2[] _stencilUv;
+    private int[] _stencilTriangles;
     public GameObject[] _rayCollisions;
     private GameObject _pooledBlip;
     private List<GameObject> _blips;
@@ -73,6 +78,14 @@ public class ScanDartScan : MonoBehaviour
         _rayCollisions = new GameObject[_rayResolution];
 
         _vertices[0] = _origin;
+
+        // stencil mesh
+        _stencilMesh = new Mesh();
+        transform.Find("ScanStencil").GetComponent<MeshFilter>().mesh = _stencilMesh;
+
+        _stencilVertices = new Vector3[_resolution + 2];
+        _stencilUv = new Vector2[_stencilVertices.Length];
+        _stencilTriangles = new int[_resolution * 3];
 
         // Blip object pool
         _blips = SubViewCone._blips;
@@ -134,6 +147,10 @@ public class ScanDartScan : MonoBehaviour
         _mesh.vertices = _vertices;
         _mesh.uv = _uv;
         _mesh.triangles = _triangles;
+
+        _stencilMesh.vertices = _vertices;
+        _stencilMesh.uv = _uv;
+        _stencilMesh.triangles = _triangles;
 
         // Check to scan collision
         if (!_scanWaiting) StartCoroutine(CollisionScan());
