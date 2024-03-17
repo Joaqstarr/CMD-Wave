@@ -63,8 +63,6 @@ public class PauseManager : MonoBehaviour
     }
     private void Update()
     {
-
-        
         if (_pauseWhenTyping)
         {
             _timeScalar = CommandLineManager.Instance.IsTyping ? 0 : 1;
@@ -73,6 +71,12 @@ public class PauseManager : MonoBehaviour
         {
             _timeScalar = 1;
         }
+
+        if(DeathScreenManager.Instance != null)
+            if (DeathScreenManager.Instance.IsDead)
+            {
+                _timeScalar = 0;
+            }
         Time.timeScale = _timeScalar * _pauseTimeScale;
     }
 }

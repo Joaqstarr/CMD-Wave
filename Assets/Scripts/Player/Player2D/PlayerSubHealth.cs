@@ -92,6 +92,14 @@ public class PlayerSubHealth : MonoBehaviour
             {
                 _subManager._stunTimer = stunDuration;
             }
+
+            if(_health <= 0)
+            {
+                Debug.Log("Dead");
+                _health = 0;
+                if (DeathScreenManager.Instance != null)
+                    DeathScreenManager.Instance.KillScreen();
+            }
         }
     }
 

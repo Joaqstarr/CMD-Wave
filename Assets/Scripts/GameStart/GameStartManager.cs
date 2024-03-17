@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStartManager : MonoBehaviour
 {
     public delegate void StartOverGame();
     public static StartOverGame GameStarted;
+    public static StartOverGame GameContinued;
 
     [SerializeField]
     private bool OverrideNewGame = false;
@@ -37,5 +39,21 @@ public class GameStartManager : MonoBehaviour
         LockSubPosition = true;
         if (GameStarted != null)
             GameStarted();
+    }
+
+    public void Continue()
+    {
+        bool loaded = SaveManager.Instance.Load();
+
+        if(!loaded )
+        {
+            if (GameContinued != null)
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        else
+        {
+            if (GameContinued != null)
+                GameContinued();
+        }
     }
 }

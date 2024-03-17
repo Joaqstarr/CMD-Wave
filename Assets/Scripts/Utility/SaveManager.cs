@@ -55,7 +55,7 @@ public class SaveManager : MonoBehaviour
         _dataHandler.Save(_gameData);
     }
 
-    public void Load()
+    public bool Load()
     {
         _gameData = _dataHandler.Load();
 
@@ -63,12 +63,14 @@ public class SaveManager : MonoBehaviour
         {
             NewGame();
             Debug.Log("No Data to load, initializing to defaults.");
+            return false;
         }
 
         foreach(IDataPersistance persistanceObject in _dataPersistanceObjects)
         {
             persistanceObject.LoadData(_gameData);
         }
+        return true;
         
     }
 
