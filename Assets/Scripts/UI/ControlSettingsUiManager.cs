@@ -10,6 +10,8 @@ public class ControlSettingsUiManager : MonoBehaviour
     private Slider _mouseSens;
     [SerializeField]
     private Toggle _togglePauseTyping;
+    [SerializeField]
+    private Toggle _colorBlindToggle;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +19,7 @@ public class ControlSettingsUiManager : MonoBehaviour
 
         _mouseSens.value = PlayerPrefs.GetFloat("MouseSens", 0.8f);
         _togglePauseTyping.isOn = PlayerPrefs.GetInt("PauseType", 0) == 1;
+        _colorBlindToggle.isOn = PlayerPrefs.GetInt("Colorblind", 0) == 1;
 
     }
 
@@ -35,4 +38,12 @@ public class ControlSettingsUiManager : MonoBehaviour
 
         PauseManager.Instance._pauseWhenTyping = value;
     }
+
+    public void SetColorblind(bool value)
+    {
+        int val = value ? 1 : 0;
+        PlayerPrefs.SetInt("Colorblind", val);
+        PlayerSubData.Colorblind = value;
+    }
+
 }

@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 
 public class ScanDartScan : MonoBehaviour
 {
-
+    public PlayerSubData subData;
     public ScanDartData data;
 
     private Mesh _mesh; // mesh for cone polygons
@@ -41,9 +41,9 @@ public class ScanDartScan : MonoBehaviour
     private Vector3[] _stencilVertices;
     private Vector2[] _stencilUv;
     private int[] _stencilTriangles;
-    public GameObject[] _rayCollisions;
-    private GameObject _pooledBlip;
-    private List<GameObject> _blips;
+    public MeshRenderer[] _rayCollisions;
+    private MeshRenderer _pooledBlip;
+    private List<MeshRenderer> _blips;
     private int _numBlips;
     [SerializeField]
     private float _fogAlpha = 0.3f;
@@ -53,6 +53,8 @@ public class ScanDartScan : MonoBehaviour
     [SerializeField]
     private float _minimumFogDistance = 8;
 
+
+    private MeshRenderer _renderer;
     private void Start()
     {
 
@@ -75,7 +77,7 @@ public class ScanDartScan : MonoBehaviour
         _vertices = new Vector3[_resolution + 2];
         _uv = new Vector2[_vertices.Length];
         _triangles = new int[_resolution * 3];
-        _rayCollisions = new GameObject[_rayResolution];
+        _rayCollisions = new MeshRenderer[_rayResolution];
 
         _vertices[0] = _origin;
 
@@ -165,7 +167,7 @@ public class ScanDartScan : MonoBehaviour
             {
                 if (_rayCollisions[i] != null)
                 {
-                    _rayCollisions[i].SetActive(false);
+                    _rayCollisions[i].gameObject.SetActive(false);
                     _rayCollisions[i] = null;
                 }
             }
@@ -179,7 +181,7 @@ public class ScanDartScan : MonoBehaviour
             {
                 if (_rayCollisions[i] != null)
                 {
-                    StartCoroutine(BlipGhostEffect(_rayCollisions[i]));
+                    StartCoroutine(BlipGhostEffect(_rayCollisions[i].gameObject));
                     _rayCollisions[i] = null;
                 }
             }
@@ -224,10 +226,10 @@ public class ScanDartScan : MonoBehaviour
                     _rayCollisions[i] = GetBlip(hit.point);
                     // check if enemy was hit
                     if (hit.collider.gameObject.layer == 8)
-                        _rayCollisions[i].GetComponent<MeshRenderer>().material = data.enemyColor;
+                        _rayCollisions[i].material = subData.enemyColor;
                     else
-                        _rayCollisions[i].GetComponent<MeshRenderer>().material = data.defaultColor;
-                    _rayCollisions[i].SetActive(true);
+                        _rayCollisions[i].material = subData.defaultColor;
+                    _rayCollisions[i].gameObject.SetActive(true);
                 }
             }
         }
@@ -235,11 +237,11 @@ public class ScanDartScan : MonoBehaviour
         _scanWaiting = false;
     }
 
-    private GameObject GetBlip(Vector3 position)
+    private MeshRenderer GetBlip(Vector3 position)
     {
         for (int i = 0; i < _numBlips; i++)
         {
-            if (!_blips[i].activeInHierarchy)
+            if (!_blips[i].gameObject.activeInHierarchy)
             {
                 _blips[i].transform.position = position;
                 return _blips[i];
@@ -281,5 +283,10 @@ public class ScanDartScan : MonoBehaviour
         {
             Gizmos.DrawSphere(vertices[i], 1f);
         }
+    }
+
+    private void UpdateRadarMat()
+    {
+        _renderer.material = subData.radarColor;
     }
 }

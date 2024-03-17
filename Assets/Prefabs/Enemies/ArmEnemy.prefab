@@ -261,11 +261,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a4962445713ed4995a346e8b48bf13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 059fde65caf0cf8479332d9f63ae32e8, type: 2}
-  meshSpline: {fileID: 0}
   Target: {fileID: 0}
+  Data: {fileID: 11400000, guid: 70286a22e94db39468e945cec61898cf, type: 2}
+  meshSpline: {fileID: 0}
   ArmPart: {fileID: 3998784658147837648}
   ArmParts: []
+  canMove: 1
 --- !u!114 &104096521253699031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,4 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c8e4082e3b90343bb5a10e7cdae730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyData: {fileID: 11400000, guid: 059fde65caf0cf8479332d9f63ae32e8, type: 2}
+  _enemyData: {fileID: 11400000, guid: 70286a22e94db39468e945cec61898cf, type: 2}
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []

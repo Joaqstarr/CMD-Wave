@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = ("PlayerSubData/Player Sub Data"))]
 public class PlayerSubData : ScriptableObject
 {
+
+    public static bool Colorblind = false;
     [Header("Movement")]
     public float moveSpeed;
     public float acceleration;
@@ -29,7 +31,21 @@ public class PlayerSubData : ScriptableObject
     public GameObject blipObject;
     public LayerMask collisionMask;
     public Material defaultColor;
-    public Material enemyColor;
+
+    public Material enemyColor
+    {
+        get { return Colorblind? enemyColorColorblind : enemyColorDefault; }
+    }
+    public Material enemyColorDefault;
+    public Material enemyColorColorblind;
+
+    public Material radarColor
+    {
+        get { return Colorblind ? radarColorColorblind : radarColorDefault; }
+
+    }
+    public Material radarColorDefault;
+    public Material radarColorColorblind;
     public float cameraLookAhead = 5f;
     [Header("Sound")]
     [Range(0, 1)]

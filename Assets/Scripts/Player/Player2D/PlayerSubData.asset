@@ -31,6 +31,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 457
   defaultColor: {fileID: 2100000, guid: acabf66198dd85f4292e1074b95cf084, type: 2}
-  enemyColor: {fileID: 2100000, guid: a0a2e5c1d6422af4c9061faa66a1d4bd, type: 2}
+  enemyColorDefault: {fileID: 2100000, guid: a0a2e5c1d6422af4c9061faa66a1d4bd, type: 2}
+  enemyColorColorblind: {fileID: 2100000, guid: 25822190a1713f643bc7c1f3cd5b5328, type: 2}
+  radarColorDefault: {fileID: 2100000, guid: d23b8b939d665ec42a1f529e999741dc, type: 2}
+  radarColorColorblind: {fileID: 2100000, guid: 41289f45a029b5b43993a426ef5686f1, type: 2}
   cameraLookAhead: 5
   minimumEngineVolume: 0.425

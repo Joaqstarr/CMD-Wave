@@ -45,31 +45,33 @@ public class SubViewCone : MonoBehaviour
     private Vector3[] _stencilVertices;
     private Vector2[] _stencilUv;
     private int[] _stencilTriangles;
-    private GameObject[] _rayCollisions;
-    private GameObject _pooledBlip;
-    public static List<GameObject> _blips;
+    private MeshRenderer[] _rayCollisions;
+    private MeshRenderer _pooledBlip;
+    public static List<MeshRenderer> _blips;
     private int _numBlips;
     [SerializeField]
     private float _fogAlpha = 0.1f;
     [SerializeField]
     private LayerMask _terrainMask; // layer mask for raycast terrain collisions
-
+    private MeshRenderer _renderer;
     private void Awake()
     {
         // Blip object pool
         GameObject holder = new GameObject();
         holder.name = "BlipHolder";
-        _pooledBlip = data.blipObject;
-        _blips = new List<GameObject>();
+        _pooledBlip = data.blipObject.GetComponent<MeshRenderer>();
+        _blips = new List<MeshRenderer>();
         _numBlips = (data.rayResolution + scanDartData.rayResolution * scanDartData.numToPool) * 2;
-        GameObject tempObject;
+        MeshRenderer tempObject;
         for (int i = 0; i < _numBlips; i++)
         {
             tempObject = Instantiate(_pooledBlip);
-            tempObject.SetActive(false);
+            tempObject.gameObject.SetActive(false);
             tempObject.transform.SetParent(holder.transform);
             _blips.Add(tempObject);
         }
+
+        InvokeRepeating("UpdateConeMat", 1f, 1f);
     }
 
     private void Start()
@@ -79,6 +81,7 @@ public class SubViewCone : MonoBehaviour
         _mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = _mesh;
         GetComponent<MeshCollider>().sharedMesh = _mesh;
+        _renderer = GetComponent<MeshRenderer>();
 
         _origin = transform.localPosition;
         _fov = data.fov;
@@ -95,7 +98,7 @@ public class SubViewCone : MonoBehaviour
         _vertices = new Vector3[_resolution + 2];
         _uv = new Vector2[_vertices.Length];
         _triangles = new int[_resolution * 3];
-        _rayCollisions = new GameObject[_rayResolution];
+        _rayCollisions = new MeshRenderer[_rayResolution];
 
         _vertices[0] = _origin;
 
@@ -124,7 +127,7 @@ public class SubViewCone : MonoBehaviour
             {
                 if (_rayCollisions[i] != null)
                 {
-                    StartCoroutine(BlipGhostEffect(_rayCollisions[i]));
+                    StartCoroutine(BlipGhostEffect(_rayCollisions[i].gameObject));
                     _rayCollisions[i] = null;
                 }
             }    
@@ -315,13 +318,13 @@ public class SubViewCone : MonoBehaviour
                 if (Physics.Raycast(transform.position, _rayVector, out hit, _viewDistance, _collisionMask))
                 {
                     // draw blip on hit
-                    _rayCollisions[i] = GetBlip(hit.point);
+                    _rayCollisions[i] = GetBlip(new Vector3(hit.point.x, hit.point.y, 3));
                     // check if enemy was hit
                     if (hit.collider.gameObject.layer == 8)
-                        _rayCollisions[i].GetComponent<MeshRenderer>().material = data.enemyColor;
+                        _rayCollisions[i].material = data.enemyColor;
                     else
-                        _rayCollisions[i].GetComponent<MeshRenderer>().material = data.defaultColor;
-                    _rayCollisions[i].SetActive(true);
+                        _rayCollisions[i].material = data.defaultColor;
+                    _rayCollisions[i].gameObject.SetActive(true);
                 }
             }
         }
@@ -339,11 +342,11 @@ public class SubViewCone : MonoBehaviour
         //Debug.Log(mainPoint + ", player pos screen: " + camera2D.WorldToScreenPoint(transform.position) + ", screen size: " + camera2D.orthographicSize);
         return mainPoint;
     }
-    private GameObject GetBlip(Vector3 position)
+    private MeshRenderer GetBlip(Vector3 position)
     {
         for (int i = 0; i < _numBlips; i++)
         {
-            if (!_blips[i].activeInHierarchy)
+            if (!_blips[i].gameObject.activeInHierarchy)
             {
                 _blips[i].transform.position = position;
                 return _blips[i];
@@ -379,5 +382,12 @@ public class SubViewCone : MonoBehaviour
         {
             Gizmos.DrawSphere(vertices[i], 1f);
         }
+    }
+
+    private void UpdateConeMat()
+    {
+        Material[] materials = new Material[1];
+        materials[0] = data.radarColor;
+        _renderer.SetMaterials(materials.ToList());
     }
 }

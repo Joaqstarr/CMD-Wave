@@ -11,6 +11,8 @@ public class BaseEnemyHealth : MonoBehaviour, IHittable
 
     public UnityEvent OnHit;
     private bool _dead = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +55,8 @@ public class BaseEnemyHealth : MonoBehaviour, IHittable
 
         _dead = false;
     }
+
+
 
 
 }
