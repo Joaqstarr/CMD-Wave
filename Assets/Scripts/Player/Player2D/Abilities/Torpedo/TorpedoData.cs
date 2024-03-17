@@ -30,9 +30,17 @@ public class TorpedoData : AbilityData
         }
 
         reloadCounter--;
+
         if (reloadCounter <= 0)
         {
             canShoot = false;
+            CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Torpedos Expended. Manual Reload Necessary."), false);
+
+        }
+        else
+        {
+            CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Torpedo Count at " + reloadCounter), false);
+
         }
     }
 
@@ -61,6 +69,7 @@ public class TorpedoData : AbilityData
         canShoot = true;
         int ammoToLoad = numToPool - reloadCounter;
         reloadCounter = numToPool;
+        CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Torpedo Count at " + reloadCounter), false);
         return ammoToLoad;
     }
 
