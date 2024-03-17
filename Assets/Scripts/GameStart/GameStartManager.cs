@@ -43,17 +43,23 @@ public class GameStartManager : MonoBehaviour
 
     public void Continue()
     {
-        bool loaded = SaveManager.Instance.Load();
 
-        if(!loaded )
+        if (VesselRoomHandler.Instance.ContainsRoom("SA"))
         {
+            SaveManager.Instance.Load();
+
             if (GameContinued != null)
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            {
+                GameContinued();
+
+            }
+            CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Data Succesfully Loaded."), true);
         }
         else
         {
-            if (GameContinued != null)
-                GameContinued();
+            SceneManager.LoadScene(0);
         }
+
+        
     }
 }

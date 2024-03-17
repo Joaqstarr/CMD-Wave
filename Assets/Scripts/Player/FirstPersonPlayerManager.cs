@@ -25,6 +25,8 @@ public class FirstPersonPlayerManager : MonoBehaviour
     public IInteractable _highlightedObject;
     [SerializeField]
     private Vector3 _newGamePos;
+    [SerializeField]
+    private Vector3 _startPos;
 
     #endregion
     void Start()
@@ -71,14 +73,19 @@ public class FirstPersonPlayerManager : MonoBehaviour
     {
         transform.localPosition = _newGamePos;
     }
-
+    private void ContinueGame()
+    {
+        transform.localPosition = _startPos;
+    }
     private void OnEnable()
     {
         GameStartManager.GameStarted += NewGame;
-
+        GameStartManager.GameContinued += ContinueGame;
     }
     private void OnDisable()
     {
         GameStartManager.GameStarted -= NewGame;
+        GameStartManager.GameContinued -= ContinueGame;
+
     }
 }

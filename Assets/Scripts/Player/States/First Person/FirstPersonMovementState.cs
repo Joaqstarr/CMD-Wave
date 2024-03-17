@@ -39,7 +39,7 @@ public class FirstPersonMovementState : FirstPersonBaseState
         Move();
         LookX();
         LookY();
-        player._highlightedObject = (_playerControls.IsPosessing)? null : CheckInteractable();
+        player._highlightedObject = (_playerControls.IsPosessing || PlayerSubHealth.Instance.Health <=0)? null : CheckInteractable();
 
         if (_distanceWalked > player.PlayerData.MinimumFootStepDistance)
         {

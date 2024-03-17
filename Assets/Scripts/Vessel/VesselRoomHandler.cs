@@ -52,6 +52,8 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
         AddRoom(_commandRoom, _commandRoom.PositionVector);
 
         CommandLineManager.Instance.AddContext(RoomsContext);
+
+        //InvokeRepeating("UpdateMapColors", 1f, 1f);
     }
 
     public void AddRoom(Room room, Vector2Int position)
@@ -177,7 +179,6 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
             roomRemoving.ClearAttachments();
 
             UpdateMap(false);
-
 
             return true;
         }
@@ -340,5 +341,22 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
             }
         }
         return null;
+    }
+
+    public int RoomCount
+    {
+        get { return _rooms.Length; }
+    }
+
+    public bool ContainsRoom(string roomTag)
+    {
+        for (int i = 0; i < _rooms.Length; i++)
+        {
+            if (_rooms[i].RoomTag.ToLower() == roomTag.ToLower())
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -7,6 +7,7 @@ public class DeathScreenManager : MonoBehaviour
     public static DeathScreenManager Instance;
 
     public bool IsDead = false;
+    public bool IsDying = false;
     private CanvasGroup _canvasGroup;
     // Start is called before the first frame update
     void Awake()
@@ -18,7 +19,10 @@ public class DeathScreenManager : MonoBehaviour
 
         _canvasGroup = GetComponent<CanvasGroup>();
     }
-
+    public void SetDead()
+    {
+        IsDying = true;
+    }
 
 
     public void KillScreen()
@@ -33,6 +37,7 @@ public class DeathScreenManager : MonoBehaviour
     public void Revive()
     {
         IsDead = false;
+        IsDying = false;
 
         _canvasGroup.alpha = 0;
         _canvasGroup.interactable = false;

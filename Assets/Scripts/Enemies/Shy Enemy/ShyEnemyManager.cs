@@ -130,7 +130,7 @@ public class ShyEnemyManager : MonoBehaviour, IKnockbackable
 
             _playerSubHealth.OnHit(_enemyData.damage, KnockbackPlayer(collision.transform.position), _enemyData.stunDuration);
 
-            Rb.angularVelocity = Vector3.zero;
+           // Rb.angularVelocity = Vector3.zero;
         }
     }
     private Vector3 KnockbackPlayer(Vector3 playerPos)

@@ -26,11 +26,12 @@ public class RepairPoint : MonoBehaviour, IInteractable
     }
     public void Repair()
     {
-        VesselRoomHandler.Instance.UpdateMapColors();
         IsDamaged = false;
         _ParticleSystem.Stop();
         _projector.enabled = false;
         _audioSource.volume = 0;
+        VesselRoomHandler.Instance.UpdateMapColors();
+
 
     }
     private void Start()

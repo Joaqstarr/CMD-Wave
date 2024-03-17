@@ -20,7 +20,7 @@ public class PlayerSubHealth : MonoBehaviour, IDataPersistance
 
     public delegate void PlayerHitDel(float strength);
     public static PlayerHitDel OnHitDel;
-
+    public static PlayerHitDel OnDeathDel;
     public static PlayerSubHealth Instance;
 
     [SerializeField]
@@ -97,8 +97,7 @@ public class PlayerSubHealth : MonoBehaviour, IDataPersistance
             {
                 Debug.Log("Dead");
                 _health = 0;
-                if (DeathScreenManager.Instance != null)
-                    DeathScreenManager.Instance.KillScreen();
+                KillSequence();
             }
         }
     }
@@ -109,16 +108,22 @@ public class PlayerSubHealth : MonoBehaviour, IDataPersistance
         if (VesselRoomHandler.Instance != null)
         {
             int dmg = VesselRoomHandler.Instance.DamageAmount;
-            if (dmg == 0) return;
+            if (dmg == 0)
+            {
+                _health = Mathf.Min(data.health, _health + VesselRoomHandler.Instance.RoomCount);
+            }
 
             float strength = 0.01f * dmg;
 
             if (_shakeSource != null)
                 _shakeSource.GenerateImpulseWithForce(strength);
 
+            if(_health > 10)
+            {
+                int newHealth = Mathf.Max(_health - dmg, data.healthNoDrain);
+                _health = newHealth;
 
-            int newHealth = Mathf.Max(_health - dmg, data.healthNoDrain);
-            _health = newHealth;
+            }
 
         }
     }
@@ -160,5 +165,30 @@ public class PlayerSubHealth : MonoBehaviour, IDataPersistance
     public int Health
     {
         get { return _health; }
+    }
+
+    public void KillSequence()
+    {
+        if (DeathScreenManager.Instance != null)
+            if (DeathScreenManager.Instance.IsDead || DeathScreenManager.Instance.IsDying) return;
+
+        if (DeathScreenManager.Instance != null)
+            DeathScreenManager.Instance.SetDead();
+
+            FirstPersonPlayerControls.Instance.UnPossess(); 
+        if (OnDeathDel != null)
+            OnDeathDel(4);
+        StartCoroutine(WaitForDeathTime());
+        
+    }
+
+    IEnumerator WaitForDeathTime()
+    {
+ 
+        yield return new WaitForSeconds(4f);
+        if (_health <= 0)
+        if (DeathScreenManager.Instance != null)
+            DeathScreenManager.Instance.KillScreen();
+
     }
 }

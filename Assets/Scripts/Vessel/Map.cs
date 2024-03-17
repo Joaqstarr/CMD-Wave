@@ -38,7 +38,6 @@ public class Map : MonoBehaviour
 
     public void GenerateMap(Room[] roomList, bool showSelectable = false)
     {
-        Debug.Log(_locationMap.Count);
         for (int i = 0; i < _mapRooms.Length; i++)
         {
             _mapRooms[i].Deactivate();

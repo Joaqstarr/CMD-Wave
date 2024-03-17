@@ -48,6 +48,8 @@ public class SaveManager : MonoBehaviour
 
     public void Save()
     {
+        if(PlayerSubHealth.Instance != null) 
+            if (PlayerSubHealth.Instance.Health <= 0) return;
         foreach (IDataPersistance persistanceObject in _dataPersistanceObjects)
         {
             persistanceObject.SaveData(ref _gameData);
