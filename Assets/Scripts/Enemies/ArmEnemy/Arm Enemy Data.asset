@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71bf76e1a5fa58428cea8172fb43317, type: 3}
   m_Name: Arm Enemy Data
   m_EditorClassIdentifier: 
-  detectionRadius: 8.96
+  detectionRadius: 15
   attackRadius: 0
   _respawnRange: 50
   speed: 0

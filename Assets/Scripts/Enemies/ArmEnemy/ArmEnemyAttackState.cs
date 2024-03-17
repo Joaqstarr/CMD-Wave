@@ -12,12 +12,21 @@ public class ArmEnemyAttackState : BaseEnemyState
     {
         if (manager == null)
             manager = (ArmEnemyManager)enemy;
-        manager.Pathfinder.canMove = true;
-        manager.DestinationSetter.target = manager.Target;
+        if (manager.canMove)
+        {
+            manager.Pathfinder.canMove = true;
+            manager.DestinationSetter.target = manager.Target;
+        }
+        else
+        {
+            manager.Pathfinder.canMove = false;
+            manager.DestinationSetter.target = null;
+        }
+
 
         float start = 0;
         maxDistance = start;
-        DOVirtual.Float(start, manager.Data.AttackSplinePercent * manager.Data.MaxLength, 1f, (x) =>
+        DOVirtual.Float(start, manager.Data.AttackSplinePercent * manager.Data.MaxLength, 1.3f, (x) =>
         {
             maxDistance = x ;
         });

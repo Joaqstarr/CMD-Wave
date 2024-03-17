@@ -24,6 +24,8 @@ public class ArmEnemyManager : BaseEnemyManager
     public EnemyCollision ArmPart;
     public EnemyCollision[] ArmParts;
 
+    public bool canMove = true;
+
     #endregion
     private void Start()
     {

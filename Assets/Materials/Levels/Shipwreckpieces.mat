@@ -192,7 +192,7 @@ Material:
     - _EnableGeometricSpecularAA: 0
     - _EnergyConservingSpecularColor: 1
     - _GridStength: 0.281
-    - _GridThickness: 11.73
+    - _GridThickness: 21.4
     - _HeightAmplitude: 0.02
     - _HeightCenter: 0.5
     - _HeightMapParametrization: 0
@@ -282,13 +282,13 @@ Material:
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
     - _GradientColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GridCellSize: {r: 1.5, g: 1.5, b: 0, a: 0}
-    - _GridColor: {r: 0.24306631, g: 0.5377358, b: 0.15421854, a: 0}
+    - _GridCellSize: {r: 0.8, g: 0.8, b: 0, a: 0}
+    - _GridColor: {r: 0.14934504, g: 0.33962262, b: 0.09099322, a: 0}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _MinMaxCameraDist: {r: -0.42, g: 1.12, b: 0, a: 0}
     - _MinMaxGradient: {r: 0.04, g: 1, b: 0, a: 0}
-    - _MinMaxGradientAlpha: {r: 0.63, g: 1.53, b: 0, a: 0}
+    - _MinMaxGradientAlpha: {r: 0.63, g: 0.86, b: 0, a: 0}
     - _ScrollSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
