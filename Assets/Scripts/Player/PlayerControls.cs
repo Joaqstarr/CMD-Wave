@@ -9,7 +9,7 @@ public class PlayerControls : MonoBehaviour
     [SerializeField]
     private string _controlMap;
     private PlayerInput _input;
-
+    public static float MouseSens = 1;
     private void Start()
     {
         _input = GetComponent<PlayerInput>();
@@ -218,6 +218,23 @@ public class PlayerControls : MonoBehaviour
         if (_possesedInput != null)
         {
             _possesedInput.OnExit(Value);
+            return false;
+        }
+
+        return true;
+    }
+    public virtual bool OnPause(InputValue Value)
+    {
+        if (CommandLineManager.Instance != null)
+        {
+            if (CommandLineManager.Instance.IsTyping)
+            {
+                return false;
+            }
+        }
+        if (_possesedInput != null)
+        {
+            _possesedInput.OnPause(Value);
             return false;
         }
 

@@ -70,6 +70,7 @@ public class DropRoomCommand : CommandBase
                             {
                                 if (_abilityManager._activeAbility._data.commandShortcut.ToLower() == droppedKey.ToLower())
                                     _abilityManager.DeEquip();
+
                                 Item droppedItem = ItemPool.Instance.GetFreeItem(droppedKey);
                                 if (droppedItem != null)
                                 {

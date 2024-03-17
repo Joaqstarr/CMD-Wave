@@ -15,6 +15,7 @@ public class GameStartManager : MonoBehaviour
     public bool LockSubPosition = true;
     private void Awake()
     {
+        Time.timeScale = 1.0f;
         if(Instance == null)
             Instance = this;
 
@@ -24,7 +25,13 @@ public class GameStartManager : MonoBehaviour
 
     public void StartGame()
     {
-        if (OverrideNewGame) return;
+        if (OverrideNewGame)
+        {
+            IsGameStarted = true;
+            LockSubPosition = false;
+
+            return;
+        }
 
         IsGameStarted = true;
         LockSubPosition = true;

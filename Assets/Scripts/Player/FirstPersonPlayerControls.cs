@@ -41,7 +41,7 @@ public class FirstPersonPlayerControls : PlayerControls
         }
 
         //input code here
-        _lookInput = Value.Get<Vector2>();
+        _lookInput = Value.Get<Vector2>() * MouseSens;
 
         if(base.Input.currentControlScheme == "Controller")
         {
@@ -60,6 +60,19 @@ public class FirstPersonPlayerControls : PlayerControls
         }
         
         _selectPressed = Value.isPressed;
+
+        return true;
+    }
+
+    public override bool OnPause(InputValue Value)
+    {
+        if (!base.OnPause(Value))
+        {
+            return false;
+        }
+
+        if(PauseManager.Instance  != null)
+            PauseManager.Instance.TogglePause();
 
         return true;
     }
