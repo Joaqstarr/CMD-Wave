@@ -341,6 +341,7 @@ MonoBehaviour:
   _awaitingInputContext:
     _commands: []
   _failedCommandSound: {fileID: 0}
+  _abilityManager: {fileID: 924279155632030274}
 --- !u!1 &3587684881794640643
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,6 +624,12 @@ MonoBehaviour:
   EngineSource: {fileID: 4137820747769043188}
   CamFollow: {fileID: 3286504144662189039}
   _stunTimer: 0
+  _startTween:
+    Duration: 0
+    Strength: 0
+    Ease: 0
+  _newGamePos: {x: 0, y: 0, z: 0}
+  _firstMapPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1730125559575496779
 MonoBehaviour:
   m_ObjectHideFlags: 0

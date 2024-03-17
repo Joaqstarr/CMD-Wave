@@ -49,6 +49,8 @@ public class Room : MonoBehaviour
            // _roomTag = _roomTag.Substring(0, 3);
         }
         _damages = GetComponentsInChildren<RepairPoint>();
+
+        InvokeRepeating("UpdateDoors", 1f, 1f);
     }
 
     public void UpdateDoors()

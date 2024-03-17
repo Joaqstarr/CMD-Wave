@@ -23,6 +23,8 @@ public class FirstPersonPlayerManager : MonoBehaviour
     public AudioSource FootstepSource;
     [HideInInspector]
     public IInteractable _highlightedObject;
+    [SerializeField]
+    private Vector3 _newGamePos;
 
     #endregion
     void Start()
@@ -63,5 +65,20 @@ public class FirstPersonPlayerManager : MonoBehaviour
     public Transform HeadPos
     {
         get { return _headPos; }
+    }
+
+    private void NewGame()
+    {
+        transform.localPosition = _newGamePos;
+    }
+
+    private void OnEnable()
+    {
+        GameStartManager.GameStarted += NewGame;
+
+    }
+    private void OnDisable()
+    {
+        GameStartManager.GameStarted -= NewGame;
     }
 }

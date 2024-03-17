@@ -168,6 +168,11 @@ public class CommandLineManager : MonoBehaviour
         if (_commandOveride != null && _commandOveride.Count > 0)
         {
             string[] output = _commandOveride.CheckAndExecuteCommand(command, out bool clear, out CommandContext overrideContext, out sfx, argument);
+            if(GameStartManager.Instance.LockSubPosition && overrideContext == null)
+            {
+
+            }
+                else
             _commandOveride = overrideContext;
             if (output != null)
             {
@@ -182,6 +187,7 @@ public class CommandLineManager : MonoBehaviour
             bool clear;
                 
             string[] executeResult = _commands[i].CheckAndExecuteCommand(command, out clear, out CommandContext overrideContext, out sfx, argument);
+
             _commandOveride = overrideContext;
 
             if (executeResult != null)
