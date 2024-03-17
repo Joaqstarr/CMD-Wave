@@ -29609,7 +29609,7 @@ MonoBehaviour:
   xrRendering: 1
   fullscreenPassthrough: 0
   allowDynamicResolution: 0
-  customRenderingSettings: 0
+  customRenderingSettings: 1
   invertFaceCulling: 0
   probeLayerMask:
     serializedVersion: 2
@@ -29629,8 +29629,8 @@ MonoBehaviour:
   materialMipBias: 0
   m_RenderingPathCustomFrameSettings:
     bitDatas:
-      data1: 140666587840333
-      data2: 13763000512783810584
+      data1: 140529148886861
+      data2: 13763000512515342344
     lodBias: 1
     lodBiasMode: 0
     lodBiasQualityLevel: 0
@@ -29644,8 +29644,8 @@ MonoBehaviour:
     materialQuality: 0
   renderingPathCustomFrameSettingsOverrideMask:
     mask:
-      data1: 0
-      data2: 0
+      data1: 137438953472
+      data2: 268468240
   defaultFrameSettings: 0
   m_Version: 9
   m_ObsoleteRenderingPath: 0
@@ -41761,7 +41761,7 @@ MonoBehaviour:
   xrRendering: 1
   fullscreenPassthrough: 0
   allowDynamicResolution: 0
-  customRenderingSettings: 0
+  customRenderingSettings: 1
   invertFaceCulling: 0
   probeLayerMask:
     serializedVersion: 2
@@ -41781,8 +41781,8 @@ MonoBehaviour:
   materialMipBias: 0
   m_RenderingPathCustomFrameSettings:
     bitDatas:
-      data1: 140666587840333
-      data2: 13763000512783810584
+      data1: 69818989373517
+      data2: 4539628433784635400
     lodBias: 1
     lodBiasMode: 0
     lodBiasQualityLevel: 0
@@ -41796,8 +41796,8 @@ MonoBehaviour:
     materialQuality: 0
   renderingPathCustomFrameSettingsOverrideMask:
     mask:
-      data1: 0
-      data2: 0
+      data1: 70916318205705
+      data2: 9223372078999175184
   defaultFrameSettings: 0
   m_Version: 9
   m_ObsoleteRenderingPath: 0
@@ -46783,7 +46783,7 @@ MonoBehaviour:
   xrRendering: 1
   fullscreenPassthrough: 0
   allowDynamicResolution: 0
-  customRenderingSettings: 0
+  customRenderingSettings: 1
   invertFaceCulling: 0
   probeLayerMask:
     serializedVersion: 2
@@ -46803,8 +46803,8 @@ MonoBehaviour:
   materialMipBias: 0
   m_RenderingPathCustomFrameSettings:
     bitDatas:
-      data1: 140666587840333
-      data2: 13763000512783810584
+      data1: 69824425200461
+      data2: 4539628433784635400
     lodBias: 1
     lodBiasMode: 0
     lodBiasQualityLevel: 0
@@ -46818,8 +46818,8 @@ MonoBehaviour:
     materialQuality: 0
   renderingPathCustomFrameSettingsOverrideMask:
     mask:
-      data1: 0
-      data2: 0
+      data1: 70847531348992
+      data2: 9223372078999175184
   defaultFrameSettings: 0
   m_Version: 9
   m_ObsoleteRenderingPath: 0
