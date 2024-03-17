@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,6 +28,8 @@ public class ChargeEnemyManager : BaseEnemyManager, IKnockbackable
     public float chargeCooldownTimer = 0;
     [HideInInspector]
     public Vector2 _startPosition;
+
+    private float _deadDistance = 3;
 
     #endregion
     void Start()
@@ -65,11 +68,20 @@ public class ChargeEnemyManager : BaseEnemyManager, IKnockbackable
     public void Knockback(float force, float stunDuration, Vector3 origin)
     {
         Rb.velocity = Vector3.zero;
-        Debug.Log(transform.position - origin);
-        float tempAngle = Mathf.Atan2(transform.position.y - origin.y, transform.position.y - origin.x) * Mathf.Rad2Deg;
-        Vector3 collisionDir = new Vector3(Mathf.Cos(tempAngle * (Mathf.PI / 180f)), Mathf.Sin(tempAngle * (Mathf.PI / 180f)));
-        Rb.AddForce((collisionDir) * force, ForceMode.Impulse);
-        Debug.Log("Force: " + (transform.position - origin) * force);
+        Vector3 distanceVector = (transform.position - origin) * 100;
+        Debug.Log(distanceVector.normalized);
+        Rb.AddForce(distanceVector.normalized * force, ForceMode.Impulse);
+        Debug.Log("Force: " + ((distanceVector.normalized) * force));
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Terrain"))
+        {
+            Rb.isKinematic = true;
+            Vector2 direction = (collision.contacts[0].point - transform.position).normalized;
+            transform.DOMove((Vector2)transform.position + (direction * _deadDistance), 2f).SetEase(Ease.InCubic);
+        }
     }
 
     public ChargeEnemyData Data

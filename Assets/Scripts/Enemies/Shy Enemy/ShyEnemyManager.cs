@@ -140,12 +140,11 @@ public class ShyEnemyManager : MonoBehaviour, IKnockbackable
 
     public void Knockback(float force, float stunDuration, Vector3 origin)
     {
-        Rb.angularVelocity = Vector3.zero;
-        Debug.Log(transform.position - origin);
-        float tempAngle = Mathf.Atan2(transform.position.y - origin.y, transform.position.y - origin.x) * Mathf.Rad2Deg;
-        Vector3 collisionDir = new Vector3(Mathf.Cos(tempAngle * (Mathf.PI / 180f)), Mathf.Sin(tempAngle * (Mathf.PI / 180f)));
-        Rb.AddForce((collisionDir) * force, ForceMode.Impulse);
-        Debug.Log("Force: " + (transform.position - origin) * force);
+        Rb.velocity = Vector3.zero;
+        Vector3 distanceVector = (transform.position - origin) * 100;
+        Debug.Log(distanceVector.normalized);
+        Rb.AddForce(distanceVector.normalized * force, ForceMode.Impulse);
+        Debug.Log("Force: " + ((distanceVector.normalized) * force));
     }
 
 }
