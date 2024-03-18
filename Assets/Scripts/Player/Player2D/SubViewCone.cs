@@ -60,6 +60,8 @@ public class SubViewCone : MonoBehaviour
     private LayerMask _terrainMask; // layer mask for raycast terrain collisions
     private MeshRenderer _renderer;
 
+    private float _longestDist = 0;
+
     private void Awake()
     {
         // Blip object pool
@@ -167,6 +169,7 @@ public class SubViewCone : MonoBehaviour
         RaycastHit hit;
 
         float tempAngle = angle;
+        _longestDist = 0;
         for (int i = 0; i <= _resolution; i++, _vertexIndex++)
         {
             // convert current angle to vector3
@@ -176,7 +179,16 @@ public class SubViewCone : MonoBehaviour
             // check collision of cone
             float vertextDistance = _viewDistance;
             if(Physics.Raycast(transform.position, _angleVector, out hit, _viewDistance, _terrainMask))
-            vertextDistance = hit.distance;
+            {
+                vertextDistance = hit.distance;
+                if(hit.distance > _longestDist)
+                    _longestDist = hit.distance;
+            }
+            else
+            {
+                _longestDist = _viewDistance;
+
+            }
 
 
             // set vertices of polygon
@@ -237,10 +249,10 @@ public class SubViewCone : MonoBehaviour
         int vertexIndex = 1;
 
 
-        float vertexDistance = 0;
+        float vertexDistance = _longestDist;
 
         float rayAngle = angle;
-
+        /*
         RaycastHit hit;
         //calculate distance
         for (int i = 0; i <= _resolution; i++, _vertexIndex++)
@@ -271,7 +283,7 @@ public class SubViewCone : MonoBehaviour
             rayAngle -= _angleIncrease;
         }
 
-
+        */
 
 
 

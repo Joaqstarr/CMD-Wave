@@ -16,4 +16,5 @@ public class SaveData
     public SerializableDictionary<string, byte> _roomDamages = new SerializableDictionary<string, byte>();
 
     public SerializableDictionary<Vector2, bool> _doorValues = new SerializableDictionary<Vector2, bool>();
+    public int EquippedAbility = -1;
 }

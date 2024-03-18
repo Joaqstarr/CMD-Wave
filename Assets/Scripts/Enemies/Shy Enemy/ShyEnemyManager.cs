@@ -74,6 +74,7 @@ public class ShyEnemyManager : MonoBehaviour, IKnockbackable
     // Update is called once per frame
     private void Update()
     {
+        if(_enemyHealth != null)
         if(_enemyHealth.IsDead != _dead)
         {
             _dead = _enemyHealth.IsDead;
@@ -86,13 +87,15 @@ public class ShyEnemyManager : MonoBehaviour, IKnockbackable
                 SwitchState(IdleState);
             }
         }
+        if(CurrentState != null)
         CurrentState.OnUpdateState(this);
 
     }
 
     private void FixedUpdate()
     {
-        CurrentState.OnFixedUpdateState(this);
+        if (CurrentState != null)
+            CurrentState.OnFixedUpdateState(this);
     }
 
     public void SwitchState(ShyEnemyBaseState newState)

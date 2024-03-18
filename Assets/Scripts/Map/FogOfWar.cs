@@ -184,13 +184,16 @@ public class FogOfWar : MonoBehaviour, IDataPersistance
         };
         HandleJob = fogMultithread.Schedule();
         //fogOfWarTexture.Apply();
-        StartCoroutine(CompleteJob(HandleJob));
+        //StartCoroutine(CompleteJob(HandleJob));
+        CompleteJob(HandleJob);
+        PixelArray.Dispose();
+
     }
 
 
-    IEnumerator CompleteJob(JobHandle jobToHandle)
+    void CompleteJob(JobHandle jobToHandle)
     {
-        yield return new WaitForEndOfFrame();
+       // yield return new WaitForEndOfFrame();
         jobToHandle.Complete();
         fogOfWarTexture.Apply();
         CreateSprite();
@@ -353,11 +356,12 @@ public class FogOfWar : MonoBehaviour, IDataPersistance
             _alpha = alpha,
             coneFadeRemap = _coneFadeRemap
         };
-        HandleConeJob = fogMultithread.Schedule(HandleJob);
+        HandleConeJob = fogMultithread.Schedule();
         fogOfWarTexture.Apply();
-        StartCoroutine(CompleteJob(HandleConeJob));
+        //StartCoroutine(CompleteJob(HandleConeJob));
+        CompleteJob(HandleConeJob);
 
-
+        PixelArray.Dispose();
         //fogOfWarTexture.Apply();
         //CreateSprite();
     }

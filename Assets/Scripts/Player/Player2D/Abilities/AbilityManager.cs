@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class AbilityManager : MonoBehaviour
+public class AbilityManager : MonoBehaviour, IDataPersistance
 {
     public static AbilityManager Main;
 
@@ -176,5 +176,33 @@ public class AbilityManager : MonoBehaviour
     private GameObject GetAbilityObject(AbilityArchetype ability)
     {
         return ability.GetAbilityObject();
+    }
+
+    public void SaveData(ref SaveData data)
+    {
+        int index = -1;
+
+        for(int i = 0; i < _allAbilities.Count(); i++)
+        {
+            if (_allAbilities[i] == _activeAbility)
+            {
+                index = i; break;
+            }
+        }
+
+        data.EquippedAbility = index; 
+
+    }
+
+    public void LoadData(SaveData data)
+    {
+        int index = data.EquippedAbility;
+        if (index < 0)
+            _activeAbility = null;
+
+        else
+        {
+            _activeAbility = _allAbilities[index];
+        }
     }
 }
