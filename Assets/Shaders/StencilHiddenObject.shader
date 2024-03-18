@@ -13,28 +13,21 @@ Shader "Unlit/StencilHiddenObject"
         Tags 
         { 
             "RenderType"="Opaque" 
-            "RenderPipeline" = "HighDefinitionRenderPipeline"
+            "RenderPipeline" = "HDRenderPipeline"
             "Queue" = "Geometry-3"
         }
         LOD 100
+        
         Stencil {
             Ref[_StencilID]
             Comp equal
             Pass keep
             Fail keep
         }
-
+        
         Pass
         {
-            /*
-            Stencil
-            {
-                Ref []
-                Comp Equal
-                Pass Keep
-                Fail Replace
-            }
-            */
+            
             CGPROGRAM
 
 

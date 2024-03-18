@@ -10,7 +10,7 @@ Shader "Unlit/RadarStencilShader"
         Tags 
         { 
             "RenderType"="Opaque" 
-            "RenderPipeline" = "HighDefinitionRenderPipeline"
+            "RenderPipeline" = "HDRenderPipeline"
             "Queue" = "Geometry-4"
         }
         LOD 100

@@ -32,7 +32,7 @@ public class FinalBossManager : BaseEnemyManager
         _data = _enemyHealth._enemyData;
         StartingKnots = SplineCont.Spline.ToArray();
         Pathfinder.maxSpeed = _data.speed;
-        SwitchState(AttackState);
+        SwitchState(IdleState);
     }
 
 
