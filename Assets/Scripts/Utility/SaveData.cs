@@ -14,4 +14,6 @@ public class SaveData
 
     public SerializableDictionary<string, Vector2> _itemPositions;
     public SerializableDictionary<string, byte> _roomDamages = new SerializableDictionary<string, byte>();
+
+    public SerializableDictionary<Vector2, bool> _doorValues = new SerializableDictionary<Vector2, bool>();
 }

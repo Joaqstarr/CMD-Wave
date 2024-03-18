@@ -288,7 +288,7 @@ Material:
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _MinMaxCameraDist: {r: -0.42, g: 1.12, b: 0, a: 0}
     - _MinMaxGradient: {r: 0.04, g: 1, b: 0, a: 0}
-    - _MinMaxGradientAlpha: {r: 0.63, g: 1.03, b: 0, a: 0}
+    - _MinMaxGradientAlpha: {r: 0.63, g: 1, b: 0, a: 0}
     - _ScrollSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
