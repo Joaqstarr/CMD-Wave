@@ -27,6 +27,8 @@ public class FinalBossManager : BaseEnemyManager, IDataPersistance
     public Vector3 StartingPos;
     [HideInInspector]
     public AudioSource _source;
+    [HideInInspector]
+    public Rigidbody Rb;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,7 @@ public class FinalBossManager : BaseEnemyManager, IDataPersistance
         base.Start();
         StartingPos = Pathfinder.transform.localPosition;
         _source = GetComponent<AudioSource>();
+        Rb = GetComponent<Rigidbody>();
         _data = _enemyHealth._enemyData;
         StartingKnots = SplineCont.Spline.ToArray();
         Pathfinder.maxSpeed = _data.speed;
