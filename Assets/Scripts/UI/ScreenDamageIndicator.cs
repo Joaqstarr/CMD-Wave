@@ -10,6 +10,7 @@ public class ScreenDamageIndicator : MonoBehaviour
 
     private RawImage _screenImage;
     private Material _screenMaterial;
+    [SerializeField]
     private float _startGlitchiness = 0.015f;
     [SerializeField]
     private float _endGlitchiness;

@@ -35,7 +35,11 @@ public class ScreenObjectFollower : MonoBehaviour
     void Update()
     {
         if (!_initialized) return;
-        if (_objectToFollow == null) Destroy(this);
+        if (_objectToFollow == null)
+        {
+            Destroy(this);
+            return;
+        }
         Vector2 pos = ScreenUtility.Instance.WorldToScreenPoint(_objectToFollow.transform.position);
         _rectTransform.anchoredPosition = pos;
 

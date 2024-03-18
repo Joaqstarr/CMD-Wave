@@ -7,11 +7,11 @@ public class BaseEnemyHealth : MonoBehaviour, IHittable
 {
     private int _health;
     [SerializeField]
-    private BaseEnemyData _enemyData;
+    public BaseEnemyData _enemyData;
 
     public UnityEvent OnHit;
     private bool _dead = false;
-
+    public bool Invulnerable = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +21,7 @@ public class BaseEnemyHealth : MonoBehaviour, IHittable
 
     public void Hit(int damage, GameObject from)
     {
+        if (Invulnerable) return;
         _health -= damage;
 
         if (_health <= 0)

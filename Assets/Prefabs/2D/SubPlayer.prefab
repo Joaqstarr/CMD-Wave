@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _allAbilities: []
-  _activeAbility: {fileID: 2143673148729783857}
+  _activeAbility: {fileID: 0}
 --- !u!1 &714508755268341410
 GameObject:
   m_ObjectHideFlags: 0

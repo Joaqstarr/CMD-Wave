@@ -3,11 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Jobs;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Jobs;
-using UnityEngine.UIElements;
-using static UnityEditor.Rendering.HighDefinition.LightmappingHDRP.BakeProbeOptions;
 
 public class FogOfWar : MonoBehaviour, IDataPersistance
 {

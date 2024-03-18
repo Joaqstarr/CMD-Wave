@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BaseEnemyManager : MonoBehaviour
 {
+    
     public BaseEnemyData BaseData { get; protected set; }
     #region StateReferences
     public BaseEnemyState CurrentState { get; private set; }
