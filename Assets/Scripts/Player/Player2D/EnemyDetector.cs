@@ -13,9 +13,18 @@ public class EnemyDetector : MonoBehaviour
     private void CheckEnemyNearby()
     {
         int amt = 0;
+        List<BaseEnemyHealth> healthsToRemove = new List<BaseEnemyHealth>();
         foreach(BaseEnemyHealth health in _enemyHealths)
         {
             if(!health.IsDead) amt++;
+            else
+            {
+                healthsToRemove.Add(health);
+            }
+        }
+        foreach(BaseEnemyHealth health in healthsToRemove)
+        {
+            _enemyHealths.Remove(health);
         }
 
         EnemyNearby = amt > 0;

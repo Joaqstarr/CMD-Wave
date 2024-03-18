@@ -14,7 +14,7 @@ public class GameStartManager : MonoBehaviour
 
     public static GameStartManager Instance;
     public bool IsGameStarted = false;
-    public bool LockSubPosition = true;
+    public bool LockSubPosition = false;
     private void Awake()
     {
         Time.timeScale = 1.0f;
@@ -22,7 +22,6 @@ public class GameStartManager : MonoBehaviour
             Instance = this;
 
         IsGameStarted = false;
-        LockSubPosition = true;
     }
 
     public void StartGame()

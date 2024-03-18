@@ -51,7 +51,7 @@ public class AbilityManager : MonoBehaviour
 
         if (_allAbilities[0] != null)
         {
-            _activeAbility = _allAbilities[0];
+            //_activeAbility = _allAbilities[0];
         }
         else
         {
@@ -119,7 +119,7 @@ public class AbilityManager : MonoBehaviour
                 {
                     if (PlayerSubControls.Instance.PowerPressed && !_inputHeld)
                     {
-                        CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Error: no power equipped."), false);
+                        //CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Error: no power equipped."), false);
                         _inputHeld = true;
                     }
 

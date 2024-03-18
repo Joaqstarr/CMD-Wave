@@ -173,7 +173,7 @@ public class CommandLineManager : MonoBehaviour
         if (_commandOveride != null && _commandOveride.Count > 0)
         {
             string[] output = _commandOveride.CheckAndExecuteCommand(command, out bool clear, out CommandContext overrideContext, out sfx, argument);
-            if(GameStartManager.Instance.LockSubPosition && overrideContext == null) { 
+            if(_lockSize && overrideContext == null) { 
             }
                 else
             _commandOveride = overrideContext;
@@ -210,7 +210,10 @@ public class CommandLineManager : MonoBehaviour
 
         if (!foundCommand)
         {
-            
+            if (!_lockSize)
+            {
+                _commandOveride = null;
+            }
             OutputLine(StringToArray("Command Not Found :("), false);
         }
 
@@ -232,7 +235,7 @@ public class CommandLineManager : MonoBehaviour
 
     public void AddCommand(CommandBase command)
     {
-        
+
         _commands[0].AddCommand(command);
     }
 

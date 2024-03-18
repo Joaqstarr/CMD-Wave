@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 3334649910207133175}
   - component: {fileID: 4514260485304885346}
   - component: {fileID: 6006496701159923572}
-  m_Layer: 7
+  m_Layer: 19
   m_Name: HighPressureZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

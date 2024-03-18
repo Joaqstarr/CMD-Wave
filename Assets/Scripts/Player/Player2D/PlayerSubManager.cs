@@ -44,7 +44,7 @@ public class PlayerSubManager : MonoBehaviour
         Health = GetComponent<PlayerSubHealth>();
         SubViewCone = GetComponentInChildren<SubViewCone>();
         // movement state
-        CurrentState = StartState;
+        CurrentState = MovementState;
 
         // enter state
         CurrentState.OnEnterState(this);
@@ -74,6 +74,20 @@ public class PlayerSubManager : MonoBehaviour
     public PlayerSubData SubData
     {
         get { return _subData; }
+    }
+
+    private void OnEnable()
+    {
+        GameStartManager.GameStarted += NewGame;
+
+    }
+    private void OnDisable()
+    {
+        GameStartManager.GameStarted -= NewGame;
+    }
+    private void NewGame()
+    {
+        SwitchState(StartState);
     }
 
 }

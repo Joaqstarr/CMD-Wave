@@ -24,6 +24,6 @@ MonoBehaviour:
   IdleSplinePercent: 0.1
   AttackSplinePercent: 1
   DeadSplinePercent: 0.01
-  MaxLength: 10
+  MaxLength: 5
   MidPointPercentage: {x: 0.4, y: 0.8}
-  ColliderAmount: 10
+  ColliderAmount: 5

@@ -32,7 +32,8 @@ public class DropRoomCommand : CommandBase
                 if (VesselRoomHandler.Instance.RemoveRoom(IntToPos(pos), out string droppedKey)){
                     if (droppedKey != string.Empty)
                     {
-                        if (_abilityManager._activeAbility._data.commandShortcut.ToLower() == droppedKey.ToLower())
+                        if (_abilityManager._activeAbility != null)
+                            if (_abilityManager._activeAbility._data.commandShortcut.ToLower() == droppedKey.ToLower())
                             _abilityManager.DeEquip();
                         Item droppedItem = ItemPool.Instance.GetFreeItem(droppedKey);
                         if (droppedItem != null)
@@ -68,8 +69,9 @@ public class DropRoomCommand : CommandBase
                         {
                             if (droppedKey != string.Empty)
                             {
-                                if (_abilityManager._activeAbility._data.commandShortcut.ToLower() == droppedKey.ToLower())
-                                    _abilityManager.DeEquip();
+                                if(_abilityManager._activeAbility != null)
+                                    if (_abilityManager._activeAbility._data.commandShortcut.ToLower() == droppedKey.ToLower())
+                                        _abilityManager.DeEquip();
 
                                 Item droppedItem = ItemPool.Instance.GetFreeItem(droppedKey);
                                 if (droppedItem != null)

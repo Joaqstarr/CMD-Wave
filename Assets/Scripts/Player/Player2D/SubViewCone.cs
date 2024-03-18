@@ -133,7 +133,8 @@ public class SubViewCone : MonoBehaviour
             {
                 if (_rayCollisions[i] != null)
                 {
-                    StartCoroutine(BlipGhostEffect(_rayCollisions[i].gameObject));
+                    //StartCoroutine(BlipGhostEffect(_rayCollisions[i].gameObject));
+                    BlipGhostEffect(_rayCollisions[i].gameObject);
                     _rayCollisions[i] = null;
                 }
             }    
@@ -297,9 +298,9 @@ public class SubViewCone : MonoBehaviour
         FogOfWar.Instance.MakeTriangle(vertices[0], vertices[1], vertices[2], _fogAlpha);
     }
 
-    public IEnumerator BlipGhostEffect(GameObject blip)
+    public void BlipGhostEffect(GameObject blip)
     {
-        yield return new WaitForSeconds(1f / _sampleRate);
+       // yield return new WaitForSeconds(1f / _sampleRate);
         blip.SetActive(false);
     }
 

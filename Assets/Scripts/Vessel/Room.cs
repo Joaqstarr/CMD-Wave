@@ -163,7 +163,8 @@ public class Room : MonoBehaviour, IDataPersistance
                 result |= (byte)(1 << i);
         }
 
-
+        if (data._roomDamages == null)
+            data._roomDamages = new SerializableDictionary<string, byte>();
         if(data._roomDamages.ContainsKey(RoomTag.ToUpper()))
         {
             data._roomDamages[RoomTag.ToUpper()] = result;

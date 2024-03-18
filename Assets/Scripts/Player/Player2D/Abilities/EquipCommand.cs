@@ -18,6 +18,7 @@ public class EquipCommand : CommandBase
 
         overrideContext = null;
 
+        if(AbilityManager.Main._activeAbility != null)
         if (AbilityManager.Main._activeAbility._data.commandShortcut.ToLower().Equals(_abilityTag.ToLower()))
             return CommandLineManager.StringToArray(_abilityName + " is already equipped");
 

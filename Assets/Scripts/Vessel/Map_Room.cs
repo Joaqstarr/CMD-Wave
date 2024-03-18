@@ -129,7 +129,7 @@ public class Map_Room : MonoBehaviour
             _transform.DOShakePosition(_disapearTween.Duration, _disapearTween.Strength, 9, 90, false,true);
 
         }
-
+        _roomImage.color = Color.white;
         _state = RoomStates.Hidden;
         UpdateLabelText() ;
     }

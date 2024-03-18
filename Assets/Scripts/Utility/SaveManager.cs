@@ -30,7 +30,7 @@ public class SaveManager : MonoBehaviour
     {
         _dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         _dataPersistanceObjects = FindAllDataPersistanceObjects();
-        NewGame();
+        //NewGame();
 
     }
 
@@ -50,6 +50,9 @@ public class SaveManager : MonoBehaviour
     {
         if(PlayerSubHealth.Instance != null) 
             if (PlayerSubHealth.Instance.Health <= 0) return;
+
+        if(_gameData == null)
+            _gameData = new SaveData();
         foreach (IDataPersistance persistanceObject in _dataPersistanceObjects)
         {
             persistanceObject.SaveData(ref _gameData);
