@@ -70,11 +70,11 @@ public class HighPressureBlast : MonoBehaviour
     public void RechargeBlast()
     {
         transform.position = GameObject.Find("SubPlayer").transform.position;
-        _hasBlast = true;
+        //_hasBlast = true;
     }
     private IEnumerator Deactivate()
     {
-        _hasBlast = false;
+        //_hasBlast = false;
         yield return new WaitForSeconds(0.5f);
         this.gameObject.SetActive(false);
     }
