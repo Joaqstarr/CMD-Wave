@@ -30,7 +30,7 @@ public class FinalBossAttackState : BaseEnemyState
         BezierKnot tempKnot = manager.SplineCont.Spline[manager.SplineCont.Spline.Count - 1];
         tempKnot.Position = manager.MovePoint.localPosition;
         float length = manager.SplineCont.Spline.GetCurveLength(manager.SplineCont.Spline.Count - 2);
-        Debug.Log(length);
+        
         if (length > manager.MaxDistance)
         {
             manager.SplineCont.Spline.Add(tempKnot);

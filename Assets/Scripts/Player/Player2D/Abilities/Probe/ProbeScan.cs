@@ -59,7 +59,7 @@ public class ProbeScan : MonoBehaviour
 
     private void Awake()
     {
-        InvokeRepeating("UpdateConeMat", 1f, 1f);
+ 
     }
     private void Start()
     {
@@ -105,7 +105,8 @@ public class ProbeScan : MonoBehaviour
     {
         if (FogOfWar.Instance != null)
         {
-            StartCoroutine(RepeatDrawFog());
+            InvokeRepeating("RepeatDrawFog", 0.1f, 0.1f);
+            InvokeRepeating("UpdateConeMat", 1f, 1f);
         }
 
         SubViewCone.DrawFog = false;
@@ -114,10 +115,8 @@ public class ProbeScan : MonoBehaviour
     private void OnDisable()
     {
         DeleteBlips();
-        StopCoroutine(RepeatDrawFog());
 
         SubViewCone.DrawFog = true;
-        subScan.RestartDrawFog();
         subScan._updateAngle = true;
     }
 
@@ -204,11 +203,9 @@ public class ProbeScan : MonoBehaviour
 
     }
 
-    public IEnumerator RepeatDrawFog()
+    public void RepeatDrawFog()
     {
-        yield return new WaitForSeconds(0.1f);
         DrawFogOfWar(_aimAngle + (_fov / 2f));
-        StartCoroutine(RepeatDrawFog());
     }
     private void DrawFogOfWar(float angle)
     {
@@ -386,11 +383,4 @@ public class ProbeScan : MonoBehaviour
         }
     }
 
-    private void UpdateConeMat()
-    {
-        Material[] materials = new Material[1];
-        materials[0] = data.radarColor;
-        if (_renderer != null)
-            _renderer.SetMaterials(materials.ToList());
-    }
 }

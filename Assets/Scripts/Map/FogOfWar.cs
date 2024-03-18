@@ -182,7 +182,7 @@ public class FogOfWar : MonoBehaviour, IDataPersistance
            TextureSize = _textureSize,
            alpha = alphaToSet
         };
-        HandleJob = fogMultithread.Schedule(HandleJob);
+        HandleJob = fogMultithread.Schedule();
         //fogOfWarTexture.Apply();
         StartCoroutine(CompleteJob(HandleJob));
     }

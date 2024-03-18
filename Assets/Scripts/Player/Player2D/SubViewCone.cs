@@ -119,8 +119,7 @@ public class SubViewCone : MonoBehaviour
         DrawFog = true;
         if (FogOfWar.Instance != null)
         {
-            //InvokeRepeating("RepeatDrawFog", 0.1f, 0.1f);
-            StartCoroutine(RepeatDrawFog());
+            InvokeRepeating("RepeatDrawFog", 0.1f, 0.1f);
         }
     }
 
@@ -221,16 +220,12 @@ public class SubViewCone : MonoBehaviour
         _stencilMesh.RecalculateNormals();
 
         // Check to scan collision
-        if (!_scanWaiting) StartCoroutine(CollisionScan());
+        if (!_scanWaiting) CollisionScan();
 
     }
-    public IEnumerator RepeatDrawFog()
+    public void RepeatDrawFog()
     {
-        Debug.Log("draw fog of war");
-        yield return new WaitForSeconds(0.1f);
         DrawFogOfWar(_aimAngle + (_fov / 2f));
-        if (DrawFog)
-            StartCoroutine(RepeatDrawFog());
     }
     private void DrawFogOfWar(float angle)
     {
@@ -305,9 +300,8 @@ public class SubViewCone : MonoBehaviour
         blip.SetActive(false);
     }
 
-    public IEnumerator CollisionScan()
+    public void CollisionScan()
     {
-        _scanWaiting = true;
         // fire standarized raycasts to scan for collision
         for (int i = 0; i < _rayResolution; i++)
         {
@@ -343,8 +337,6 @@ public class SubViewCone : MonoBehaviour
                 }
             }
         }
-        yield return new WaitForSeconds(1f/_sampleRate);
-        _scanWaiting = false;
     }
 
     public Vector3 ConvertAimCoordinate(Vector2 aimInput)
@@ -406,8 +398,5 @@ public class SubViewCone : MonoBehaviour
         _renderer.SetMaterials(materials.ToList());
     }
 
-    public void RestartDrawFog()
-    {
-        StartCoroutine(RepeatDrawFog());
-    }
+
 }
