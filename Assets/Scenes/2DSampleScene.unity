@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4612.636, g: 2946.053, b: 2166.344, a: 1}
+  m_IndirectSpecularColor: {r: 4253.1323, g: 2548.0295, b: 1578.4221, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -425,6 +425,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 427259541}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!82 &554077646 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8271126888060810548, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+  m_PrefabInstance: {fileID: 709381598458837840}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &637256928
 GameObject:
   m_ObjectHideFlags: 3
@@ -2635,19 +2640,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1574904029842452025, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3783631911862362343, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 1937267068}
     - target: {fileID: 6971721461732638657, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.97
+      value: 3.8
       objectReference: {fileID: 0}
     - target: {fileID: 6971721461732638657, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.15
+      value: 1.67
       objectReference: {fileID: 0}
     - target: {fileID: 6971721461732638657, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2681,6 +2682,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7972760616292408058, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: Roar
+      value: 
+      objectReference: {fileID: 554077646}
+    - target: {fileID: 8271126888060810548, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: m_Volume
+      value: 0.773
+      objectReference: {fileID: 0}
+    - target: {fileID: 8271126888060810548, guid: abc67c81010862d41961cdee0e1b02f0, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: befc1d554b668e142906c43f301adb7e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

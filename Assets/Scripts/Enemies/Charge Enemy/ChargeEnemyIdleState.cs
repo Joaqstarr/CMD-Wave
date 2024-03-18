@@ -7,6 +7,7 @@ public class ChargeEnemyIdleState : BaseEnemyState
     private ChargeEnemyManager manager;
     public override void OnEnterState(BaseEnemyManager enemy)
     {
+        Debug.Log("enter idle state");
         enemy.Pathfinder.canMove = false;
         enemy.DestinationSetter.target = null;
 

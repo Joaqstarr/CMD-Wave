@@ -18,7 +18,7 @@ public class ChargeEnemyManager : BaseEnemyManager, IKnockbackable
 
     #region ComponentReferences
     public Rigidbody Rb { get; private set; }
-
+    public AudioSource Roar;
     #endregion
 
     #region Variables
@@ -35,7 +35,7 @@ public class ChargeEnemyManager : BaseEnemyManager, IKnockbackable
     void Start()
     {
         IdleState = new ChargeEnemyIdleState();
-        //DeadState = new ChargeEnemyDeadState();
+        DeadState = new ChargeEnemyDeadState();
         // set components
         Rb = GetComponent<Rigidbody>();
 

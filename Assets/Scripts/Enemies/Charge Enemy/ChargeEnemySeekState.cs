@@ -7,8 +7,8 @@ public class ChargeEnemySeekState : BaseEnemyState
     private ChargeEnemyManager manager;
     public override void OnEnterState(BaseEnemyManager enemy)
     {
+        Debug.Log("enter seek state");
         enemy.Pathfinder.canMove = true;
-        enemy.DestinationSetter.target = null;
 
         if (manager == null)
             manager = (ChargeEnemyManager)enemy;

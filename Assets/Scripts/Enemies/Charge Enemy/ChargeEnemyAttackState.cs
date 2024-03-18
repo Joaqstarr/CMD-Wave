@@ -13,15 +13,16 @@ public class ChargeEnemyAttackState : BaseEnemyState
         if (manager == null)
             manager = (ChargeEnemyManager)enemy;
 
-        enemy.DestinationSetter.target = null;
         enemy.Pathfinder.canMove = false;
 
+        manager.Rb.isKinematic = false;
         manager.Rb.velocity = Vector3.zero;
 
         chargeAngle = (manager.Player.transform.position - enemy.transform.position) * 100;
         chargeAngle = chargeAngle.normalized;
 
         charging = true;
+
         enemy.StartCoroutine(Charge());
     }
 
@@ -29,6 +30,7 @@ public class ChargeEnemyAttackState : BaseEnemyState
     {
         enemy.DestinationSetter.target = manager.Player.transform;
         manager.chargeCooldownTimer = manager.Data.chargeCooldownTime;
+        manager.Rb.isKinematic = true;
     }
 
     public override void OnUpdateState(BaseEnemyManager enemy)
@@ -48,6 +50,7 @@ public class ChargeEnemyAttackState : BaseEnemyState
 
     private IEnumerator Charge()
     {
+        manager.Roar.Play();
         yield return new WaitForSeconds(manager.Data.chargeStartupTime);
         yield return new WaitForFixedUpdate();
         manager.Pathfinder.canMove = true;
