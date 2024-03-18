@@ -45,6 +45,7 @@ public class GameStartManager : MonoBehaviour
 
         if (VesselRoomHandler.Instance.ContainsRoom("SA"))
         {
+            SaveWiper.NewGame = false;
             SaveManager.Instance.Load();
 
             if (GameContinued != null)
@@ -56,6 +57,8 @@ public class GameStartManager : MonoBehaviour
         }
         else
         {
+            SaveWiper.NewGame = true;
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 

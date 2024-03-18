@@ -29,6 +29,11 @@ public class FinalBossManager : BaseEnemyManager, IDataPersistance
     public AudioSource _source;
     [HideInInspector]
     public Rigidbody Rb;
+    private BaseEnemyHealth _health;
+    private void Awake()
+    {
+        _health = new BaseEnemyHealth();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -89,7 +94,7 @@ public class FinalBossManager : BaseEnemyManager, IDataPersistance
     public void LoadData(SaveData data)
     {
         BossStarted = false;
-        _enemyHealth.Invulnerable = true;
+        _health.Invulnerable = true;
         SwitchState(IdleState);
 
     }

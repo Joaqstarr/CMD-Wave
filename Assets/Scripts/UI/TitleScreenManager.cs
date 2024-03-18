@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class TitleScreenManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class TitleScreenManager : MonoBehaviour
         _textToType = _textComponent.text;
         _textComponent.text = "";
         Debug.Log(_textToType);*/
+        Time.timeScale = 1.0f;
     }
 
     // Update is called once per frame
@@ -86,4 +88,14 @@ public class TitleScreenManager : MonoBehaviour
         EnableTextContinue();
     }
 
+    public void ContinueGame()
+    {
+        SaveWiper.NewGame = false;
+        SceneManager.LoadScene(1);
+    }
+    public void StartNewGame()
+    {
+        SaveWiper.NewGame = true;
+        SceneManager.LoadScene(1);
+    }
 }

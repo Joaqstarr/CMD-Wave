@@ -30,7 +30,11 @@ public class SaveManager : MonoBehaviour
     {
         _dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         _dataPersistanceObjects = FindAllDataPersistanceObjects();
-        //NewGame();
+        Debug.Log("New Game? " + SaveWiper.NewGame);
+        if(SaveWiper.NewGame)
+            NewGame();
+        else
+            Load();
 
     }
 
