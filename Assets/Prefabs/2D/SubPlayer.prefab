@@ -1160,6 +1160,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProbeObject
       objectReference: {fileID: 0}
+    - target: {fileID: 5705126970576386955, guid: c13a8250fbb66af4c972f8f4c9be39b5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6af20d21fdb3e9846be9fcc5368045e6, type: 2}
     - target: {fileID: 6571576612876547103, guid: c13a8250fbb66af4c972f8f4c9be39b5, type: 3}
       propertyPath: _player
       value: 

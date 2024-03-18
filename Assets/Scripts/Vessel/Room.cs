@@ -159,6 +159,8 @@ public class Room : MonoBehaviour, IDataPersistance
                 rot.y = Random.Range(0, 360);
                 _damages[ran].transform.parent.transform.eulerAngles = rot;
             }
+            CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Room " + RoomTag.ToUpper() + " damaged! Repair immediately!"), false);
+
             _damages[ran].Damage();
 
         }
