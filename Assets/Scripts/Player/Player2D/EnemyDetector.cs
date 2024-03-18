@@ -6,6 +6,11 @@ public class EnemyDetector : MonoBehaviour
 {
     private List<BaseEnemyHealth> _enemyHealths = new List<BaseEnemyHealth>();
     public static bool EnemyNearby = false;
+
+    private void Awake()
+    {
+        EnemyNearby = false;
+    }
     private void Start()
     {
         InvokeRepeating("CheckEnemyNearby", 1f, 0.8f);
