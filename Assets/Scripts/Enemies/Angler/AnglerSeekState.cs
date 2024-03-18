@@ -24,6 +24,7 @@ public class AnglerSeekState : BaseEnemyState
             direction.Normalize();
 
             manager.Rb.AddForce(direction * enemy.BaseData.speed, ForceMode.Impulse);
+            manager._source.Play();
         }
         else
         {

@@ -18,6 +18,9 @@ public class AnglerManager : BaseEnemyManager, IKnockbackable
     public Vector2 StartLocation {  get; private set; }
     public Vector2 StartItemLocation { get; private set; }
 
+    [HideInInspector]
+    public AudioSource _source;
+
     private void Start()
     {
         IdleState = new AnglerIdleState();
@@ -25,6 +28,7 @@ public class AnglerManager : BaseEnemyManager, IKnockbackable
         
         base.Start();
         Rb = GetComponent<Rigidbody>();
+        _source = GetComponent<AudioSource>();
         BaseData = Data;
         SwitchState(IdleState);
         StartLocation = transform.position;

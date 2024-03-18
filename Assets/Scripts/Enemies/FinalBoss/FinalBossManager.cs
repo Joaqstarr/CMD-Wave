@@ -25,7 +25,8 @@ public class FinalBossManager : BaseEnemyManager, IDataPersistance
 
     [HideInInspector]
     public Vector3 StartingPos;
-    [SerializeField]
+    [HideInInspector]
+    public AudioSource _source;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +35,7 @@ public class FinalBossManager : BaseEnemyManager, IDataPersistance
         SplineExtrude = GetComponentInChildren<SplineInstantiate>();
         base.Start();
         StartingPos = Pathfinder.transform.localPosition;
-
+        _source = GetComponent<AudioSource>();
         _data = _enemyHealth._enemyData;
         StartingKnots = SplineCont.Spline.ToArray();
         Pathfinder.maxSpeed = _data.speed;

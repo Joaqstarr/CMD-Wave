@@ -77,6 +77,8 @@ public class ProbeData : AbilityData
     public void ReloadProbe()
     {
         _probeLoaded = true;
+        CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Probe Loaded."), false);
+
     }
 
     private IEnumerator LaunchProbe(GameObject player, GameObject ability)

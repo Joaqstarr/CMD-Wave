@@ -10,6 +10,8 @@ public class Room : MonoBehaviour, IDataPersistance
     private string _roomTag;
     [SerializeField]
     private string _roomName;
+    [SerializeField]
+    private string _roomDescription;
 
     [SerializeField]
     private Room _attachedUp;
@@ -215,7 +217,9 @@ public class Room : MonoBehaviour, IDataPersistance
             return amt; 
         }
     }
-
-
+    public string Description
+    {
+        get { return _roomDescription; }
+    }
 
 }

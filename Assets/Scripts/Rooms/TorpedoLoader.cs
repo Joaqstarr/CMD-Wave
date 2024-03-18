@@ -10,6 +10,8 @@ public class TorpedoLoader : MonoBehaviour, IInteractable
     [SerializeField]
     private GameObject _player;
     private Animator _animator;
+    [SerializeField]
+    private float _maxDist = 5f;
 
     private void Start()
     {
@@ -18,6 +20,10 @@ public class TorpedoLoader : MonoBehaviour, IInteractable
 
     public bool CheckInteractable(float distance)
     {
+        if(_maxDist < distance)
+        {
+            return false;
+        }
         return _torpedo.CurrentAmmo < _torpedo.MaxAmmo;
     }
 

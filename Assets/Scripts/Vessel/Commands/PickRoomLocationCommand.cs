@@ -27,7 +27,12 @@ public class PickRoomLocationCommand : CommandBase
         VesselRoomHandler.Instance.AddRoom(_pickupCommand.RoomAdding, _position);
         item.Collect();
         _pickupCommand.RemoveItem(item);
-        return CommandLineManager.StringToArray("Adding Room... Room Added. Enjoy!");
+
+        string desc = _pickupCommand.RoomAdding.Description +"\n";
+
+
+
+        return CommandLineManager.StringToArray("Adding Room... Room Added. Enjoy!\n" + desc);
 
     }
 
