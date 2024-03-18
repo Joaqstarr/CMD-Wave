@@ -15,6 +15,7 @@ public class FinalBossAttackState : BaseEnemyState
         manager._enemyHealth.Invulnerable = false;
         manager.SplineExtrude.enabled = true;
         enemy.DestinationSetter.target = enemy.Target;
+        enemy.Pathfinder.canMove = true;
     }
 
     public override void OnExitState(BaseEnemyManager enemy)

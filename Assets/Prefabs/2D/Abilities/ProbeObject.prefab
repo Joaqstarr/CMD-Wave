@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6240149274932294329}
   m_Layer: 0
   m_Name: ProbeCamFollow
-  m_TagString: Untagged
+  m_TagString: Probe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 400506894355818037}
   m_Layer: 0
   m_Name: ProbeViewCone
-  m_TagString: Untagged
+  m_TagString: Probe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 7847275133273009188}
   m_Layer: 0
   m_Name: RadarStencil
-  m_TagString: Untagged
+  m_TagString: Probe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 5306152811689711850}
   m_Layer: 0
   m_Name: ProbeObject
-  m_TagString: Untagged
+  m_TagString: Probe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 9125334748907780813}
   m_Layer: 0
   m_Name: ProbeVisual
-  m_TagString: Untagged
+  m_TagString: Probe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -477,7 +477,7 @@ GameObject:
   - component: {fileID: 4773566092208734287}
   m_Layer: 5
   m_Name: ProbeDetonation
-  m_TagString: Untagged
+  m_TagString: Probe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
