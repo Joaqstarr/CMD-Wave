@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnglerManager : BaseEnemyManager
+public class AnglerManager : BaseEnemyManager, IKnockbackable
 {
     public BaseEnemyData Data;
     #region State References
@@ -48,6 +48,15 @@ public class AnglerManager : BaseEnemyManager
         {
             SwitchState(AttackState);
         }
+    }
+
+    public void Knockback(float force, float stunDuration, Vector3 origin)
+    {
+        Rb.velocity = Vector3.zero;
+        Vector3 distanceVector = (transform.position - origin) * 100;
+        Debug.Log(distanceVector.normalized);
+        Rb.AddForce(distanceVector.normalized * (force * 0.7f), ForceMode.Impulse);
+        Debug.Log("Force: " + ((distanceVector.normalized) * force));
     }
 
 }

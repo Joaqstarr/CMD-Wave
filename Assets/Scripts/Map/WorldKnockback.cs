@@ -16,6 +16,7 @@ public class WorldKnockback : MonoBehaviour
 
             Vector3 knockback = (collision.transform.position - collision.contacts[0].point).normalized * _knockback;
 
+            Debug.Log(collision.gameObject.GetComponent<Rigidbody>().velocity.magnitude);
             _playerHealth.OnHit(0, knockback, 0, false);
         }
     }

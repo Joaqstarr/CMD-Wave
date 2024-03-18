@@ -8,6 +8,7 @@ TagManager:
   - PlayerSub
   - Terrain
   - ScanDart
+  - Probe
   layers:
   - Default
   - TransparentFX

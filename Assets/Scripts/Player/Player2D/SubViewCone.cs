@@ -225,7 +225,10 @@ public class SubViewCone : MonoBehaviour
     }
     public void RepeatDrawFog()
     {
-        DrawFogOfWar(_aimAngle + (_fov / 2f));
+        if (!ProbeData.ProbeDeployed)
+        {
+            DrawFogOfWar(_aimAngle + (_fov / 2f));
+        }
     }
     private void DrawFogOfWar(float angle)
     {

@@ -35,6 +35,7 @@ public class ProbeObject : MonoBehaviour
     private void OnDisable()
     {
         _camFollow.position = transform.position;
+
     }
 
     // Update is called once per frame

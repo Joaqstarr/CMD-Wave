@@ -59,7 +59,7 @@ public class ProbeScan : MonoBehaviour
 
     private void Awake()
     {
- 
+        UpdateConeMat();
     }
     private void Start()
     {
@@ -205,7 +205,8 @@ public class ProbeScan : MonoBehaviour
 
     public void RepeatDrawFog()
     {
-        DrawFogOfWar(_aimAngle + (_fov / 2f));
+        if (ProbeData.ProbeDeployed)
+            DrawFogOfWar(_aimAngle + (_fov / 2f));
     }
     private void DrawFogOfWar(float angle)
     {
@@ -380,6 +381,15 @@ public class ProbeScan : MonoBehaviour
         for (int i = 0; i < vertices.Length; i++)
         {
             Gizmos.DrawSphere(vertices[i], 1f);
+        }
+    }
+    private void UpdateConeMat()
+    {
+        if (ProbeData.ProbeDeployed)
+        {
+            Material[] materials = new Material[1];
+            materials[0] = data.radarColor;
+            _renderer.SetMaterials(materials.ToList());
         }
     }
 

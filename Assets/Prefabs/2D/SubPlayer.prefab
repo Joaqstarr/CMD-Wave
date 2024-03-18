@@ -197,6 +197,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: bec618dbb3541754e9df4ee264b2c319, type: 2}
   scanDartData: {fileID: 11400000, guid: b0beb4196c6228d4ca0ac558960076e4, type: 2}
   camera2D: {fileID: 0}
+  _updateAngle: 0
   _fogAlpha: 0.1
   _terrainMask:
     serializedVersion: 2
