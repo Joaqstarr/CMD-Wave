@@ -39,7 +39,7 @@ public class ScanDartData : AbilityData
     public override void OnActivationFailed()
     {
         CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Scan Darts Expended. Manual Reload Necessary."), false);
-        RecallDarts(GameObject.Find("SubPlayer")); // just for testing - change later
+        //RecallDarts(GameObject.Find("SubPlayer")); // just for testing - change later
     }
     public override GameObject GetAbilityObject()
     {
@@ -65,6 +65,8 @@ public class ScanDartData : AbilityData
             dart.SetActive(false);
         }
         _dartsReady = numToPool;
+        CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Scan Darts at " + _dartsReady), false);
+
     }
 
     public IEnumerator LaunchDart(GameObject player, GameObject ability, GameObject dart)
@@ -75,5 +77,10 @@ public class ScanDartData : AbilityData
 
         ability.transform.Rotate(new Vector3(0, 0, SubViewCone.subAimAngle - (ability.transform.rotation.eulerAngles.z) - 90));
         dart.GetComponent<Rigidbody>().AddForce(SubViewCone.subAimVector * launchForce);
+    }
+
+    public bool IsLoaded
+    {
+        get { return _dartsReady > 0; }
     }
 }

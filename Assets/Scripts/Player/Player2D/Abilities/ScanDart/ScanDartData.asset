@@ -15,8 +15,12 @@ MonoBehaviour:
   abilityName: ScanDart
   commandShortcut: sc
   abilityPrefab: {fileID: 2876899260794383, guid: 158a93383d119db4f9b3e87241e2a8a8, type: 3}
-  numToPool: 3
+  numToPool: 7
   poolObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
