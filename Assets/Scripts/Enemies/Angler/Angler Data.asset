@@ -17,7 +17,7 @@ MonoBehaviour:
   _respawnRange: 50
   speed: 70
   acceleration: 0
-  health: 45
+  health: 90
   damage: 10
   knockbackValue: 30
   stunDuration: 0

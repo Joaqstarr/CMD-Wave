@@ -9500,6 +9500,7 @@ MonoBehaviour:
   MaxDistance: 15
   MaxSplineLength: 10
   StartingKnots: []
+  StartingPos: {x: 0, y: 0, z: 0}
 --- !u!114 &442846453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9528,7 +9529,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  Invulnerable: 0
+  Invulnerable: 1
 --- !u!1001 &449640689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78977,6 +78978,7 @@ MonoBehaviour:
   _downDoor: {fileID: 300124656}
   _leftDoor: {fileID: 0}
   _rightDoor: {fileID: 0}
+  _randomizeDamageDir: 0
 --- !u!4 &1112111846599201521
 Transform:
   m_ObjectHideFlags: 0

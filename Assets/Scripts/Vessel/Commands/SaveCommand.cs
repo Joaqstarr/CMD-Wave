@@ -9,6 +9,12 @@ public class SaveCommand : CommandBase
         sfx = _soundWhenExecuted;
         
         overrideContext = null;
+        if (FinalBossManager.BossStarted)
+        {
+            return CommandLineManager.StringToArray("...save failed.");
+
+        }
+
         if (PlayerSubHealth.Instance != null)
             if (PlayerSubHealth.Instance.Health < 30)
             {

@@ -8,12 +8,21 @@ public class CursorModeManager : MonoBehaviour
 
     void Update()
     {
-        if(PauseManager.Instance != null)
+        if (DeathScreenManager.Instance != null)
+            if (DeathScreenManager.Instance.IsDead)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                return;
+
+            }
+        if (PauseManager.Instance != null)
             if (PauseManager.Instance.IsPause)
             {
                 Cursor.lockState = CursorLockMode.None;
                 return;
             }
+
+
 
         if (FirstPersonPlayerControls.Instance != null)
             if (FirstPersonPlayerControls.Instance.IsPosessing)

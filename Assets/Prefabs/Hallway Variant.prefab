@@ -160,6 +160,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -7572756945792289876, guid: 0ac7ef92a5a4dfa4390182634b32e240, type: 3}
+    - target: {fileID: 5428358695778109738, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
+      propertyPath: _randomizeDamageDir
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5447517857660746759, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.5

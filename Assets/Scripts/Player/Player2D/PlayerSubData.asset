@@ -18,7 +18,7 @@ MonoBehaviour:
   velocityModifier: 1.2
   frictionModifier: 0.05
   health: 100
-  invulnTime: 1
+  invulnTime: 1.5
   healthNoDrain: 10
   healthDrainTickTime: 1.5
   fov: 30

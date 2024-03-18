@@ -12,6 +12,8 @@ public class FinalBossHiddenState : BaseEnemyState
             manager = (FinalBossManager)enemy;
 
         enemy.Pathfinder.canMove = false;
+        enemy.Pathfinder.transform.localPosition = manager.StartingPos;
+        enemy.Pathfinder.transform.localEulerAngles = new Vector3(0, 0, 180);
         enemy.DestinationSetter.target = null;
         manager.SplineCont.Spline.Knots = manager.StartingKnots;
         manager.SplineExtrude.enabled = false;

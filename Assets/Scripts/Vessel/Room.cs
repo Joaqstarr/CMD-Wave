@@ -37,7 +37,8 @@ public class Room : MonoBehaviour, IDataPersistance
     private Door _rightDoor;
     private int _dmg;
 
-    
+    [SerializeField]
+    private bool _randomizeDamageDir = true;
     private RepairPoint[] _damages;
     private void Awake()
     {
@@ -147,8 +148,18 @@ public class Room : MonoBehaviour, IDataPersistance
 
     public void Damage()
     {
-        if(_damages.Length > 0 ) { }
-            _damages[Random.Range(0, _damages.Length)].Damage();
+        if(_damages.Length > 0)
+        {
+            int ran = Random.Range(0, _damages.Length);
+            if (!_damages[ran].IsDamaged)
+            {
+                Vector3 rot = _damages[ran].transform.parent.transform.eulerAngles;
+                rot.y = Random.Range(0, 360);
+                _damages[ran].transform.parent.transform.eulerAngles = rot;
+            }
+            _damages[ran].Damage();
+
+        }
     }
 
     public void SaveData(ref SaveData data)

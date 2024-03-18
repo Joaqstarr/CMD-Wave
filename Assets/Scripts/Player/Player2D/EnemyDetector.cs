@@ -16,7 +16,7 @@ public class EnemyDetector : MonoBehaviour
         List<BaseEnemyHealth> healthsToRemove = new List<BaseEnemyHealth>();
         foreach(BaseEnemyHealth health in _enemyHealths)
         {
-            if(!health.IsDead) amt++;
+            if(!health.IsDead && !health.Invulnerable) amt++;
             else
             {
                 healthsToRemove.Add(health);

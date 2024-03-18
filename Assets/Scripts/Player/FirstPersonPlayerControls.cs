@@ -71,7 +71,11 @@ public class FirstPersonPlayerControls : PlayerControls
             return false;
         }
 
-        if(PauseManager.Instance  != null)
+        if (DeathScreenManager.Instance != null)
+            if (DeathScreenManager.Instance.IsDead)
+                return false;
+
+        if (PauseManager.Instance  != null)
             PauseManager.Instance.TogglePause();
 
         return true;

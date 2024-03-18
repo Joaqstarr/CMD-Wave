@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 
-public class FinalBossManager : BaseEnemyManager
+public class FinalBossManager : BaseEnemyManager, IDataPersistance
 {
     public BaseEnemyData _data;
     public SplineContainer SplineCont;
@@ -20,6 +20,11 @@ public class FinalBossManager : BaseEnemyManager
     public BaseEnemyState AttackState = new FinalBossAttackState();
     private float _stunTime;
     private bool stunned = false;
+
+    public static bool BossStarted = false;
+
+    [HideInInspector]
+    public Vector3 StartingPos;
     [SerializeField]
     // Start is called before the first frame update
     void Start()
@@ -27,8 +32,9 @@ public class FinalBossManager : BaseEnemyManager
         IdleState = new FinalBossHiddenState();
         DeadState = new FinalBossDeadState();
         SplineExtrude = GetComponentInChildren<SplineInstantiate>();
-        
         base.Start();
+        StartingPos = Pathfinder.transform.localPosition;
+
         _data = _enemyHealth._enemyData;
         StartingKnots = SplineCont.Spline.ToArray();
         Pathfinder.maxSpeed = _data.speed;
@@ -40,6 +46,8 @@ public class FinalBossManager : BaseEnemyManager
     {
         if(CurrentState == IdleState)
         {
+            BossStarted = true;
+
             SwitchState(AttackState);
         }
     }
@@ -70,5 +78,33 @@ public class FinalBossManager : BaseEnemyManager
         Pathfinder.transform.DOMove(Pathfinder.transform.position + (Pathfinder.transform.position - Target.position).normalized * _data.knockbackValue, _stunTime).SetEase(Ease.OutSine);
     }
 
+    public void SaveData(ref SaveData data)
+    {
+    }
 
+    public void LoadData(SaveData data)
+    {
+        BossStarted = false;
+        _enemyHealth.Invulnerable = true;
+        SwitchState(IdleState);
+
+    }
+    private void OnEnable()
+    {
+        GameStartManager.GameContinued += ResetBool;
+        GameStartManager.GameStarted += ResetBool;
+
+    }
+    private void OnDisable()
+    {
+        GameStartManager.GameContinued -= ResetBool;
+        GameStartManager.GameStarted -= ResetBool;
+
+    }
+    private void ResetBool()
+    {
+        BossStarted = false;
+        _enemyHealth.Invulnerable = true;
+
+    }
 }
