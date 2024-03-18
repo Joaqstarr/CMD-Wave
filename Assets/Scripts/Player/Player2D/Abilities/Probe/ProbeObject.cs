@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Playables;
 using UnityEngine;
 
 public class ProbeObject : MonoBehaviour
@@ -9,9 +10,21 @@ public class ProbeObject : MonoBehaviour
     private ProbeData _data;
     public ProbeControls _probeControls;
     public Rigidbody _rb;
-    public CinemachineVirtualCamera _mapVirtualCamera;
+    public CinemachineVirtualCamera _probeVirtualCamera;
+    public GameObject _player;
+    public ProbeScan _probeScan;
+    public Transform _camFollow;
+    public Collider _detonationArea;
+    public ParticleSystem _detonationFX;
 
     private Transform _parent;
+
+    [HideInInspector]
+    public bool _detonating;
+
+    [SerializeField]
+    private AudioClip[] _hitClips;
+    private AudioSource _audioSource;
 
     // Start is called before the first frame update
     private void Start()
@@ -20,15 +33,22 @@ public class ProbeObject : MonoBehaviour
         _parent = transform.parent;
     }
 
+    private void OnDisable()
+    {
+        _camFollow.position = transform.position;
+    }
+
     // Update is called once per frame
     private void Update()
     {
-        
+        UpdateCamFollow();
     }
 
     private void FixedUpdate()
     {
         Move(ProbeControls.Instance.MoveInput);
+
+        _probeScan.DrawViewCone(ProbeControls.Instance.AimInput);
     }
 
     public void Reparent()
@@ -68,4 +88,61 @@ public class ProbeObject : MonoBehaviour
         }
 
     }
+
+    private void UpdateCamFollow()
+    {
+
+
+        _camFollow.localPosition = Vector3.ClampMagnitude((Vector3.zero + (_probeScan.ConvertAimCoordinate(_probeControls.AimInput) - transform.position)), _data.cameraLookAhead);
+    }
+    public void Detonate()
+    {
+        _detonating = true;
+        StartCoroutine(DelayDestroy());
+    }
+
+    private IEnumerator DelayDestroy()
+    {
+        _detonationArea.enabled = true;
+        _probeScan.gameObject.SetActive(false);
+        transform.Find("ProbeVisual").gameObject.SetActive(false);
+        _detonationFX.Play();
+
+        yield return new WaitForSeconds(_data.detonationReturnTime);
+
+        _probeVirtualCamera.Priority = 0;
+        Reparent();
+        _probeScan.gameObject.SetActive(true);
+        transform.Find("ProbeVisual").gameObject.SetActive(true);
+        gameObject.SetActive(false);
+        _detonationArea.enabled = false;
+
+        _data._isControlling = false;
+        _data._probeLoaded = false;
+        ProbeData.ProbeDeployed = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 8)
+        {
+            _data.UseAbility(_player, this.gameObject);
+        }
+
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (_detonating)
+        {
+            IHittable hitInterface = other.gameObject.GetComponent<IHittable>();
+            if (hitInterface != null)
+            {
+                hitInterface.Hit(_data.detonationDamage, this.gameObject);
+                Debug.Log(other.gameObject + " hit!");
+            }
+        }
+    }
+
 }

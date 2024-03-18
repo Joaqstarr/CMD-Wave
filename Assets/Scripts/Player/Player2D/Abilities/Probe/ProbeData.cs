@@ -1,11 +1,20 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Playables;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Abilities/Probe")]
 public class ProbeData : AbilityData
 {
+    [HideInInspector]
+    public static bool ProbeDeployed;
+
+    [Header("Probe")]
+    public float launchForceValue;
+    public int detonationDamage;
+    public float detonationReturnTime;
+
     [Header("Movement")]
     public float moveSpeed;
     public float acceleration;
@@ -36,34 +45,58 @@ public class ProbeData : AbilityData
     [Range(0, 1)]
     public float minimumEngineVolume;
 
-    private bool _isControlling;
+    public bool _isControlling;
+    public bool _probeLoaded;
 
     public override void OnStart()
     {
+        _probeLoaded = true;
         _isControlling = false;
+        ProbeDeployed = false;
     }
     public override void UseAbility(GameObject player, GameObject ability)
     {
-        if (!_isControlling)
+        if (_probeLoaded)
         {
-            ability.transform.parent = null;
-            ProbeObject probe = ability.GetComponent<ProbeObject>();
-            probe.gameObject.SetActive(true);
-            FirstPersonPlayerControls.Instance.Possess(ability.GetComponent<ProbeObject>()._probeControls, false);
+            if (!_isControlling)
+            {
+                player.GetComponent<PlayerSubManager>().StartCoroutine(LaunchProbe(player, ability));
+            }
+            else
+            {
+                FirstPersonPlayerControls.Instance.UnPossess(ability.GetComponent<ProbeObject>()._probeControls);
+                ability.GetComponent<ProbeObject>().Detonate();
 
-            probe._mapVirtualCamera.Priority = 11;
-
-            _isControlling = true;
+            }
         }
         else
         {
-            FirstPersonPlayerControls.Instance.UnPossess(ability.GetComponent<ProbeObject>()._probeControls);
-            ability.GetComponent<ProbeObject>()._mapVirtualCamera.Priority = 0;
-            ability.GetComponent<ProbeObject>().Reparent();
-            ability.SetActive(false);
-
-            _isControlling = false;
-        }
+            CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Probe Destroyed. Manual Reload Necessary."), false);
+        }    
     }
 
+    public void ReloadProbe()
+    {
+        _probeLoaded = true;
+    }
+
+    private IEnumerator LaunchProbe(GameObject player, GameObject ability)
+    {
+
+        yield return new WaitForFixedUpdate();
+        player.GetComponent<Collider>().enabled = false;
+        ability.transform.parent = null;
+        ProbeObject probe = ability.GetComponent<ProbeObject>();
+        probe.gameObject.SetActive(true);
+        ability.GetComponent<Rigidbody>().AddForce(SubViewCone.subAimVector * launchForceValue, ForceMode.Impulse);
+        FirstPersonPlayerControls.Instance.Possess(ability.GetComponent<ProbeObject>()._probeControls, false);
+
+        probe._probeVirtualCamera.Priority = 11;
+
+        _isControlling = true;
+        ProbeDeployed = true;
+
+        yield return new WaitForSeconds(0.1f);
+        player.GetComponent<Collider>().enabled = true;
+    }
 }

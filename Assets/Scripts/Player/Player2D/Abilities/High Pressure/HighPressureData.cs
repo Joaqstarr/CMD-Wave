@@ -19,7 +19,8 @@ public class HighPressureData : AbilityData
     public override void OnActivationFailed()
     {
         Debug.Log("refilling");
-        poolObjects[0].GetComponent<HighPressureBlast>().RechargeBlast();
+        CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Pressure Blast Depleted. Manual Recharge Necessary."), false);
+        poolObjects[0].GetComponent<HighPressureBlast>().RechargeBlast(); // remove when room refill is added
     }
 
     public override GameObject GetAbilityObject()

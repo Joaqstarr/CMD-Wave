@@ -11,11 +11,14 @@ public class SubViewCone : MonoBehaviour
 {
     public static float subAimAngle;
     public static Vector3 subAimVector;
+    public static bool DrawFog;
 
     public PlayerSubData data;
     public ScanDartData scanDartData;
 
     public Camera camera2D; // camera for 2D terminal
+
+    public bool _updateAngle;
 
     private Mesh _mesh; // mesh for cone polygons
     private Vector3 _origin; // starting point of cone - should be on player
@@ -39,6 +42,8 @@ public class SubViewCone : MonoBehaviour
     private int _triangleIndex;
     private bool _scanWaiting;
 
+    private float angle = 0;
+
     private Vector3[] _vertices;
     private Vector2[] _uv;
     private int[] _triangles;
@@ -54,6 +59,7 @@ public class SubViewCone : MonoBehaviour
     [SerializeField]
     private LayerMask _terrainMask; // layer mask for raycast terrain collisions
     private MeshRenderer _renderer;
+
     private void Awake()
     {
         // Blip object pool
@@ -80,7 +86,6 @@ public class SubViewCone : MonoBehaviour
         // variable assignments
         _mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = _mesh;
-        GetComponent<MeshCollider>().sharedMesh = _mesh;
         _renderer = GetComponent<MeshRenderer>();
 
         _origin = transform.localPosition;
@@ -110,10 +115,12 @@ public class SubViewCone : MonoBehaviour
         _stencilUv = new Vector2[_stencilVertices.Length];
         _stencilTriangles = new int[_resolution * 3];
 
-
+        _updateAngle = true;
+        DrawFog = true;
         if (FogOfWar.Instance != null)
         {
-            InvokeRepeating("RepeatDrawFog", 0.1f, 0.1f);
+            //InvokeRepeating("RepeatDrawFog", 0.1f, 0.1f);
+            StartCoroutine(RepeatDrawFog());
         }
     }
 
@@ -150,16 +157,20 @@ public class SubViewCone : MonoBehaviour
         float tempRadians = _aimAngle * (Mathf.PI / 180f);
         subAimVector = new Vector3(Mathf.Cos(tempRadians), Mathf.Sin(tempRadians));
 
-        float angle = _aimAngle + (_fov/2f);
+        // only update angle if being controlled
+        if (_updateAngle)
+            angle = _aimAngle + (_fov/2f);
 
         //render mesh
         _triangleIndex = 0;
         _vertexIndex = 1;
         RaycastHit hit;
+
+        float tempAngle = angle;
         for (int i = 0; i <= _resolution; i++, _vertexIndex++)
         {
             // convert current angle to vector3
-            _angleRadians = angle * (Mathf.PI / 180f);
+            _angleRadians = tempAngle * (Mathf.PI / 180f);
             _angleVector = new Vector3(Mathf.Cos(_angleRadians), Mathf.Sin(_angleRadians));
 
             // check collision of cone
@@ -195,7 +206,7 @@ public class SubViewCone : MonoBehaviour
             }
 
             // increase angle clockwise
-            angle -= _angleIncrease;
+            tempAngle -= _angleIncrease;
         }
 
         // set values to mesh to update cone
@@ -213,9 +224,13 @@ public class SubViewCone : MonoBehaviour
         if (!_scanWaiting) StartCoroutine(CollisionScan());
 
     }
-    private void RepeatDrawFog()
+    public IEnumerator RepeatDrawFog()
     {
+        Debug.Log("draw fog of war");
+        yield return new WaitForSeconds(0.1f);
         DrawFogOfWar(_aimAngle + (_fov / 2f));
+        if (DrawFog)
+            StartCoroutine(RepeatDrawFog());
     }
     private void DrawFogOfWar(float angle)
     {
@@ -389,5 +404,10 @@ public class SubViewCone : MonoBehaviour
         Material[] materials = new Material[1];
         materials[0] = data.radarColor;
         _renderer.SetMaterials(materials.ToList());
+    }
+
+    public void RestartDrawFog()
+    {
+        StartCoroutine(RepeatDrawFog());
     }
 }

@@ -9,31 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee007c4a80a200d4dbeab5999839b413, type: 3}
-  m_Name: ProbeData
+  m_Script: {fileID: 11500000, guid: b589f08e8244d3a4d9871d6717cf6a89, type: 3}
+  m_Name: ProbeScanData
   m_EditorClassIdentifier: 
-  abilityName: Probe
-  commandShortcut: pb
-  abilityPrefab: {fileID: 0}
-  numToPool: 0
-  poolObjects:
-  - {fileID: 0}
-  cooldown: 0.5
-  launchForceValue: 30
-  detonationDamage: 20
-  detonationReturnTime: 0.8
-  moveSpeed: 11
-  acceleration: 6
-  decceleration: 4
-  velocityModifier: 1.2
-  frictionModifier: 0.05
-  health: 20
-  invulnTime: 2
+  moveSpeed: 0
+  acceleration: 0
+  decceleration: 0
+  velocityModifier: 0
+  frictionModifier: 0
+  health: 0
+  invulnTime: 0
   healthNoDrain: 10
-  healthDrainTickTime: 1.5
-  fov: 30
+  healthDrainTickTime: 0.8
+  fov: 40
   resolution: 15
-  viewDistance: 15
+  viewDistance: 7
   rayResolution: 90
   sampleRate: 10
   blipObject: {fileID: 5160852551703549048, guid: 930ee4125b11b8b44ac4113eac39bb7d, type: 3}
@@ -41,8 +31,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 457
   defaultColor: {fileID: 2100000, guid: acabf66198dd85f4292e1074b95cf084, type: 2}
-  enemyColor: {fileID: 2100000, guid: a0a2e5c1d6422af4c9061faa66a1d4bd, type: 2}
+  enemyColorDefault: {fileID: 2100000, guid: a0a2e5c1d6422af4c9061faa66a1d4bd, type: 2}
+  enemyColorColorblind: {fileID: 2100000, guid: 25822190a1713f643bc7c1f3cd5b5328, type: 2}
+  radarColorDefault: {fileID: 2100000, guid: d23b8b939d665ec42a1f529e999741dc, type: 2}
+  radarColorColorblind: {fileID: 2100000, guid: 41289f45a029b5b43993a426ef5686f1, type: 2}
   cameraLookAhead: 5
   minimumEngineVolume: 0
-  _isControlling: 0
-  _probeLoaded: 0

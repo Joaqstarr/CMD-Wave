@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 654.4361, g: 425.01447, b: 343.54645, a: 1}
+  m_IndirectSpecularColor: {r: 649.8479, g: 422.96884, b: 344.09915, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -32242,8 +32242,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tweenData:
-    Duration: 0.2
-    Strength: 3
+    Duration: 0
+    Strength: 0
     Ease: 0
 --- !u!1 &1210584864
 GameObject:
@@ -35263,7 +35263,7 @@ Transform:
   m_GameObject: {fileID: 1441566356}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.1, y: 66, z: -10}
+  m_LocalPosition: {x: -23.73, y: 67.48, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -35304,10 +35304,10 @@ MonoBehaviour:
   m_Priority: 0
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 1729846351}
+  m_Follow: {fileID: 1784246226}
   m_Lens:
     FieldOfView: 76.452934
-    OrthographicSize: 7
+    OrthographicSize: 9
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -46887,11 +46887,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 50
---- !u!4 &1729846351 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 743724828533189812, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
-  m_PrefabInstance: {fileID: 1958240366}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1736818506
 Mesh:
   m_ObjectHideFlags: 0
@@ -47466,6 +47461,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1784246226 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4645028488332338931, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+  m_PrefabInstance: {fileID: 1958240366}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1794020151
 GameObject:
   m_ObjectHideFlags: 0
@@ -48874,6 +48874,38 @@ PrefabInstance:
       propertyPath: _startTween.Duration
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 120485674712138852, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 568500072841070102, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: camera2D
+      value: 
+      objectReference: {fileID: 2044198967}
+    - target: {fileID: 743724828533189812, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 743724828533189812, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 823533661457218162, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: camera2D
+      value: 
+      objectReference: {fileID: 2044198967}
+    - target: {fileID: 823533661457218162, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _fogAlpha
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 991735767809786325, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _plane
+      value: 
+      objectReference: {fileID: 729771565}
+    - target: {fileID: 991735767809786325, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1069844173496321416, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: _soundWhenExecuted
       value: 
@@ -48885,6 +48917,10 @@ PrefabInstance:
     - target: {fileID: 1102588874256552187, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694296867805020537, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1730125559575496779, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: _plane
@@ -49026,6 +49062,10 @@ PrefabInstance:
       propertyPath: _mapVirtualCamera
       value: 
       objectReference: {fileID: 1441566359}
+    - target: {fileID: 5610900625276215381, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _probeVirtualCamera
+      value: 
+      objectReference: {fileID: 1441566359}
     - target: {fileID: 5713745030624564861, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: _alpha
       value: 0.2
@@ -49038,10 +49078,30 @@ PrefabInstance:
       propertyPath: _repeatWait
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 6866933518055427232, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: m_Radius
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6866933518055427232, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7249539874730659434, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: _failedCommandSound
       value: 
       objectReference: {fileID: 8300000, guid: 19f5bf1f6e75a5c439800e61839357bb, type: 3}
+    - target: {fileID: 7252421746587483967, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7252421746587483967, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _probeVirtualCamera
+      value: 
+      objectReference: {fileID: 1441566359}
+    - target: {fileID: 7260719129457744071, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: _plane
+      value: 
+      objectReference: {fileID: 729771565}
     - target: {fileID: 7502811325062379252, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: _hitClips.Array.size
       value: 3
@@ -49065,6 +49125,10 @@ PrefabInstance:
     - target: {fileID: 7589549278943630860, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: m_IncludeLayers.m_Bits
       value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735808854384799468, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8159995191691637025, guid: d75da03b2bf527446a2e0e0eb1956297, type: 3}
       propertyPath: camera2D
@@ -64087,11 +64151,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4043392515020833245, guid: 20e43c199d28f224da129f0ac3426c18, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -58.8
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 4043392515020833245, guid: 20e43c199d28f224da129f0ac3426c18, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: 61.2
       objectReference: {fileID: 0}
     - target: {fileID: 4043392515020833245, guid: 20e43c199d28f224da129f0ac3426c18, type: 3}
       propertyPath: m_LocalPosition.z

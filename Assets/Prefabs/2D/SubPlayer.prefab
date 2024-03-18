@@ -109,7 +109,6 @@ GameObject:
   - component: {fileID: 6510820475515739222}
   - component: {fileID: 364870211307395117}
   - component: {fileID: 8159995191691637025}
-  - component: {fileID: 1102588874256552187}
   m_Layer: 0
   m_Name: RadarCone
   m_TagString: Untagged
@@ -202,28 +201,6 @@ MonoBehaviour:
   _terrainMask:
     serializedVersion: 2
     m_Bits: 0
---- !u!64 &1102588874256552187
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2126649293953775510}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &3415718040627033561
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,6 +1111,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4191011882921417721}
     m_Modifications:
+    - target: {fileID: 1228556589358092892, guid: c13a8250fbb66af4c972f8f4c9be39b5, type: 3}
+      propertyPath: subScan
+      value: 
+      objectReference: {fileID: 8159995191691637025}
     - target: {fileID: 2070881437665835262, guid: c13a8250fbb66af4c972f8f4c9be39b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1178,6 +1159,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProbeObject
       objectReference: {fileID: 0}
+    - target: {fileID: 6571576612876547103, guid: c13a8250fbb66af4c972f8f4c9be39b5, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 4513108998467818035}
+    - target: {fileID: 8235611884069612405, guid: c13a8250fbb66af4c972f8f4c9be39b5, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 4513108998467818035}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

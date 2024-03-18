@@ -21,8 +21,16 @@ public class ScanDartData : AbilityData
     public Material defaultColor;
     public Material enemyColor;
 
+    private float _dartsReady;
+
+    public override void OnStart()
+    {
+        _dartsReady = numToPool;
+    }
     public override void UseAbility(GameObject player, GameObject ability)
     {
+        _dartsReady--;
+        CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Scan Dart Count: " + _dartsReady), false);
         GameObject dart = ability.transform.Find("ScanDartTransform").gameObject;
         ability.SetActive(true);
         dart.GetComponent<ScanDartTransform>().StartCoroutine(LaunchDart(player, ability, dart));
@@ -30,6 +38,7 @@ public class ScanDartData : AbilityData
 
     public override void OnActivationFailed()
     {
+        CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Scan Darts Expended. Manual Reload Necessary."), false);
         RecallDarts(GameObject.Find("SubPlayer")); // just for testing - change later
     }
     public override GameObject GetAbilityObject()
@@ -55,6 +64,7 @@ public class ScanDartData : AbilityData
             transform.GetComponent<ScanDartTransform>()._dartVisuals.transform.position = dart.transform.position;
             dart.SetActive(false);
         }
+        _dartsReady = numToPool;
     }
 
     public IEnumerator LaunchDart(GameObject player, GameObject ability, GameObject dart)

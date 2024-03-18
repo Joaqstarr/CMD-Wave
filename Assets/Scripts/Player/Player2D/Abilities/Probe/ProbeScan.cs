@@ -8,10 +8,16 @@ using UnityEngine.Device;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.UIElements;
 
-public class ScanDartScan : MonoBehaviour
+public class ProbeScan : MonoBehaviour
 {
-    public PlayerSubData subData;
-    public ScanDartData data;
+    public static float subAimAngle;
+    public static Vector3 subAimVector;
+
+    public PlayerSubData data;
+    public ScanDartData scanDartData;
+    public SubViewCone subScan;
+
+    public Camera camera2D; // camera for 2D terminal
 
     private Mesh _mesh; // mesh for cone polygons
     private Vector3 _origin; // starting point of cone - should be on player
@@ -41,23 +47,19 @@ public class ScanDartScan : MonoBehaviour
     private Vector3[] _stencilVertices;
     private Vector2[] _stencilUv;
     private int[] _stencilTriangles;
-    public MeshRenderer[] _rayCollisions;
+    private MeshRenderer[] _rayCollisions;
     private MeshRenderer _pooledBlip;
-    private List<MeshRenderer> _blips;
+    public static List<MeshRenderer> _blips;
     private int _numBlips;
     [SerializeField]
-    private float _fogAlpha = 0.3f;
+    private float _fogAlpha = 0.1f;
     [SerializeField]
-    private float _fogRefreshRate = 0.5f;
-    private Vector2 _lastFogPosition;
-    [SerializeField]
-    private float _minimumFogDistance = 8;
-
+    private LayerMask _terrainMask; // layer mask for raycast terrain collisions
     private MeshRenderer _renderer;
 
     private void Awake()
     {
-        
+        InvokeRepeating("UpdateConeMat", 1f, 1f);
     }
     private void Start()
     {
@@ -65,7 +67,7 @@ public class ScanDartScan : MonoBehaviour
         // variable assignments
         _mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = _mesh;
-        //GetComponent<MeshCollider>().sharedMesh = _mesh;
+        _renderer = GetComponent<MeshRenderer>();
 
         _origin = transform.localPosition;
         _fov = data.fov;
@@ -76,6 +78,7 @@ public class ScanDartScan : MonoBehaviour
         _sampleRate = data.sampleRate;
         _collisionMask = data.collisionMask;
 
+        _angleIncrease = _fov / _resolution;
         _scanWaiting = false;
 
         _vertices = new Vector3[_resolution + 2];
@@ -87,7 +90,7 @@ public class ScanDartScan : MonoBehaviour
 
         // stencil mesh
         _stencilMesh = new Mesh();
-        transform.Find("ScanStencil").GetComponent<MeshFilter>().mesh = _stencilMesh;
+        transform.Find("RadarStencil").GetComponent<MeshFilter>().mesh = _stencilMesh;
 
         _stencilVertices = new Vector3[_resolution + 2];
         _stencilUv = new Vector2[_stencilVertices.Length];
@@ -96,47 +99,76 @@ public class ScanDartScan : MonoBehaviour
         // Blip object pool
         _blips = SubViewCone._blips;
         _numBlips = _blips.Count;
-
-        DrawViewCone();
-
     }
 
     private void OnEnable()
     {
-        //InvokeRepeating("MakeFogHole", _fogRefreshRate, _fogRefreshRate);
-        _scanWaiting = false;
-    }
+        if (FogOfWar.Instance != null)
+        {
+            StartCoroutine(RepeatDrawFog());
+        }
 
+        SubViewCone.DrawFog = false;
+        subScan._updateAngle = false;
+    }
     private void OnDisable()
     {
         DeleteBlips();
+        StopCoroutine(RepeatDrawFog());
+
+        SubViewCone.DrawFog = true;
+        subScan.RestartDrawFog();
+        subScan._updateAngle = true;
     }
 
-    private void Update()
+    public void DrawViewCone(Vector3 aimPos)
     {
-        MakeFogHole();
+        // convert mouse position to angle
+        if (camera2D == null)
+            aimPos = Camera.main.ScreenToWorldPoint(aimPos);
+        else
+            aimPos = ConvertAimCoordinate(aimPos);
 
-        if (!_scanWaiting)
-        {
-            StartCoroutine(CollisionScan());
-        }
-    }
+        aimPos = (aimPos - transform.position).normalized;
+        aimPos.z = 0;
 
-    public void DrawViewCone()
-    {
+        _aimAngle = Mathf.Atan2(aimPos.y, aimPos.x) * Mathf.Rad2Deg;
+        if (_aimAngle < 0) _aimAngle += 360;
+
+        // set static angle variables
+        subAimAngle = _aimAngle;
+        float tempRadians = _aimAngle * (Mathf.PI / 180f);
+        subAimVector = new Vector3(Mathf.Cos(tempRadians), Mathf.Sin(tempRadians));
+
+        float angle = _aimAngle + (_fov / 2f);
 
         //render mesh
         _triangleIndex = 0;
         _vertexIndex = 1;
+        RaycastHit hit;
         for (int i = 0; i <= _resolution; i++, _vertexIndex++)
         {
-            // set angle
-            _angleRadians = (360f / _resolution) * (_resolution - i) * (Mathf.PI/180f);
+            // convert current angle to vector3
+            _angleRadians = angle * (Mathf.PI / 180f);
             _angleVector = new Vector3(Mathf.Cos(_angleRadians), Mathf.Sin(_angleRadians));
 
+            // check collision of cone
+            float vertextDistance = _viewDistance;
+            if (Physics.Raycast(transform.position, _angleVector, out hit, _viewDistance, _terrainMask))
+                vertextDistance = hit.distance;
+
+
             // set vertices of polygon
-            Vector3 vertex = _origin + _angleVector * _viewDistance;
+            Vector3 vertex = _origin + _angleVector * vertextDistance;
             _vertices[_vertexIndex] = vertex;
+
+            // stencil cone
+            // check collision of cone
+            float stencilVertextDistance = _viewDistance;
+
+            // set vertices of polygon
+            Vector3 stencilVertex = _origin + _angleVector * stencilVertextDistance;
+            _stencilVertices[_vertexIndex] = stencilVertex;
 
             // add vertices of polygon to triangles array
             if (i > 0)
@@ -145,22 +177,103 @@ public class ScanDartScan : MonoBehaviour
                 _triangles[_triangleIndex + 1] = _vertexIndex - 1;
                 _triangles[_triangleIndex + 2] = _vertexIndex;
 
+                _stencilTriangles[_triangleIndex] = 0;
+                _stencilTriangles[_triangleIndex + 1] = _vertexIndex - 1;
+                _stencilTriangles[_triangleIndex + 2] = _vertexIndex;
+
                 _triangleIndex += 3;
             }
+
+            // increase angle clockwise
+            angle -= _angleIncrease;
         }
 
         // set values to mesh to update cone
         _mesh.vertices = _vertices;
         _mesh.uv = _uv;
         _mesh.triangles = _triangles;
+        _mesh.RecalculateNormals();
 
-        _stencilMesh.vertices = _vertices;
-        _stencilMesh.uv = _uv;
-        _stencilMesh.triangles = _triangles;
+        _stencilMesh.vertices = _stencilVertices;
+        _stencilMesh.uv = _stencilUv;
+        _stencilMesh.triangles = _stencilTriangles;
+        _stencilMesh.RecalculateNormals();
 
         // Check to scan collision
         if (!_scanWaiting) StartCoroutine(CollisionScan());
 
+    }
+
+    public IEnumerator RepeatDrawFog()
+    {
+        yield return new WaitForSeconds(0.1f);
+        DrawFogOfWar(_aimAngle + (_fov / 2f));
+        StartCoroutine(RepeatDrawFog());
+    }
+    private void DrawFogOfWar(float angle)
+    {
+        Vector3[] vertices = new Vector3[3];
+        int vertexIndex = 1;
+
+
+        float vertexDistance = 0;
+
+        float rayAngle = angle;
+
+        RaycastHit hit;
+        //calculate distance
+        for (int i = 0; i <= _resolution; i++, _vertexIndex++)
+        {
+            // convert current angle to vector3
+            float angleRadians = rayAngle * (Mathf.PI / 180f);
+            Vector3 angleVector = new Vector3(Mathf.Cos(angleRadians), Mathf.Sin(angleRadians));
+
+            if (Physics.Raycast(transform.position, _angleVector, out hit, _viewDistance, _terrainMask))
+            {
+
+                if (hit.distance > vertexDistance)
+                    vertexDistance = hit.distance;
+
+
+            }
+            else
+            {
+                vertexDistance = _viewDistance;
+                break;
+            }
+
+
+            // set vertices of polygon
+
+
+            // increase angle clockwise
+            rayAngle -= _angleIncrease;
+        }
+
+        vertices[0] = _origin;
+        for (int i = 0; i <= 1; i++, vertexIndex++)
+        {
+            // convert current angle to vector3
+            float angleRadians = angle * (Mathf.PI / 180f);
+            Vector3 angleVector = new Vector3(Mathf.Cos(angleRadians), Mathf.Sin(angleRadians));
+
+            // set vertices of polygon
+            Vector3 vertex = _origin + angleVector * vertexDistance;
+            vertices[vertexIndex] = vertex;
+
+            // increase angle clockwise
+            angle -= _fov;
+        }
+
+        transform.TransformPoints(vertices);
+
+        FogOfWar.Instance.MakeTriangle(vertices[0], vertices[1], vertices[2], _fogAlpha);
+    }
+
+    public IEnumerator BlipGhostEffect(GameObject blip)
+    {
+        yield return new WaitForSeconds(1f / _sampleRate);
+        blip.SetActive(false);
     }
 
     public void DeleteBlips()
@@ -175,26 +288,6 @@ public class ScanDartScan : MonoBehaviour
                     _rayCollisions[i] = null;
                 }
             }
-    }
-
-    public void GhostBlips()
-    {
-        // delete any blips from last frame
-        if (_rayCollisions.Count() > 0)
-            for (int i = 0; i < _rayCollisions.Count(); i++)
-            {
-                if (_rayCollisions[i] != null)
-                {
-                    StartCoroutine(BlipGhostEffect(_rayCollisions[i].gameObject));
-                    _rayCollisions[i] = null;
-                }
-            }
-    }
-
-    public IEnumerator BlipGhostEffect(GameObject blip)
-    {
-        yield return new WaitForSeconds(1f / _sampleRate);
-        blip.SetActive(false);
     }
 
     public IEnumerator CollisionScan()
@@ -227,12 +320,12 @@ public class ScanDartScan : MonoBehaviour
                 if (Physics.Raycast(transform.position, _rayVector, out hit, _viewDistance, _collisionMask))
                 {
                     // draw blip on hit
-                    _rayCollisions[i] = GetBlip(hit.point);
+                    _rayCollisions[i] = GetBlip(new Vector3(hit.point.x, hit.point.y, 3));
                     // check if enemy was hit
                     if (hit.collider.gameObject.layer == 8)
-                        _rayCollisions[i].material = subData.enemyColor;
+                        _rayCollisions[i].material = data.enemyColor;
                     else
-                        _rayCollisions[i].material = subData.defaultColor;
+                        _rayCollisions[i].material = data.defaultColor;
                     _rayCollisions[i].gameObject.SetActive(true);
                 }
             }
@@ -241,6 +334,16 @@ public class ScanDartScan : MonoBehaviour
         _scanWaiting = false;
     }
 
+    public Vector3 ConvertAimCoordinate(Vector2 aimInput)
+    {
+        Vector3 screenPoint = aimInput;
+        screenPoint.z = Mathf.Abs(transform.position.z - camera2D.transform.position.z);
+        Vector3 mainPoint = camera2D.ScreenToWorldPoint(screenPoint);
+
+
+        //Debug.Log(mainPoint + ", player pos screen: " + camera2D.WorldToScreenPoint(transform.position) + ", screen size: " + camera2D.orthographicSize);
+        return mainPoint;
+    }
     private MeshRenderer GetBlip(Vector3 position)
     {
         for (int i = 0; i < _numBlips; i++)
@@ -252,12 +355,6 @@ public class ScanDartScan : MonoBehaviour
             }
         }
         return null;
-    }
-    private void MakeFogHole()
-    {
-        if (Vector3.Distance(transform.position, _lastFogPosition) <= _minimumFogDistance) return;
-        _lastFogPosition = transform.position;
-        FogOfWar.Instance.MakeHole(transform.position, _viewDistance, _fogAlpha);
     }
     private void OnDrawGizmosSelected()
     {
@@ -289,8 +386,11 @@ public class ScanDartScan : MonoBehaviour
         }
     }
 
-    private void UpdateRadarMat()
+    private void UpdateConeMat()
     {
-        _renderer.material = subData.radarColor;
+        Material[] materials = new Material[1];
+        materials[0] = data.radarColor;
+        if (_renderer != null)
+            _renderer.SetMaterials(materials.ToList());
     }
 }

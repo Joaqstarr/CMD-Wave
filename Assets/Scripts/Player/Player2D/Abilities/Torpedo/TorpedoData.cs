@@ -34,12 +34,12 @@ public class TorpedoData : AbilityData
         if (reloadCounter <= 0)
         {
             canShoot = false;
-            CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Torpedos Expended. Manual Reload Necessary."), false);
+            CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Torpedoes Expended. Manual Reload Necessary."), false);
 
         }
         else
         {
-            CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Torpedo Count at " + reloadCounter), false);
+            CommandLineManager.Instance.OutputLine(CommandLineManager.StringToArray("Torpedo Count: " + reloadCounter), false);
 
         }
     }

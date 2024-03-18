@@ -6,8 +6,10 @@ using UnityEngine.InputSystem;
 public class ProbeControls : PlayerControls
 {
     public static ProbeControls Instance;
-    private Vector2 _moveInput;
+    private Vector2 _moveInput = Vector2.zero;
+    private Vector2 _aimInput = Vector2.zero;
     private bool _powerPressed;
+    
 
     private void Awake()
     {
@@ -22,6 +24,24 @@ public class ProbeControls : PlayerControls
 
         _moveInput = Value.Get<Vector2>();
         Debug.Log(_moveInput);
+        return true;
+    }
+    public override bool OnMouseAim(InputValue Value)
+    {
+        if (!base.OnMouseAim(Value)) return false;
+
+        // mouse transformation to 2d cam space
+        if (_plane != null)
+            _aimInput = TransformMouseInput(Value.Get<Vector2>());
+        else
+            _aimInput = Value.Get<Vector2>();
+
+
+
+
+
+
+
         return true;
     }
 
@@ -41,8 +61,6 @@ public class ProbeControls : PlayerControls
     public override void OnPosessed()
     {
         base.OnPosessed();
-
-        PlayerSubControls.Instance.AimInput *= SubViewCone.subAimVector * 1000;
     }
     public override void OnUnPosessed()
     {
@@ -50,6 +68,18 @@ public class ProbeControls : PlayerControls
 
         _moveInput = Vector2.zero;
         _powerPressed = false;
+    }
+
+    [SerializeField] RectTransform _plane;
+    private Vector2 TransformMouseInput(Vector2 input)
+    {
+        Vector2 localpoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(_plane, input, Camera.main, out localpoint);
+        localpoint.x += _plane.rect.width / 2;
+        localpoint.y += _plane.rect.height / 2;
+
+
+        return localpoint;
     }
 
     public Vector2 MoveInput
@@ -61,4 +91,12 @@ public class ProbeControls : PlayerControls
     { 
         get { return _powerPressed; }
     }
+
+    public Vector2 AimInput
+    {
+        get { return _aimInput; }
+        set { _aimInput = value; }
+    }
+
+
 }

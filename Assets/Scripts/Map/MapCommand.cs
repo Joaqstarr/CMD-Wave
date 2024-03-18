@@ -22,6 +22,8 @@ public class MapCommand : CommandBase
             FirstPersonPlayerControls.Instance.UnPossess(_mapControls);
             _mapVirtualCamera.Priority = 0;
             _isFlying = false;
+            if (ProbeData.ProbeDeployed)
+                FirstPersonPlayerControls.Instance.Possess(GameObject.Find("ProbeObject").GetComponent<ProbeControls>());
             return CommandLineManager.StringToArray("Exiting Map View");
 
         }
