@@ -9,7 +9,6 @@ public class CurrentPath : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag + ", " + other.gameObject.name);
         if(other.tag == "PlayerSub")
         {
             Physics.IgnoreCollision(Currentcollider, other, true);

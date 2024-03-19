@@ -45,6 +45,7 @@ public class FinalBossManager : BaseEnemyManager, IDataPersistance
         _source = GetComponent<AudioSource>();
         Rb = GetComponent<Rigidbody>();
         _data = _enemyHealth._enemyData;
+        BaseData = _data;
         StartingKnots = SplineCont.Spline.ToArray();
         Pathfinder.maxSpeed = _data.speed;
         SwitchState(IdleState);

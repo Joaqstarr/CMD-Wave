@@ -153,7 +153,7 @@ public class Room : MonoBehaviour, IDataPersistance
         if(_damages.Length > 0)
         {
             int ran = Random.Range(0, _damages.Length);
-            if (!_damages[ran].IsDamaged)
+            if (!_damages[ran].IsDamaged && _randomizeDamageDir)
             {
                 Vector3 rot = _damages[ran].transform.parent.transform.eulerAngles;
                 rot.y = Random.Range(0, 360);

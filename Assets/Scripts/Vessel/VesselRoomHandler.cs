@@ -292,8 +292,12 @@ public class VesselRoomHandler : MonoBehaviour, IDataPersistance
     public void DamageRoom()
     {
         if(_rooms.Length == 0) return;
-
         int randomRoom = Random.Range(0, _rooms.Length);
+
+        while (_rooms[randomRoom].RoomTag == ""|| _rooms[randomRoom].RoomTag == " ")
+        {
+            randomRoom = Random.Range(0, _rooms.Length);
+        }
         _rooms[randomRoom].Damage();
         UpdateMapColors();
     }

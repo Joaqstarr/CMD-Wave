@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDetector : MonoBehaviour
+public class EnemyDetector : MonoBehaviour, IDataPersistance
 {
     private List<BaseEnemyHealth> _enemyHealths = new List<BaseEnemyHealth>();
     public static bool EnemyNearby = false;
@@ -45,5 +45,14 @@ public class EnemyDetector : MonoBehaviour
     {
         _enemyHealths.Remove(collision.transform.GetComponentInParent<BaseEnemyHealth>());
 
+    }
+
+    public void SaveData(ref SaveData data)
+    {
+    }
+
+    public void LoadData(SaveData data)
+    {
+        _enemyHealths.Clear();
     }
 }

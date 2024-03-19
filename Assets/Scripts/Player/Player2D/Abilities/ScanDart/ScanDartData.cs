@@ -81,6 +81,6 @@ public class ScanDartData : AbilityData
 
     public bool IsLoaded
     {
-        get { return _dartsReady > 0; }
+        get { return _dartsReady == numToPool; }
     }
 }
