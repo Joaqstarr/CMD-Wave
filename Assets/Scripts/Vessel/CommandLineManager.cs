@@ -214,7 +214,7 @@ public class CommandLineManager : MonoBehaviour
             {
                 _commandOveride = null;
             }
-            OutputLine(StringToArray("Command Not Found :("), false);
+            OutputLine(StringToArray("Command Not Found. Type \"HELP\" for a list of possible commands."), false);
         }
 
     }

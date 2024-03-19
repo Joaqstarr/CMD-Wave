@@ -10,4 +10,6 @@ public class ChargeEnemyData : BaseEnemyData
     public float chargeStartupTime;
     public float chargeEndLagTime;
     public float chargeCooldownTime;
+    public float knockbackTime;
+    public float kbWhenHit;
 }

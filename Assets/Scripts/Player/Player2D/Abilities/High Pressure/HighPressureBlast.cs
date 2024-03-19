@@ -83,7 +83,8 @@ public class HighPressureBlast : MonoBehaviour
     {
         IKnockbackable knockbackInterface = collision.gameObject.GetComponent<IKnockbackable>();
         if (knockbackInterface != null)
-            StartCoroutine(ApplyKnockback(collision, knockbackInterface));
+            knockbackInterface.Knockback(_data.knockback, _data.stunDuration, transform.position);
+            //StartCoroutine(ApplyKnockback(collision, knockbackInterface));
     }
 
     private IEnumerator ApplyKnockback(Collider collision, IKnockbackable knockbackInterface)

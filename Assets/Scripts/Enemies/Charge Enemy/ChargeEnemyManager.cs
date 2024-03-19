@@ -70,7 +70,7 @@ public class ChargeEnemyManager : BaseEnemyManager, IKnockbackable
         Rb.velocity = Vector3.zero;
         Vector3 distanceVector = (transform.position - origin) * 100;
         Debug.Log(distanceVector.normalized);
-        Rb.AddForce(distanceVector.normalized * force, ForceMode.Impulse);
+        Rb.AddForce(distanceVector.normalized * (force * 0.7f), ForceMode.Impulse);
         Debug.Log("Force: " + ((distanceVector.normalized) * force));
     }
 
@@ -81,6 +81,12 @@ public class ChargeEnemyManager : BaseEnemyManager, IKnockbackable
             Rb.isKinematic = true;
             Vector2 direction = (collision.contacts[0].point - transform.position).normalized;
             transform.DOMove((Vector2)transform.position + (direction * _deadDistance), 2f).SetEase(Ease.InCubic);
+        }
+
+        if (collision.gameObject.CompareTag("Torpedo"))
+        {
+            Pathfinder.transform.DOKill();
+            Pathfinder.transform.DOMove(Pathfinder.transform.position + (Pathfinder.transform.position - Target.position).normalized * _data.kbWhenHit, _data.knockbackTime).SetEase(Ease.OutSine);
         }
     }
 

@@ -23,6 +23,7 @@ public class FinalBossDeadState : BaseEnemyState
         manager.DestinationSetter.transform.DORotate((manager.DestinationSetter.target.position - manager.transform.position) + Vector3.right, 6f);
         enemy.Pathfinder.canMove = false;
 
+        GameEndManager.Instance.EndScreen();
         //manager.StartCoroutine(DeathAnim());
     }
 
