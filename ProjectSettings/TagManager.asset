@@ -9,6 +9,7 @@ TagManager:
   - Terrain
   - ScanDart
   - Probe
+  - Torpedo
   layers:
   - Default
   - TransparentFX
