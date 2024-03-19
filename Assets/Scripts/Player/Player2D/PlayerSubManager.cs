@@ -23,6 +23,7 @@ public class PlayerSubManager : MonoBehaviour
     public PlayerSubHealth Health { get; private set; }
     public AudioSource EngineSource ;
     public Transform CamFollow;
+    public AudioSource DashSource;
     public SubViewCone SubViewCone { get; private set; }
     #endregion
 

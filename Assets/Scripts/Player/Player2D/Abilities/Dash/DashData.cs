@@ -35,6 +35,7 @@ public class DashData : AbilityData
     private IEnumerator Dash(GameObject player)
     {
         yield return new WaitForFixedUpdate();
+        player.GetComponent<PlayerSubManager>().DashSource.Play();
         player.GetComponent<Rigidbody>().AddForce(SubViewCone.subAimVector * _maxDashSpeed * _dashChargeModifier, ForceMode.Impulse);
         if (_dashChargeModifier > 0.9)
         {
