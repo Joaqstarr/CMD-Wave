@@ -551,10 +551,10 @@ RectTransform:
   - {fileID: 1502591047}
   m_Father: {fileID: 132318384}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 175}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 100, y: -978}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &355315523
 CanvasGroup:
@@ -1367,7 +1367,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9071307996624145178, guid: fee1e8d6aa1397940b4ea698798d3fba, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 17
+      value: 103
       objectReference: {fileID: 0}
     - target: {fileID: 9071307996624145178, guid: fee1e8d6aa1397940b4ea698798d3fba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1560,9 +1560,9 @@ RectTransform:
   - {fileID: 737751122}
   m_Father: {fileID: 132318384}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -444}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 95}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &998123821
@@ -2094,8 +2094,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -11, y: -172}
-  m_SizeDelta: {x: 1463.4, y: 831.84033}
+  m_AnchoredPosition: {x: -11, y: -230.35}
+  m_SizeDelta: {x: 1463.4, y: 721.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1502591048
 MonoBehaviour:
@@ -2117,24 +2117,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "[MISSION BRIEFING]\r\n\r\nHello Captain.\r\n\r\n    Three months ago,
-    a scientific research vessel, the UNS Muridae, ventured deep into an uncharted
-    area of the ocean known as the Trench of Veins. The Muridae was only intended
-    to stay undersea for a few days, making a short trip to conduct research on the
-    deep-sea life in the area and collect data samples to bring back to the surface.
-    However, after the first 24 hours under the sea, all communication from the vessel
-    stopped, and scientists back on shore were unable to detect the ship on their
-    scanners. A search party was dispatched as soon as possible to investigate, but
-    without the Muridae\u2019s advanced physical and technological capabilities,
-    it was impossible for the team to make it to the Trench of Veins safely.\r\n\r\n\tYou
-    have been brought on to finish their mission. You will be piloting the Leukocyte,
-    a specially-made underwater vessel designed to handle the harsh environment of
-    the Trench of Veins. The Leukocyte possesses cutting-edge scanning technology
-    and is incredibly nimble, with its small size granting it the ability to navigate
-    the Trench effectively. However, due to the ship\u2019s compact design, you will
-    be the sole passenger aboard the vessel. Your mission is to recover any pieces
-    of the Muridae that you can find, determine the cause of the vessel\u2019s disappearance,
-    and make it back in one piece. Proceed with caution.\r\n\r\nBest of luck. "
+  m_text: "[MISSION BRIEFING]\r\n\r\nGreetings Captain.\r\n\r\n    Over the past
+    several months, numerous scientific research vessels have gone missing in a deep
+    part of the ocean known as the The Vein. Many pieces of advanced marine technology
+    have been lost as a result. You have been brought on to explore the area and
+    uncover the root of these odd disturbances. You will be piloting the Leukocyte,
+    a specially-made underwater vessel designed to handle the harsh underwater environment
+    you will be exploring. Your mission is to recover any pieces of the lost vessels
+    that you can discover, find whatever has been causing them to disappear, and
+    eliminate it.  \r\n\r\nProceed with caution and best of luck.\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c1be198d554535d41b553fe97d02c363, type: 2}
   m_sharedMaterial: {fileID: -7973111086233948975, guid: c1be198d554535d41b553fe97d02c363, type: 2}
@@ -2161,8 +2152,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 34.5
+  m_fontSizeBase: 34.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
