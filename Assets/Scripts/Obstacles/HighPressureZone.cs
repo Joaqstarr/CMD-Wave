@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class HighPressureZone : MonoBehaviour
+public class HighPressureZone : MonoBehaviour, IDataPersistance
 {
     public HighPressureZoneData _data;
 
@@ -29,12 +29,16 @@ public class HighPressureZone : MonoBehaviour
             _timer -= Time.deltaTime;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("PlayerSub"))
             if (!HighPressureRoom.HighPressureEquipped)
             {
                 _playerInZone = true;
+            }
+            else
+            {
+                _playerInZone = false;
             }
     }
 
@@ -43,5 +47,15 @@ public class HighPressureZone : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerSub"))
             if (!HighPressureRoom.HighPressureEquipped)
                 _playerInZone = false;
+    }
+
+    public void SaveData(ref SaveData data)
+    {
+    }
+
+    public void LoadData(SaveData data)
+    {
+        _timer = _data.damageInterval;
+
     }
 }

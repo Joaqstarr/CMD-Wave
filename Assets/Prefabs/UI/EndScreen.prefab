@@ -433,6 +433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8489397880943119945}
   - component: {fileID: 7976551608440001852}
+  - component: {fileID: 6977661672470133441}
   m_Layer: 0
   m_Name: EndScreen
   m_TagString: Untagged
@@ -469,6 +470,18 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &6977661672470133441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7625994755879590514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec02c20f7ab95c74896440f0d15632cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8237226615138483280
 GameObject:
   m_ObjectHideFlags: 0

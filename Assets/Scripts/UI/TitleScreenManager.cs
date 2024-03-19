@@ -90,11 +90,19 @@ public class TitleScreenManager : MonoBehaviour
 
     public void ContinueGame()
     {
+        if(PlayerPrefs.GetInt("StartedGame", 0) == 0)
+        {
+            NewGameText();
+            DisableBase();
+            return;
+        }
         SaveWiper.NewGame = false;
         SceneManager.LoadScene(1);
     }
     public void StartNewGame()
     {
+        PlayerPrefs.SetInt("StartedGame", 1);
+
         SaveWiper.NewGame = true;
         SceneManager.LoadScene(1);
     }

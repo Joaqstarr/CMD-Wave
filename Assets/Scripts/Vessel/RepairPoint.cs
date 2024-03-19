@@ -13,15 +13,20 @@ public class RepairPoint : MonoBehaviour, IInteractable
     public bool IsDamaged = false;
     [SerializeField]
     private float _maxDist = 6f;
+    [SerializeField]
+    private AudioSource _repairSound;
     public bool CheckInteractable(float distance)
     {
-        if(distance > _maxDist)
+
+        if (distance > _maxDist)
             return false;
         return IsDamaged;
     }
 
     public void OnInteracted(PlayerControls playerInteracted)
     {
+        _repairSound.Play();
+
         Repair();
     }
     public void Repair()

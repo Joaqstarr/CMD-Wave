@@ -15,9 +15,9 @@ MonoBehaviour:
   detectionRadius: 0
   attackRadius: 0
   _respawnRange: 50
-  speed: 4.5
+  speed: 4.6
   acceleration: 0
   health: 300
   damage: 0
-  knockbackValue: 5
-  stunDuration: 1.5
+  knockbackValue: 4
+  stunDuration: 1.1

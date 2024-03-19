@@ -83,6 +83,9 @@ public class Room : MonoBehaviour, IDataPersistance
             else
                 _rightDoor.Close();
 
+        if (transform.parent == RoomPool.Instance.transform)
+            transform.localPosition = Vector3.zero;
+
     }
 
 
