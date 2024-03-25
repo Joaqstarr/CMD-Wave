@@ -28,6 +28,7 @@ public class ScreenObjectFollower : MonoBehaviour
         _rectTransform = GetComponent<RectTransform>();
        _objectToFollow = objToFollow;
         _image.sprite = _objectToFollow.UiImage;
+        _isVisible = false;
         _initialized = true;
         _group = GetComponent<CanvasGroup>();
     }

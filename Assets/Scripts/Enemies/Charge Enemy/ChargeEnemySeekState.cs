@@ -18,7 +18,6 @@ public class ChargeEnemySeekState : BaseEnemyState
 
     public override void OnExitState(BaseEnemyManager enemy)
     {
-        enemy.Pathfinder.canMove = true;
     }
 
     public override void OnUpdateState(BaseEnemyManager enemy)

@@ -15,6 +15,7 @@ public class ChargeEnemyDeadState : BaseEnemyState
 
         manager.Rb.isKinematic = false;
         enemy.Pathfinder.canMove = false;
+        enemy.DestinationSetter.target = null;
         _startDrag = manager.Rb.drag;
         manager.Rb.drag = _deathDrag;
         manager.Rb.useGravity = true;
@@ -26,7 +27,6 @@ public class ChargeEnemyDeadState : BaseEnemyState
         manager.Rb.isKinematic = true;
 
         enemy.transform.DOComplete();
-        enemy.Pathfinder.canMove = true;
         manager.Rb.drag = _startDrag;
         manager.Rb.useGravity = false;
         manager.Rb.MovePosition(manager._startPosition);

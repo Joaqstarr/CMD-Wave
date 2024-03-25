@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 707.784, g: 485.96756, b: 442.50784, a: 1}
+  m_IndirectSpecularColor: {r: 708.58234, g: 490.01492, b: 466.87506, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8464,9 +8464,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5428358695778109738, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
       propertyPath: _roomDescription
-      value: SCAN DART ROOM. Allows the user to fire a remote scanning dart, extending
-        their sensor range. Also expels a small amount of voltage. Will stick to
-        certain enemies.
+      value: SCAN DART ROOM. Use "SC" or "SCANDART" to equip a remote scanning dart,
+        extending their sensor range. Also expels a small amount of voltage. Will
+        stick to certain enemies.
       objectReference: {fileID: 0}
     - target: {fileID: 5428358695778109738, guid: abd8e3657ef20304f83ae820584cb2f3, type: 3}
       propertyPath: _commandsOnRoom.Array.size

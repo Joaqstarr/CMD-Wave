@@ -29,7 +29,7 @@ public class ItemIndicator : MonoBehaviour
         _group = GetComponent<CanvasGroup>();
         _group.interactable = false;
         _group.blocksRaycasts = false;
-
+        
         linkedItem.ItemSpawned += OnSpawn;
         linkedItem.ItemDespawned += OnDespawn;
         _rectTransform = GetComponent<RectTransform>();
