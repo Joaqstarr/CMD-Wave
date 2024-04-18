@@ -17,7 +17,7 @@ public class PlayerSubStartGameState : SubBaseState
     {
         player.Rb.isKinematic = false;
 
-        player.Rb.DOMove(player._firstMapPos, player._startTween.Duration).SetEase(player._startTween.Ease);
+        player.Rb.DOMove(player._firstMapPos, player._startTween.Duration).SetEase(player._startTween.Ease).onComplete += () => { SaveManager.Instance.Save(); } ;
     }
 
     public override void OnFixedUpdateState(PlayerSubManager player)

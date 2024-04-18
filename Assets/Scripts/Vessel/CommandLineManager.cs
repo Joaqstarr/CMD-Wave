@@ -173,7 +173,8 @@ public class CommandLineManager : MonoBehaviour
         if (_commandOveride != null && _commandOveride.Count > 0)
         {
             string[] output = _commandOveride.CheckAndExecuteCommand(command, out bool clear, out CommandContext overrideContext, out sfx, argument);
-            if(_lockSize && overrideContext == null) { 
+            if(_lockSize && overrideContext == null) {
+                Debug.Log("SIZE LOCKED");
             }
                 else
             _commandOveride = overrideContext;

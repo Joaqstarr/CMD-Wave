@@ -26,7 +26,7 @@ public class ItemPickupCommand : CommandBase
         if(_itemsInRange.Count <= 0)
         {
             sfx = _failedCommandSound;
-
+            _isAwaitingItemName = false;
             return CommandLineManager.StringToArray("No Items Nearby");
         }
         if (arg != string.Empty)
@@ -44,6 +44,8 @@ public class ItemPickupCommand : CommandBase
                 }
                 overrideContext = _waitForLocationContext;
                 VesselRoomHandler.Instance.UpdateMap(true);
+                _isAwaitingItemName = false;
+
                 return GetPickUpMessage(_itemsInRange[itemPickupIndex].RoomCode);
 
             }
